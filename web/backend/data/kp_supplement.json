@@ -1,0 +1,386 @@
+[
+  {
+    "week": 12, "module": "ai-architecture",
+    "title": "AI系统的可观测性设计",
+    "explanation": "AI系统的可观测性包括日志(Logging)、指标(Metrics)、追踪(Tracing)三大支柱。对于LLM应用，还需监控token使用量、延迟分布、幻觉率等AI特有指标。",
+    "code": "import logging\nfrom opentelemetry import trace\n\ntracer = trace.get_tracer('ai-app')\nlogger = logging.getLogger(__name__)\n\ndef call_llm(prompt: str) -> str:\n    with tracer.start_as_current_span('llm_call') as span:\n        span.set_attribute('input.length', len(prompt))\n        response = model.generate(prompt)\n        span.set_attribute('output.tokens', response.usage.total_tokens)\n        return response.text",
+    "game": {"type": "fill_blank", "content": {"template": "AI系统可观测性三大支柱: ___, ___, ___", "blanks": ["Logging", "Metrics", "Tracing"], "answer": "Logging, Metrics, Tracing"}},
+    "quiz": {"question": "AI系统可观测性的三大支柱是什么？", "options": ["日志、指标、追踪", "日志、告警、仪表盘", "监控、日志、备份", "指标、追踪、缓存"], "correct": 0, "explanation": "可观测性三大支柱是Logging、Metrics、Tracing"}
+  },
+  {
+    "week": 12, "module": "ai-architecture",
+    "title": "AI系统的成本优化策略",
+    "explanation": "LLM应用的成本主要来自API调用费。优化策略包括：缓存相似请求、使用小模型处理简单任务、批量处理减少调用次数、压缩prompt长度。",
+    "code": "async def smart_route(query: str) -> str:\n    complexity = classify_complexity(query)\n    if complexity == 'simple':\n        return await call_model('gpt-4o-mini', query)\n    elif complexity == 'medium':\n        return await call_model('gpt-4o', query)\n    else:\n        return await call_model('o1', query)",
+    "game": {"type": "predict_output", "content": {"code": "def classify_complexity(q):\n    if len(q) < 50 and '?' in q:\n        return 'simple'\n    elif '分析' in q or '比较' in q:\n        return 'complex'\n    return 'medium'\n\nprint(classify_complexity('什么是变量？'))\nprint(classify_complexity('请分析Python和Go的性能差异'))", "expected_output": "simple\ncomplex", "explanation": "短问题返回simple，含分析关键词返回complex"}},
+    "quiz": {"question": "降低LLM成本最有效的策略是？", "options": ["分层模型路由", "增加缓存", "减少调用次数", "压缩prompt"], "correct": 0, "explanation": "分层模型路由根据任务复杂度选择合适的模型，可降低70%成本"}
+  },
+  {
+    "week": 12, "module": "ai-architecture",
+    "title": "向量数据库选型对比",
+    "explanation": "向量数据库是RAG系统的核心组件。主流选择包括：Pinecone(全托管)、Weaviate(开源)、Milvus(高性能)、ChromaDB(轻量)、pgvector(PostgreSQL扩展)。",
+    "code": "import chromadb\nclient = chromadb.Client()\ncollection = client.create_collection('docs')\ncollection.add(\n    documents=['Python是解释型语言', 'Go是编译型语言'],\n    ids=['doc1', 'doc2']\n)\nresults = collection.query(query_texts=['什么是编译型语言'], n_results=1)\nprint(results['documents'][0][0])",
+    "game": {"type": "find_bug", "content": {"buggy_code": "import chromadb\nclient = chromadb.Client()\ncollection = client.create_collection('docs')\ncollection.add(\n    documents=['Python是解释型语言'],\n    ids=['doc1']\n)\nresults = collection.query(query_texts=['编译型语言'])\nprint(results['documents'][0])", "bug_description": "query缺少n_results参数，默认可能返回过多结果", "fix": "添加n_results=1限制返回数量"}},
+    "quiz": {"question": "以下哪个向量数据库最适合快速原型开发？", "options": ["ChromaDB", "Pinecone", "Milvus", "Weaviate"], "correct": 0, "explanation": "ChromaDB最轻量，适合快速原型"}
+  },
+  {
+    "week": 12, "module": "ai-architecture",
+    "title": "AI网关设计模式",
+    "explanation": "AI网关是LLM应用的统一入口层，负责请求路由、负载均衡、认证鉴权、限流熔断、token计费、响应缓存。",
+    "code": "litellm_config = {\n    'model_list': [\n        {'model_name': 'gpt-4o', 'litellm_params': {'model': 'gpt-4o'}},\n        {'model_name': 'gpt-4o', 'litellm_params': {'model': 'gpt-4o', 'api_base': 'backup-url'}},\n    ],\n    'router_settings': {\n        'routing_strategy': 'latency-based-routing',\n        'num_retries': 3,\n        'timeout': 30,\n    }\n}",
+    "game": {"type": "code_order", "content": {"lines": ["定义模型列表和备用端点", "配置路由策略(延迟优先)", "设置重试次数和超时", "启动LiteLLM Proxy服务", "客户端通过统一端点调用"], "correct_order": [0, 1, 2, 3, 4], "explanation": "AI网关配置流程"}},
+    "quiz": {"question": "AI网关的核心功能不包括？", "options": ["模型训练", "请求路由", "token计费", "限流熔断"], "correct": 0, "explanation": "AI网关不负责模型训练"}
+  },
+  {
+    "week": 11, "module": "pat-repository",
+    "title": "Repository模式的规格对象",
+    "explanation": "Specification模式将查询条件封装为对象，支持组合(AND/OR/NOT)。与Repository配合使用，避免Repository接口膨胀。",
+    "code": "from dataclasses import dataclass\n\nclass Specification:\n    def is_satisfied_by(self, entity) -> bool: ...\n    def to_query(self) -> dict: ...\n\n@dataclass\nclass ActiveUserSpec:\n    def is_satisfied_by(self, user) -> bool:\n        return user.is_active and not user.is_banned\n    def to_query(self) -> dict:\n        return {'is_active': True, 'is_banned': False}",
+    "game": {"type": "predict_output", "content": {"code": "class AndSpec:\n    def __init__(self, left, right):\n        self.left = left\n        self.right = right\n    def is_satisfied_by(self, entity):\n        return self.left.is_satisfied_by(entity) and self.right.is_satisfied_by(entity)\n\nclass AgeSpec:\n    def is_satisfied_by(self, user): return user['age'] >= 18\nclass ActiveSpec:\n    def is_satisfied_by(self, user): return user['active']\n\nspec = AndSpec(AgeSpec(), ActiveSpec())\nuser = {'age': 20, 'active': True}\nprint(spec.is_satisfied_by(user))", "expected_output": "True", "explanation": "两个条件都满足返回True"}},
+    "quiz": {"question": "Specification模式的主要优点是？", "options": ["查询条件可组合复用", "提高查询性能", "减少数据库调用", "简化数据模型"], "correct": 0, "explanation": "Specification将查询条件对象化，支持组合复用"}
+  },
+  {
+    "week": 11, "module": "pat-repository",
+    "title": "Unit of Work模式",
+    "explanation": "Unit of Work追踪业务事务中的所有变更(新增、修改、删除)，在事务结束时一次性提交到数据库。保证多个Repository操作的原子性。",
+    "code": "class UnitOfWork:\n    def __init__(self, session_factory):\n        self.session_factory = session_factory\n        self._new = []\n        self._dirty = []\n        self._removed = []\n\n    def __enter__(self):\n        self.session = self.session_factory()\n        return self\n\n    def __exit__(self, *args):\n        self.rollback()\n\n    def commit(self):\n        self.session.add_all(self._new)\n        self.session.commit()\n        self._new, self._dirty, self._removed = [], [], []",
+    "game": {"type": "find_bug", "content": {"buggy_code": "class UnitOfWork:\n    def __init__(self, session):\n        self.session = session\n        self._new = []\n\n    def __exit__(self, *args):\n        self.commit()\n\n    def commit(self):\n        self.session.add_all(self._new)\n        self.session.commit()\n        self._new = []", "bug_description": "__exit__中直接commit，应该无异常时才commit，有异常时rollback", "fix": "检查args[0]是否为None决定commit或rollback"}},
+    "quiz": {"question": "Unit of Work模式保证什么？", "options": ["多个操作的原子性", "查询性能", "数据加密", "并发控制"], "correct": 0, "explanation": "UoW保证多个Repository操作的原子性"}
+  },
+  {
+    "week": 11, "module": "pat-repository",
+    "title": "仓储的缓存策略",
+    "explanation": "Repository层可集成缓存策略，对读多写少的场景显著提升性能。常用策略：Cache-Aside、Read-Through、Write-Behind。",
+    "code": "class CachedRepository:\n    def __init__(self, repo, cache_client):\n        self.repo = repo\n        self.cache = cache_client\n\n    async def get_by_id(self, entity_id: str):\n        cache_key = f'{self.repo.entity_name}:{entity_id}'\n        cached = await self.cache.get(cache_key)\n        if cached:\n            return deserialize(cached)\n        entity = await self.repo.get_by_id(entity_id)\n        if entity:\n            await self.cache.set(cache_key, serialize(entity), ttl=300)\n        return entity",
+    "game": {"type": "fill_blank", "content": {"template": "Repository常用缓存策略: ___, ___, ___", "blanks": ["Cache-Aside", "Read-Through", "Write-Behind"], "answer": "Cache-Aside, Read-Through, Write-Behind"}},
+    "quiz": {"question": "Repository使用Cache-Aside模式，save操作后应该怎么做？", "options": ["删除对应缓存", "更新缓存", "不做任何操作", "清空所有缓存"], "correct": 0, "explanation": "Cache-Aside模式写入后应删除缓存，下次读取时重新加载"}
+  },
+  {
+    "week": 11, "module": "pat-repository",
+    "title": "Repository的分页查询",
+    "explanation": "分页是Repository的常见需求。两种方式：Offset分页(简单但大数据集性能差)和Cursor分页(基于游标,性能稳定)。",
+    "code": "from dataclasses import dataclass\n\n@dataclass\nclass Page:\n    items: list\n    total: int\n    page: int\n    page_size: int\n    has_next: bool\n\nclass UserRepository:\n    async def find_paginated(self, page: int = 1, size: int = 20) -> Page:\n        total = await self.db.count()\n        items = await self.db.find(skip=(page - 1) * size, limit=size)\n        return Page(items=items, total=total, page=page,\n                    page_size=size, has_next=page * size < total)",
+    "game": {"type": "predict_output", "content": {"code": "items = list(range(1, 11))\npage = 2\nsize = 3\ntotal = len(items)\nstart = (page - 1) * size\nend = start + size\nresult = items[start:end]\nhas_next = page * size < total\nprint(f'Page {page}: {result}')\nprint(f'has_next: {has_next}')", "expected_output": "Page 2: [4, 5, 6]\nhas_next: True", "explanation": "第2页每页3条，跳过前3条取[4,5,6]"}},
+    "quiz": {"question": "Cursor分页相比Offset分页的优势是？", "options": ["大数据集性能稳定", "实现更简单", "支持跳页", "返回更多数据"], "correct": 0, "explanation": "Cursor分页基于游标，不受偏移量影响，大数据集性能稳定"}
+  },
+  {
+    "week": 12, "module": "ai-prompt",
+    "title": "Prompt模板引擎设计",
+    "explanation": "生产级Prompt管理需要模板引擎。支持变量替换、条件渲染、循环、继承。LangChain的PromptTemplate提供了简洁的API。",
+    "code": "from langchain.prompts import PromptTemplate\n\ntemplate = PromptTemplate(\n    input_variables=['role', 'task', 'context'],\n    template='你是一个{role}。请完成以下任务：{task}\\n\\n背景信息：{context}'\n)\nresult = template.format(role='程序员', task='写一个排序算法', context='需要处理整数数组')\nprint(result)",
+    "game": {"type": "predict_output", "content": {"code": "from string import Template\nt = Template('Hello $name, you are $age years old')\nresult = t.substitute(name='Alice', age=25)\nprint(result)", "expected_output": "Hello Alice, you are 25 years old", "explanation": "Template用$变量名作为占位符"}},
+    "quiz": {"question": "LangChain的PromptTemplate使用什么语法？", "options": ["{变量名}", "${变量名}", "{{变量名}}", "%(变量名)s"], "correct": 0, "explanation": "PromptTemplate使用花括号{变量名}作为占位符"}
+  },
+  {
+    "week": 12, "module": "ai-prompt",
+    "title": "Chain of Thought提示技术",
+    "explanation": "Chain of Thought(CoT)通过让模型逐步推理来提高复杂任务的准确率。关键技巧：添加\"让我们一步一步思考\"、提供推理示例。",
+    "code": "prompt = '''\n问题：一个商店有15个苹果，卖掉了8个，又进了12个，还剩多少？\n\n让我们一步一步思考：\n'''\n# 模型会自动进行推理步骤\nresponse = llm.invoke(prompt)",
+    "game": {"type": "code_order", "content": {"lines": ["定义问题描述", "添加'让我们一步一步思考'指令", "模型生成中间推理步骤", "模型得出最终答案", "验证答案正确性"], "correct_order": [0, 1, 2, 3, 4], "explanation": "CoT推理流程"}},
+    "quiz": {"question": "Chain of Thought技术的核心思想是什么？", "options": ["让模型逐步推理", "一次性给出答案", "使用更多示例", "缩短提示长度"], "correct": 0, "explanation": "CoT的核心是引导模型逐步推理"}
+  },
+  {
+    "week": 12, "module": "ai-prompt",
+    "title": "结构化输出的Prompt设计",
+    "explanation": "让LLM输出结构化数据(JSON/XML)是工程化应用的关键需求。技巧：提供JSON Schema示例、使用function calling、添加输出约束。",
+    "code": "prompt = '''请分析文本情感，返回JSON：\n{\"sentiment\": \"positive/negative/neutral\", \"confidence\": 0.0-1.0}\n只返回JSON，不要其他文字。'''\n\nresponse = llm.invoke(prompt)\ndata = json.loads(response)\nprint(data['sentiment'])",
+    "game": {"type": "find_bug", "content": {"buggy_code": "prompt = '请分析文本情感，返回JSON：\\n{\"sentiment\": \"positive\", \"confidence\": 0.9}'\nresponse = llm.invoke(prompt)\ndata = json.loads(response)\nprint(data['sentiment'])", "bug_description": "没有添加'只返回JSON'约束，模型可能返回包含解释文字的非纯JSON", "fix": "在prompt末尾添加'只返回JSON，不要其他文字'"}},
+    "quiz": {"question": "要让LLM输出有效JSON，最可靠的方法是？", "options": ["使用Function Calling机制", "在prompt中说'请返回JSON'", "用正则提取JSON", "让模型自由输出"], "correct": 0, "explanation": "Function Calling机制从底层保证JSON格式"}
+  },
+  {
+    "week": 12, "module": "ai-prompt",
+    "title": "Prompt注入防护策略",
+    "explanation": "Prompt注入是指用户通过精心构造的输入绕过系统prompt的约束。防护策略：输入过滤、输出验证、使用分隔符隔离用户输入。",
+    "code": "import re\n\ndef sanitize_input(user_input: str) -> str:\n    dangerous_patterns = [\n        r'ignore.*previous.*instructions',\n        r'you are now.*',\n        r'system:\\s*',\n    ]\n    for pattern in dangerous_patterns:\n        if re.search(pattern, user_input, re.IGNORECASE):\n            raise ValueError('Potentially malicious input detected')\n    return f'---USER_INPUT---\\n{user_input}\\n---END---'",
+    "game": {"type": "fill_blank", "content": {"template": "Prompt注入防护策略: ___, ___, ___", "blanks": ["输入过滤", "分隔符隔离", "输出验证"], "answer": "输入过滤, 分隔符隔离, 输出验证"}},
+    "quiz": {"question": "以下哪种做法最容易导致Prompt注入？", "options": ["直接拼接用户输入到系统prompt", "使用Function Calling", "输入分隔符隔离", "输出格式验证"], "correct": 0, "explanation": "直接拼接用户输入是最危险的做法"}
+  },
+  {
+    "week": 11, "module": "py-crewai",
+    "title": "CrewAI的记忆系统",
+    "explanation": "CrewAI支持短期记忆(当前任务上下文)和长期记忆(跨任务学习)。记忆系统让Agent能从过去的交互中学习。",
+    "code": "from crewai import Agent, Task, Crew\n\nresearcher = Agent(\n    role='研究员',\n    goal='收集和分析信息',\n    backstory='你是一位经验丰富的研究员',\n    memory=True\n)\n\ncrew = Crew(\n    agents=[researcher],\n    tasks=[...],\n    memory=True\n)",
+    "game": {"type": "fill_blank", "content": {"template": "CrewAI的三种记忆: ___, ___, ___", "blanks": ["短期记忆", "长期记忆", "实体记忆"], "answer": "短期记忆, 长期记忆, 实体记忆"}},
+    "quiz": {"question": "CrewAI中哪种记忆用于跨任务学习？", "options": ["长期记忆", "短期记忆", "实体记忆", "工作记忆"], "correct": 0, "explanation": "长期记忆用于跨任务学习"}
+  },
+  {
+    "week": 11, "module": "py-crewai",
+    "title": "CrewAI的工具集成",
+    "explanation": "CrewAI的Agent通过工具(Tools)与外部世界交互。工具可以是API调用、文件操作、数据库查询等。",
+    "code": "from crewai_tools import SerperDevTool, BaseTool\n\nclass DatabaseTool(BaseTool):\n    name: str = 'database_query'\n    description: str = '查询数据库'\n\n    def _run(self, query: str) -> str:\n        return db.execute(query)\n\nagent = Agent(\n    role='数据分析师',\n    goal='分析数据并生成报告',\n    tools=[SerperDevTool(), DatabaseTool()]\n)",
+    "game": {"type": "find_bug", "content": {"buggy_code": "from crewai_tools import BaseTool\n\nclass MyTool(BaseTool):\n    name = 'my_tool'\n    description = 'A custom tool'\n\n    def _run(self, input: str) -> str:\n        return f'Result: {input}'", "bug_description": "缺少args_schema定义，CrewAI需要Pydantic模型来定义输入参数", "fix": "添加args_schema: type = SomeInputModel"}},
+    "quiz": {"question": "CrewAI自定义工具必须实现哪个方法？", "options": ["_run()", "execute()", "call()", "invoke()"], "correct": 0, "explanation": "CrewAI工具必须实现_run()方法"}
+  },
+  {
+    "week": 11, "module": "py-crewai",
+    "title": "CrewAI的流程控制",
+    "explanation": "CrewAI支持两种执行流程：Sequential(顺序执行)和Hierarchical(层级模式,Manager Agent分配任务)。",
+    "code": "from crewai import Agent, Task, Crew, Process\n\ncrew_seq = Crew(\n    agents=[researcher, writer, reviewer],\n    tasks=[research_task, write_task, review_task],\n    process=Process.sequential\n)\n\ncrew_hier = Crew(\n    agents=[researcher, writer, reviewer],\n    tasks=[research_task, write_task, review_task],\n    process=Process.hierarchical,\n    manager_llm='gpt-4o'\n)",
+    "game": {"type": "code_order", "content": {"lines": ["定义Agent角色和能力", "创建Task并指定预期输出", "选择执行流程(sequential/hierarchical)", "组建Crew并kickoff", "收集最终结果"], "correct_order": [0, 1, 2, 3, 4], "explanation": "CrewAI标准流程"}},
+    "quiz": {"question": "CrewAI的Hierarchical流程需要额外配置什么？", "options": ["manager_llm", "worker_count", "task_queue", "memory_size"], "correct": 0, "explanation": "Hierarchical流程需要配置manager_llm"}
+  },
+  {
+    "week": 11, "module": "py-crewai",
+    "title": "CrewAI与LangChain集成",
+    "explanation": "CrewAI底层使用LangChain的LLM接口，可以直接传入LangChain的ChatModel实例。不同Agent可使用不同LLM。",
+    "code": "from langchain_openai import ChatOpenAI\nfrom langchain_anthropic import ChatAnthropic\nfrom crewai import Agent, Crew\n\ngpt4 = ChatOpenAI(model='gpt-4o', temperature=0.7)\nclaude = ChatAnthropic(model='claude-sonnet-4-20250514')\n\nresearcher = Agent(role='研究员', goal='深度研究', llm=gpt4)\nwriter = Agent(role='撰稿人', goal='撰写文章', llm=claude)",
+    "game": {"type": "predict_output", "content": {"code": "from langchain_openai import ChatOpenAI\n\nllm = ChatOpenAI(model='gpt-4o', temperature=0)\n# temperature=0意味着什么？\nprint('Temperature 0 = 确定性输出')", "expected_output": "Temperature 0 = 确定性输出", "explanation": "temperature=0使模型输出最确定性的结果"}},
+    "quiz": {"question": "CrewAI中不同Agent可以使用不同LLM吗？", "options": ["可以，通过llm参数指定", "不可以，所有Agent共享同一LLM", "只能使用同一提供商的LLM", "需要额外配置"], "correct": 0, "explanation": "每个Agent的llm参数可以独立设置"}
+  },
+  {
+    "week": 11, "module": "py-dify",
+    "title": "Dify的变量聚合节点",
+    "explanation": "变量聚合节点(Variable Aggregator)用于合并多个分支的输出为统一变量。在条件分支后使用，无论走哪个分支都能拿到结果。",
+    "code": "workflow = {\n    'nodes': [\n        {'id': 'classifier', 'type': 'question-classifier'},\n        {'id': 'branch_a', 'type': 'llm'},\n        {'id': 'branch_b', 'type': 'llm'},\n        {\n            'id': 'aggregator',\n            'type': 'variable-aggregator',\n            'data': {\n                'variables': ['{{branch_a.output}}', '{{branch_b.output}}']\n            }\n        }\n    ]\n}",
+    "game": {"type": "fill_blank", "content": {"template": "Dify中合并多个分支输出的节点类型是___", "blanks": ["variable-aggregator"], "answer": "variable-aggregator"}},
+    "quiz": {"question": "Dify变量聚合节点的作用是什么？", "options": ["合并多个分支的输出为统一变量", "聚合数据库数据", "合并多个用户输入", "汇总统计信息"], "correct": 0, "explanation": "变量聚合节点合并分支输出"}
+  },
+  {
+    "week": 11, "module": "py-dify",
+    "title": "Dify的知识库检索策略",
+    "explanation": "Dify知识库支持多种检索策略：向量检索(语义相似)、全文检索(关键词匹配)、混合检索(两者结合)。混合检索通常效果最好。",
+    "code": "knowledge_base_config = {\n    'name': '产品文档',\n    'indexing_technique': 'high_quality',\n    'retrieval_model': {\n        'search_method': 'hybrid_search',\n        'reranking_enable': True,\n        'top_k': 5,\n        'score_threshold_enabled': True,\n        'score_threshold': 0.5\n    }\n}",
+    "game": {"type": "predict_output", "content": {"code": "vector_results = [('doc1', 0.9), ('doc2', 0.7), ('doc3', 0.5)]\ntext_results = [('doc1', 0.8), ('doc4', 0.6), ('doc2', 0.4)]\n\ncombined = {}\nfor doc, score in vector_results + text_results:\n    if doc not in combined or score > combined[doc]:\n        combined[doc] = score\n\nresult = sorted(combined.items(), key=lambda x: x[1], reverse=True)[:2]\nprint(result)", "expected_output": "[('doc1', 0.9), ('doc2', 0.7)]", "explanation": "混合检索合并后按分数排序取top2"}},
+    "quiz": {"question": "Dify中哪种检索策略通常效果最好？", "options": ["混合检索", "向量检索", "全文检索", "随机检索"], "correct": 0, "explanation": "混合检索结合语义和关键词，效果最好"}
+  },
+  {
+    "week": 11, "module": "py-dify",
+    "title": "Dify的应用类型对比",
+    "explanation": "Dify支持四种应用类型：聊天助手(多轮对话)、文本生成(单次输出)、Agent(自主决策+工具调用)、Chatflow(对话+工作流)。",
+    "code": "app_types = {\n    'chat': '客服、问答、闲聊 - 多轮对话',\n    'completion': '翻译、摘要、写作 - 单次输出',\n    'agent': '数据分析、自动操作 - 调用工具',\n    'chatflow': '复杂客服、多步骤 - 对话+工作流'\n}",
+    "game": {"type": "find_bug", "content": {"buggy_code": "scenario = '需要多轮对话和工具调用'\n\nif '多轮' in scenario:\n    app_type = 'chat'\nelif '工具' in scenario:\n    app_type = 'agent'\nelse:\n    app_type = 'completion'\n\nprint(f'推荐类型: {app_type}')", "bug_description": "同时需要多轮对话和工具调用时，应该选择chatflow或agent", "fix": "调整判断逻辑，优先检查组合条件"}},
+    "quiz": {"question": "需要多轮对话且要调用工具的场景选择？", "options": ["Chatflow或Agent", "聊天助手", "文本生成", "任意类型"], "correct": 0, "explanation": "复杂场景需要Chatflow或Agent"}
+  },
+  {
+    "week": 11, "module": "py-dify",
+    "title": "Dify的API集成方式",
+    "explanation": "Dify应用可以通过API方式集成到外部系统。支持三种API：Completion API、Chat API、Workflow API。所有API都需要API Key认证。",
+    "code": "import requests\n\nAPI_BASE = 'https://api.dify.ai/v1'\nAPI_KEY = 'app-xxxxxxxxxx'\n\nresponse = requests.post(\n    f'{API_BASE}/chat-messages',\n    headers={\n        'Authorization': f'Bearer {API_KEY}',\n        'Content-Type': 'application/json'\n    },\n    json={\n        'query': '你好',\n        'user': 'user-123',\n        'response_mode': 'streaming'\n    }\n)",
+    "game": {"type": "fill_blank", "content": {"template": "Dify API认证使用请求头: Authorization: Bearer ___", "blanks": ["API_KEY"], "answer": "API_KEY"}},
+    "quiz": {"question": "Dify API的response_mode支持哪两种模式？", "options": ["streaming和blocking", "sync和async", "get和post", "realtime和batch"], "correct": 0, "explanation": "Dify支持流式和阻塞两种响应模式"}
+  },
+  {
+    "week": 11, "module": "py-ragflow",
+    "title": "RAGFlow的深度文档解析",
+    "explanation": "RAGFlow的核心优势是深度文档解析能力。支持PDF、Word、Excel、PPT、图片等格式。使用OCR识别图片文字，布局分析识别标题、段落、表格。",
+    "code": "import requests\n\nRAGFLOW_URL = 'http://localhost:9380'\n\nwith open('document.pdf', 'rb') as f:\n    response = requests.post(\n        f'{RAGFLOW_URL}/api/v1/documents',\n        headers={'Authorization': 'Bearer ragflow-xxx'},\n        files={'file': ('document.pdf', f)},\n        data={'dataset_id': 'dataset-123'}\n    )",
+    "game": {"type": "code_order", "content": {"lines": ["上传文档到RAGFlow数据集", "触发文档解析任务", "RAGFlow进行OCR和布局分析", "智能分块并生成嵌入", "解析完成后可用于检索"], "correct_order": [0, 1, 2, 3, 4], "explanation": "RAGFlow文档处理流程"}},
+    "quiz": {"question": "RAGFlow相比其他RAG框架的核心优势是什么？", "options": ["深度文档解析能力", "更快的推理速度", "更低的内存占用", "更多的LLM支持"], "correct": 0, "explanation": "RAGFlow的核心优势是文档解析"}
+  },
+  {
+    "week": 11, "module": "py-ragflow",
+    "title": "RAGFlow的混合检索配置",
+    "explanation": "RAGFlow支持向量检索、全文检索、混合检索三种模式。混合检索结合语义理解和关键词匹配，效果最好。",
+    "code": "retrieval_config = {\n    'similarity_threshold': 0.2,\n    'keywords_similarity_weight': 0.3,\n    'top_k': 1024,\n    'rerank_model': 'BAAI/bge-reranker-v2-m3',\n    'top_n': 6,\n    'highlight': True\n}",
+    "game": {"type": "fill_blank", "content": {"template": "RAGFlow混合检索中，keywords_similarity_weight控制___检索的权重", "blanks": ["全文/关键词"], "answer": "全文/关键词"}},
+    "quiz": {"question": "RAGFlow的top_k和top_n参数分别控制什么？", "options": ["top_k是候选数量，top_n是最终返回数量", "top_k是返回数量，top_n是候选数量", "两者含义相同", "top_k是向量检索数量，top_n是全文检索数量"], "correct": 0, "explanation": "top_k控制候选池大小，top_n控制最终返回数"}
+  },
+  {
+    "week": 11, "module": "py-ragflow",
+    "title": "RAGFlow的对话助手配置",
+    "explanation": "RAGFlow的对话助手(Chat Assistant)将知识库检索与LLM生成结合。可配置系统提示词、Temperature、最大Token数。",
+    "code": "assistant_config = {\n    'name': '文档问答助手',\n    'dataset_ids': ['ds-product-docs', 'ds-faq'],\n    'llm': {\n        'model_name': 'gpt-4o',\n        'temperature': 0.1,\n        'max_tokens': 4096\n    },\n    'prompt': {\n        'system': '你是一个专业的技术文档助手。',\n        'prologue': '你好！我是文档问答助手。',\n        'empty_response': '抱歉，未找到相关信息。'\n    }\n}",
+    "game": {"type": "find_bug", "content": {"buggy_code": "assistant_config = {\n    'name': 'QA助手',\n    'llm': {\n        'temperature': 1.5,\n        'max_tokens': 4096\n    }\n}", "bug_description": "temperature=1.5对于文档问答场景太高，会导致幻觉", "fix": "将temperature设为0.1-0.3"}},
+    "quiz": {"question": "RAGFlow对话助手的empty_response配置有什么用？", "options": ["知识库无相关信息时的默认回复", "用户发送空消息时的回复", "系统出错时的回复", "对话结束时的回复"], "correct": 0, "explanation": "empty_response是知识库无结果时的回复"}
+  },
+  {
+    "week": 11, "module": "py-ragflow",
+    "title": "RAGFlow的API集成实践",
+    "explanation": "RAGFlow提供完整的REST API用于集成。主要端点包括：知识库管理、文档上传解析、检索问答、对话管理。支持流式输出。",
+    "code": "import requests, json\n\nRAGFLOW_URL = 'http://localhost:9380'\nHEADERS = {'Authorization': 'Bearer ragflow-xxx', 'Content-Type': 'application/json'}\n\ndef chat_stream(question, assistant_id):\n    response = requests.post(\n        f'{RAGFLOW_URL}/api/v1/chats/{assistant_id}/completions',\n        headers=HEADERS,\n        json={'question': question, 'stream': True},\n        stream=True\n    )\n    for line in response.iter_lines():\n        if line and line.decode('utf-8').startswith('data: '):\n            data = json.loads(line.decode('utf-8')[6:])\n            if data.get('answer'):\n                print(data['answer'], end='', flush=True)",
+    "game": {"type": "predict_output", "content": {"code": "line = 'data: {\"answer\": \"Hello\", \"status\": 0}'\nif line.startswith('data: '):\n    import json\n    data = json.loads(line[6:])\n    print(data.get('answer', ''))\n    print(data.get('status'))", "expected_output": "Hello\n0", "explanation": "去掉data:前缀后解析JSON"}},
+    "quiz": {"question": "RAGFlow流式输出的数据格式是什么？", "options": ["SSE(Server-Sent Events)格式", "WebSocket帧格式", "纯文本逐字输出", "JSON数组流"], "correct": 0, "explanation": "RAGFlow使用SSE格式流式输出"}
+  },
+  {
+    "week": 12, "module": "ts-bun",
+    "title": "Bun的SQLite集成",
+    "explanation": "Bun内置了SQLite支持(bun:sqlite)，无需额外安装驱动。比Node.js的better-sqlite3快2-3倍。",
+    "code": "import { Database } from 'bun:sqlite';\n\ndb.exec(`\n  CREATE TABLE IF NOT EXISTS users (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    name TEXT NOT NULL,\n    email TEXT UNIQUE\n  )\n`);\n\nconst insert = db.prepare('INSERT INTO users (name, email) VALUES (?, ?)');\ninsert.run('Alice', 'alice@example.com');\n\nconst select = db.prepare('SELECT * FROM users WHERE name = ?');\nconst user = select.get('Alice');\nconsole.log(user);",
+    "game": {"type": "predict_output", "content": {"code": "import { Database } from 'bun:sqlite';\nconst db = new Database(':memory:');\ndb.exec('CREATE TABLE t (id INTEGER PRIMARY KEY, val TEXT)');\n\nconst ins = db.prepare('INSERT INTO t (val) VALUES (?)');\nins.run('a');\nins.run('b');\nins.run('c');\n\nconst rows = db.prepare('SELECT * FROM t').all();\nconsole.log(rows.length);", "expected_output": "3", "explanation": "插入3条记录后查询返回3条"}},
+    "quiz": {"question": "Bun内置SQLite的性能比Node.js的better-sqlite3快多少？", "options": ["2-3倍", "10倍", "50倍", "差不多"], "correct": 0, "explanation": "Bun的SQLite实现比better-sqlite3快2-3倍"}
+  },
+  {
+    "week": 12, "module": "ts-bun",
+    "title": "Bun的原生测试框架",
+    "explanation": "Bun内置测试运行器(bun:test)，API兼容Jest但速度更快。支持describe/it/expect、mock、快照。比Jest快5-10倍。",
+    "code": "import { describe, it, expect, mock } from 'bun:test';\n\nconst fetchUser = mock((id) => ({ id, name: 'User' + id }));\n\ndescribe('UserService', () => {\n  it('should fetch user by id', () => {\n    const user = fetchUser(1);\n    expect(user).toEqual({ id: 1, name: 'User1' });\n    expect(fetchUser).toHaveBeenCalledTimes(1);\n  });\n});",
+    "game": {"type": "find_bug", "content": {"buggy_code": "import { describe, it, expect } from 'bun:test';\n\ndescribe('Math', () => {\n  it('adds numbers', () => {\n    expect(1 + 1).toBe(2);\n  });\n\n  it('subtracts', () => {\n    expect(5 - 3).toBe(2);\n  })\n});", "bug_description": "最后的describe闭合括号后有多余的括号", "fix": "删除多余的右括号"}},
+    "quiz": {"question": "Bun测试框架相比Jest的主要优势是什么？", "options": ["速度更快(5-10倍)", "功能更多", "社区更大", "兼容性更好"], "correct": 0, "explanation": "Bun测试最大的优势是速度"}
+  },
+  {
+    "week": 12, "module": "ts-bun",
+    "title": "Bun的文件I/O优化",
+    "explanation": "Bun的文件操作比Node.js快很多。Bun.file()返回File对象，支持流式读取。Bun.write()支持写入多种数据类型。",
+    "code": "const file = Bun.file('data.json');\nconst text = await file.text();\nconst json = await file.json();\n\nconsole.log(file.size);\nconsole.log(file.type);\n\nawait Bun.write('output.txt', 'Hello World');\n\nconst writer = Bun.file('large.txt').writer();\nfor (let i = 0; i < 1000000; i++) {\n  writer.write(`Line ${i}\\n`);\n}\nawait writer.flush();",
+    "game": {"type": "fill_blank", "content": {"template": "Bun读取JSON文件的方法: await Bun.file('data.json').___()", "blanks": ["json"], "answer": "json"}},
+    "quiz": {"question": "Bun.file()返回的对象不支持哪个方法？", "options": ["csv()", "text()", "json()", "arrayBuffer()"], "correct": 0, "explanation": "Bun.file()不支持csv()方法"}
+  },
+  {
+    "week": 12, "module": "ts-bun",
+    "title": "Bun的全局API增强",
+    "explanation": "Bun在标准Web API基础上增加了许多全局便利函数。包括Bun.sleep()、Bun.password()、Bun.CryptoHasher等。",
+    "code": "await Bun.sleep(1000);\n\nconst hash = await Bun.password.hash('myPassword123');\nconst isValid = await Bun.password.verify('myPassword123', hash);\nconsole.log(isValid);\n\nconst hasher = new Bun.CryptoHasher('sha256');\nhasher.update('hello');\nconst digest = hasher.digest('hex');",
+    "game": {"type": "predict_output", "content": {"code": "const hash1 = await Bun.password.hash('test123');\nconst hash2 = await Bun.password.hash('test123');\nconsole.log(hash1 === hash2);\n\nconst valid = await Bun.password.verify('test123', hash1);\nconsole.log(valid);", "expected_output": "false\ntrue", "explanation": "每次hash生成不同盐值所以不相等，但verify能正确验证"}},
+    "quiz": {"question": "Bun.password.hash()每次对同一密码生成不同哈希的原因是？", "options": ["使用了随机盐值", "算法有bug", "编码方式不同", "时间戳不同"], "correct": 0, "explanation": "每次生成随机盐值导致哈希不同"}
+  },
+  {
+    "week": 12, "module": "ts-shadcn",
+    "title": "shadcn/ui的Toast组件",
+    "explanation": "shadcn/ui的Toast基于Sonner库，提供轻量级的通知提示。支持多种类型、自定义持续时间、操作按钮。",
+    "code": "import { toast } from 'sonner';\nimport { Button } from '@/components/ui/button';\n\nexport function ToastDemo() {\n  return (\n    <div className=\"flex gap-2\">\n      <Button onClick={() => toast('普通通知')}>默认</Button>\n      <Button onClick={() => toast.success('操作成功！')}>成功</Button>\n      <Button onClick={() => toast.error('操作失败')}>错误</Button>\n    </div>\n  );\n}",
+    "game": {"type": "fill_blank", "content": {"template": "shadcn/ui的Toast基于___库", "blanks": ["Sonner"], "answer": "Sonner"}},
+    "quiz": {"question": "shadcn/ui的Toast组件基于哪个库？", "options": ["Sonner", "react-hot-toast", "react-toastify", "notistack"], "correct": 0, "explanation": "shadcn/ui的Toast基于Sonner"}
+  },
+  {
+    "week": 12, "module": "ts-shadcn",
+    "title": "shadcn/ui的Form集成",
+    "explanation": "shadcn/ui的Form组件集成了React Hook Form和Zod验证。通过FormField/FormItem/FormLabel/FormControl组合使用。",
+    "code": "import { useForm } from 'react-hook-form';\nimport { zodResolver } from '@hookform/resolvers/zod';\nimport * as z from 'zod';\nimport { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';\nimport { Input } from '@/components/ui/input';\n\nconst formSchema = z.object({\n  username: z.string().min(2).max(50),\n  email: z.string().email(),\n});\n\nexport function ProfileForm() {\n  const form = useForm({\n    resolver: zodResolver(formSchema),\n    defaultValues: { username: '', email: '' },\n  });\n  return (\n    <Form {...form}>\n      <form onSubmit={form.handleSubmit(onSubmit)}>\n        <FormField control={form.control} name=\"username\" render={({ field }) => (\n          <FormItem>\n            <FormLabel>用户名</FormLabel>\n            <FormControl><Input {...field} /></FormControl>\n            <FormMessage />\n          </FormItem>\n        )} />\n      </form>\n    </Form>\n  );\n}",
+    "game": {"type": "code_order", "content": {"lines": ["定义Zod验证Schema", "使用useForm + zodResolver创建表单", "使用Form/FormField组件渲染字段", "添加FormControl/FormLabel/FormMessage", "提交时调用handleSubmit"], "correct_order": [0, 1, 2, 3, 4], "explanation": "shadcn Form流程"}},
+    "quiz": {"question": "shadcn/ui的Form组件使用什么进行表单验证？", "options": ["Zod + React Hook Form", "Yup + Formik", "Joi + Redux Form", "自定义验证"], "correct": 0, "explanation": "shadcn/ui的Form使用Zod + React Hook Form"}
+  },
+  {
+    "week": 12, "module": "ts-shadcn",
+    "title": "shadcn/ui的主题定制",
+    "explanation": "shadcn/ui使用CSS变量进行主题定制。在globals.css中定义HSL格式的颜色变量，支持亮色/暗色模式切换。",
+    "code": "/* globals.css */\n@layer base {\n  :root {\n    --background: 0 0% 100%;\n    --foreground: 222.2 84% 4.9%;\n    --primary: 222.2 47.4% 11.2%;\n    --radius: 0.5rem;\n  }\n  .dark {\n    --background: 222.2 84% 4.9%;\n    --foreground: 210 40% 98%;\n  }\n}",
+    "game": {"type": "fill_blank", "content": {"template": "shadcn/ui主题使用___格式的颜色变量", "blanks": ["HSL"], "answer": "HSL"}},
+    "quiz": {"question": "shadcn/ui的暗色模式通过什么CSS类切换？", "options": [".dark", ".night", ".theme-dark", ".mode-dark"], "correct": 0, "explanation": "shadcn/ui使用.dark类切换暗色模式"}
+  },
+  {
+    "week": 12, "module": "ts-shadcn",
+    "title": "shadcn/ui的DataTable高级功能",
+    "explanation": "shadcn/ui的DataTable基于TanStack Table，支持排序、筛选、分页、行选择、列可见性控制等高级功能。",
+    "code": "import { ColumnDef, useReactTable, getCoreRowModel, getSortedRowModel } from '@tanstack/react-table';\nimport { useState } from 'react';\n\ntype User = { id: number; name: string; email: string; role: string };\n\nconst columns: ColumnDef<User>[] = [\n  { accessorKey: 'name', header: '姓名' },\n  { accessorKey: 'email', header: '邮箱' },\n  { accessorKey: 'role', header: '角色' },\n];\n\nexport function DataTable({ data }: { data: User[] }) {\n  const [sorting, setSorting] = useState([]);\n  const table = useReactTable({\n    data, columns,\n    getCoreRowModel: getCoreRowModel(),\n    getSortedRowModel: getSortedRowModel(),\n    onSortingChange: setSorting,\n    state: { sorting },\n  });\n}",
+    "game": {"type": "find_bug", "content": {"buggy_code": "const columns = [\n  { accessorKey: 'name', header: 'Name' },\n  { accessorKey: 'age', header: 'Age',\n    cell: ({ row }) => row.original.age.toFixed(1)\n  }\n];", "bug_description": "age使用toFixed(1)会将整数显示为小数，且age为null时会报错", "fix": "移除toFixed(1)或添加空值检查"}},
+    "quiz": {"question": "shadcn/ui的DataTable基于哪个库？", "options": ["TanStack Table", "react-table v7", "AG Grid", "MUI DataGrid"], "correct": 0, "explanation": "DataTable基于TanStack Table"}
+  },
+  {
+    "week": 12, "module": "ts-trpc",
+    "title": "tRPC的错误处理机制",
+    "explanation": "tRPC使用TRPCError类进行错误处理，支持HTTP状态码映射。在后端抛出错误，前端通过error.code和error.message捕获。",
+    "code": "import { TRPCError } from '@trpc/server';\n\nexport const userRouter = router({\n  getProfile: protectedProcedure\n    .input(z.object({ id: z.string() }))\n    .query(async ({ input, ctx }) => {\n      const user = await ctx.db.user.findUnique({ where: { id: input.id } });\n      if (!user) {\n        throw new TRPCError({\n          code: 'NOT_FOUND',\n          message: `User ${input.id} not found`,\n        });\n      }\n      return user;\n    }),\n});",
+    "game": {"type": "predict_output", "content": {"code": "try {\n  throw { code: 'NOT_FOUND', message: 'User not found' };\n} catch (error) {\n  console.log(error.code);\n  console.log(error.message);\n}", "expected_output": "NOT_FOUND\nUser not found", "explanation": "throw对象后catch中可访问属性"}},
+    "quiz": {"question": "tRPC中用户不存在应该抛出什么错误码？", "options": ["NOT_FOUND", "UNAUTHORIZED", "BAD_REQUEST", "INTERNAL_SERVER_ERROR"], "correct": 0, "explanation": "资源不存在使用NOT_FOUND(404)"}
+  },
+  {
+    "week": 12, "module": "ts-trpc",
+    "title": "tRPC的中间件链",
+    "explanation": "tRPC中间件可以在procedure执行前后运行逻辑。支持链式组合，用于认证、日志、性能监控等。",
+    "code": "import { initTRPC, TRPCError } from '@trpc/server';\n\nconst t = initTRPC.context().create();\n\nconst isAuthed = t.middleware(({ ctx, next }) => {\n  if (!ctx.user) {\n    throw new TRPCError({ code: 'UNAUTHORIZED' });\n  }\n  return next({ ctx: { user: ctx.user } });\n});\n\nconst logger = t.middleware(async ({ path, type, next }) => {\n  const start = Date.now();\n  const result = await next();\n  console.log(`${type} ${path} - ${Date.now() - start}ms`);\n  return result;\n});\n\nexport const publicProcedure = t.procedure.use(logger);\nexport const protectedProcedure = t.procedure.use(logger).use(isAuthed);",
+    "game": {"type": "code_order", "content": {"lines": ["创建tRPC实例", "定义认证中间件(isAuthed)", "定义日志中间件(logger)", "创建publicProcedure(仅日志)", "创建protectedProcedure(日志+认证)"], "correct_order": [0, 1, 2, 3, 4], "explanation": "tRPC中间件链配置流程"}},
+    "quiz": {"question": "tRPC中间件中调用next()的作用是什么？", "options": ["执行下一个中间件或实际procedure", "返回响应", "抛出错误", "跳过后续中间件"], "correct": 0, "explanation": "next()将控制权传递给下一个中间件"}
+  },
+  {
+    "week": 12, "module": "ts-trpc",
+    "title": "tRPC的Subscription实现",
+    "explanation": "tRPC支持WebSocket实时通信(Subscription)。适用于聊天、实时通知、数据同步等场景。",
+    "code": "import { observable } from '@trpc/server/observable';\nimport { EventEmitter } from 'events';\n\nconst ee = new EventEmitter();\n\nexport const chatRouter = router({\n  sendMessage: publicProcedure\n    .input(z.object({ text: z.string(), user: z.string() }))\n    .mutation(async ({ input }) => {\n      const message = { ...input, id: Date.now() };\n      ee.emit('message', message);\n      return message;\n    }),\n\n  onMessage: publicProcedure\n    .subscription(() => {\n      return observable((emit) => {\n        const onMessage = (msg) => emit.next(msg);\n        ee.on('message', onMessage);\n        return () => { ee.off('message', onMessage); };\n      });\n    }),\n});",
+    "game": {"type": "find_bug", "content": {"buggy_code": "const ee = new EventEmitter();\n\nexport const sub = publicProcedure\n  .subscription(() => {\n    return observable((emit) => {\n      ee.on('data', (d) => emit.next(d));\n    });\n  });", "bug_description": "缺少cleanup函数，客户端断开时不会移除事件监听器导致内存泄漏", "fix": "返回cleanup函数：return () => { ee.removeListener('data', handler) }"}},
+    "quiz": {"question": "tRPC Subscription底层使用什么通信协议？", "options": ["WebSocket", "Server-Sent Events", "HTTP Long Polling", "gRPC"], "correct": 0, "explanation": "tRPC Subscription使用WebSocket"}
+  },
+  {
+    "week": 12, "module": "ts-trpc",
+    "title": "tRPC与Next.js App Router集成",
+    "explanation": "tRPC与Next.js App Router集成需要配置HTTP Adapter。服务端在app/api/trpc/[trpc]/route.ts中创建handler。",
+    "code": "// app/api/trpc/[trpc]/route.ts\nimport { fetchRequestHandler } from '@trpc/server/adapters/fetch';\nimport { appRouter } from '../../../server/api/root';\nimport { createTRPCContext } from '../../../server/api/trpc';\n\nexport const GET = (req: Request) =>\n  fetchRequestHandler({\n    endpoint: '/api/trpc',\n    req,\n    router: appRouter,\n    createContext: () => createTRPCContext({ req }),\n  });\n\nexport const POST = GET;",
+    "game": {"type": "fill_blank", "content": {"template": "tRPC在Next.js App Router中使用___请求处理器", "blanks": ["fetchRequestHandler"], "answer": "fetchRequestHandler"}},
+    "quiz": {"question": "tRPC在Next.js App Router中的API路由文件路径是什么？", "options": ["app/api/trpc/[trpc]/route.ts", "pages/api/trpc.ts", "server/trpc.ts", "api/trpc/handler.ts"], "correct": 0, "explanation": "App Router使用[trpc]动态路由"}
+  },
+  {
+    "week": 12, "module": "ts-tauri",
+    "title": "Tauri的系统托盘",
+    "explanation": "Tauri支持创建系统托盘(SystemTray)图标，支持右键菜单、点击事件、气泡通知。适用于后台运行的应用。",
+    "code": "// src-tauri/src/main.rs\nuse tauri::{SystemTray, SystemTrayMenu, CustomMenuItem};\n\nfn main() {\n    let quit = CustomMenuItem::new('quit', '退出');\n    let show = CustomMenuItem::new('show', '显示窗口');\n    let tray_menu = SystemTrayMenu::new()\n        .add_item(show)\n        .add_item(quit);\n\n    let system_tray = SystemTray::new().with_menu(tray_menu);\n\n    tauri::Builder::default()\n        .system_tray(system_tray)\n        .run(tauri::generate_context!())\n        .expect('error');\n}",
+    "game": {"type": "fill_blank", "content": {"template": "Tauri创建系统托盘使用___类", "blanks": ["SystemTray"], "answer": "SystemTray"}},
+    "quiz": {"question": "Tauri系统托盘的菜单项点击事件类型是什么？", "options": ["SystemTrayEvent::MenuItemClick", "TrayEvent::Click", "MenuEvent::Select", "ClickEvent::MenuItem"], "correct": 0, "explanation": "Tauri使用SystemTrayEvent::MenuItemClick事件"}
+  },
+  {
+    "week": 12, "module": "ts-tauri",
+    "title": "Tauri的多窗口管理",
+    "explanation": "Tauri支持创建和管理多个窗口。每个窗口有独立的Webview和配置。可通过代码动态创建窗口，支持窗口间通信。",
+    "code": "import { WebviewWindow } from '@tauri-apps/api/window';\nimport { emit, listen } from '@tauri-apps/api/event';\n\nconst settingsWindow = new WebviewWindow('settings', {\n  url: '/settings',\n  title: '设置',\n  width: 600,\n  height: 400,\n});\n\n// 窗口间通信\nawait emit('config-change', { theme: 'dark' });\n\nawait listen('config-change', (event) => {\n  console.log('Config changed:', event.payload);\n});",
+    "game": {"type": "predict_output", "content": {"code": "import { emit, listen } from '@tauri-apps/api/event';\n\n// 窗口A\nawait emit('greeting', { from: 'A', text: 'Hello' });\n\n// 窗口B\nawait listen('greeting', (event) => {\n  console.log(event.payload.from + ': ' + event.payload.text);\n});", "expected_output": "A: Hello", "explanation": "窗口A发送事件，窗口B监听并打印"}},
+    "quiz": {"question": "Tauri窗口间通信使用什么机制？", "options": ["emit/listen事件系统", "SharedArrayBuffer", "localStorage", "postMessage"], "correct": 0, "explanation": "Tauri使用emit/listen事件系统进行窗口间通信"}
+  },
+  {
+    "week": 12, "module": "ts-tauri",
+    "title": "Tauri的文件系统监控",
+    "explanation": "Tauri的fs模块支持文件系统操作和监控。可监听文件创建、修改、删除事件。适合构建文件同步工具。",
+    "code": "import { watch, FsEvent } from '@tauri-apps/plugin-fs';\n\nconst stopWatching = await watch(\n  './documents',\n  (event) => {\n    const { type, paths } = event;\n    switch (type) {\n      case FsEvent.Create:\n        console.log('新文件:', paths);\n        break;\n      case FsEvent.Modify:\n        console.log('文件修改:', paths);\n        break;\n      case FsEvent.Remove:\n        console.log('文件删除:', paths);\n        break;\n    }\n  },\n  { recursive: true }\n);",
+    "game": {"type": "find_bug", "content": {"buggy_code": "import { watch, FsEvent } from '@tauri-apps/plugin-fs';\n\nconst stop = watch('./docs', (event) => {\n  if (event.type === FsEvent.Create) {\n    console.log('Created:', event.paths);\n  }\n});\n\nsetTimeout(() => stop(), 5000);", "bug_description": "watch是异步函数但没有await，stop可能是Promise而非函数", "fix": "添加await: const stop = await watch(...)"}},
+    "quiz": {"question": "Tauri文件监控的recursive选项有什么作用？", "options": ["递归监控子目录", "重复监控同一文件", "循环触发事件", "自动重启监控"], "correct": 0, "explanation": "recursive选项启用子目录递归监控"}
+  },
+  {
+    "week": 12, "module": "ts-tauri",
+    "title": "Tauri的自动更新机制",
+    "explanation": "Tauri内置自动更新支持(updater插件)。支持差量更新、签名验证、静默更新。后端可使用自建更新服务器。",
+    "code": "// TypeScript侧检查更新\nimport { checkUpdate, installUpdate } from '@tauri-apps/plugin-updater';\nimport { relaunch } from '@tauri-apps/plugin-process';\n\nasync function checkForUpdates() {\n  const update = await checkUpdate();\n  if (update.shouldUpdate) {\n    console.log(`发现新版本: ${update.manifest?.version}`);\n    await installUpdate();\n    await relaunch();\n  }\n}",
+    "game": {"type": "code_order", "content": {"lines": ["配置updater插件和endpoint", "生成签名密钥对", "发布时对更新包签名", "客户端调用checkUpdate()", "下载安装并重启"], "correct_order": [0, 1, 2, 3, 4], "explanation": "Tauri自动更新流程"}},
+    "quiz": {"question": "Tauri自动更新使用什么验证更新包的安全性？", "options": ["公钥签名验证", "MD5校验", "SHA256哈希", "证书链验证"], "correct": 0, "explanation": "Tauri使用公钥签名验证更新包"}
+  },
+  {
+    "week": 3, "module": "py-file-io",
+    "title": "pathlib的高级用法",
+    "explanation": "pathlib是Python 3.4+的现代路径处理库。支持路径拼接(/)、模式匹配(glob)、文件操作(read/write)、路径属性。",
+    "code": "from pathlib import Path\n\np = Path.home() / 'documents' / 'file.txt'\nprint(p.name)      # file.txt\nprint(p.stem)      # file\nprint(p.suffix)    # .txt\nprint(p.parent)    # /home/user/documents\n\nfor f in Path('.').glob('**/*.py'):\n    print(f)",
+    "game": {"type": "predict_output", "content": {"code": "from pathlib import Path\n\np = Path('/home/user/data.csv')\nprint(p.stem)\nprint(p.suffix)\nprint(p.parent.name)\nprint(p.with_suffix('.json').name)", "expected_output": "data\ncsv\nuser\ndata.json", "explanation": "pathlib的各种路径属性操作"}},
+    "quiz": {"question": "pathlib中路径拼接使用的运算符是？", "options": ["/", "+", "&", "."], "correct": 0, "explanation": "pathlib使用/运算符拼接路径"}
+  },
+  {
+    "week": 3, "module": "py-file-io",
+    "title": "JSON文件的读写操作",
+    "explanation": "Python的json模块支持JSON数据的序列化(dumps)和反序列化(loads)。json.dump/load直接操作文件对象。",
+    "code": "import json\n\ndata = {'name': 'Alice', 'age': 25, 'skills': ['Python', 'JS']}\nwith open('data.json', 'w', encoding='utf-8') as f:\n    json.dump(data, f, indent=2, ensure_ascii=False)\n\nwith open('data.json', 'r', encoding='utf-8') as f:\n    loaded = json.load(f)\n    print(loaded['name'])",
+    "game": {"type": "fill_blank", "content": {"template": "Python写入JSON文件使用json.___(data, file)", "blanks": ["dump"], "answer": "dump"}},
+    "quiz": {"question": "json.dumps()的ensure_ascii=False参数有什么作用？", "options": ["正确显示中文等非ASCII字符", "输出更紧凑的JSON", "自动转义特殊字符", "提高序列化速度"], "correct": 0, "explanation": "ensure_ascii=False允许非ASCII字符直接输出"}
+  },
+  {
+    "week": 3, "module": "py-file-io",
+    "title": "CSV文件的读写操作",
+    "explanation": "Python的csv模块支持CSV文件读写。reader读取为列表，DictReader读取为字典。支持自定义分隔符。",
+    "code": "import csv\n\nwith open('data.csv', 'r', encoding='utf-8') as f:\n    reader = csv.DictReader(f)\n    for row in reader:\n        print(row['name'], row['age'])\n\nwith open('output.csv', 'w', newline='', encoding='utf-8') as f:\n    writer = csv.DictWriter(f, fieldnames=['name', 'age'])\n    writer.writeheader()\n    writer.writerows([\n        {'name': 'Alice', 'age': 25},\n        {'name': 'Bob', 'age': 30},\n    ])",
+    "game": {"type": "find_bug", "content": {"buggy_code": "import csv\n\nwith open('output.csv', 'w') as f:\n    writer = csv.writer(f)\n    writer.writerow(['name', 'age'])\n    writer.writerows([['Alice', 25], ['Bob', 30]])", "bug_description": "缺少newline=''参数，Windows上会写入多余空行", "fix": "添加newline=''和encoding='utf-8'"}},
+    "quiz": {"question": "csv模块的DictReader和reader的主要区别是什么？", "options": ["DictReader返回字典，reader返回列表", "DictReader更慢", "reader支持更多格式", "DictReader只能读取"], "correct": 0, "explanation": "DictReader返回字典，reader返回列表"}
+  },
+  {
+    "week": 3, "module": "py-file-io",
+    "title": "上下文管理器与文件操作",
+    "explanation": "with语句(上下文管理器)确保文件操作后自动关闭，即使发生异常。也可以自定义上下文管理器实现更复杂的资源管理。",
+    "code": "from contextlib import contextmanager\n\nwith open('file.txt') as f:\n    content = f.read()\n\n@contextmanager\ndef managed_resource(name):\n    print(f'获取资源: {name}')\n    try:\n        yield name\n    finally:\n        print(f'释放资源: {name}')\n\nwith managed_resource('database') as db:\n    print(f'使用 {db}')",
+    "game": {"type": "predict_output", "content": {"code": "from contextlib import contextmanager\n\n@contextmanager\ndef timer():\n    import time\n    start = time.time()\n    yield\n    print(f'Took {time.time() - start:.2f}s')\n\nwith timer():\n    total = sum(range(1000000))\n    print(f'Sum: {total}')", "expected_output": "Sum: 499999500000\nTook 0.XXs", "explanation": "先执行with块内代码，再执行yield之后的清理代码"}},
+    "quiz": {"question": "上下文管理器中yield语句的作用是什么？", "options": ["分隔获取资源和释放资源的代码", "返回值给调用者", "暂停函数执行", "抛出异常"], "correct": 0, "explanation": "yield分隔__enter__和__exit__逻辑"}
+  },
+  {
+    "week": 12, "module": "ai-mastery",
+    "title": "AI代码审查的最佳实践",
+    "explanation": "AI辅助代码审查可以提高效率和质量。最佳实践：明确审查标准、提供上下文、验证AI建议、结合人工判断。不要完全依赖AI。",
+    "code": "# AI代码审查流程\ndef ai_code_review(pr_diff: str) -> list:\n    prompt = f'''\n    请审查以下代码变更，关注：\n    1. 潜在bug\n    2. 安全漏洞\n    3. 性能问题\n    4. 代码风格\n    \n    代码变更：\n    {pr_diff}\n    \n    返回格式：[{{\"type\": \"bug/security/perf/style\", \"line\": N, \"message\": \"...\", \"suggestion\": \"...\"}}]\n    '''\n    return llm.invoke(prompt)",
+    "game": {"type": "code_order", "content": {"lines": ["获取PR的代码diff", "构建审查prompt(包含审查标准)", "调用LLM进行分析", "解析AI返回的审查意见", "人工验证并决定是否采纳"], "correct_order": [0, 1, 2, 3, 4], "explanation": "AI代码审查流程"}},
+    "quiz": {"question": "AI代码审查最重要的原则是什么？", "options": ["AI建议需要人工验证", "完全信任AI判断", "只审查语法错误", "只关注性能问题"], "correct": 0, "explanation": "AI建议需要人工验证，不能完全依赖"}
+  },
+  {
+    "week": 12, "module": "ai-mastery",
+    "title": "AI驱动的测试生成",
+    "explanation": "AI可以根据代码自动生成测试用例。包括单元测试、边界条件测试、异常测试。但AI生成的测试需要人工审查覆盖率和正确性。",
+    "code": "# AI测试生成\ndef generate_tests(source_code: str) -> str:\n    prompt = f'''\n    为以下Python函数生成pytest测试用例：\n    \n    {source_code}\n    \n    要求：\n    1. 正常输入测试\n    2. 边界条件测试\n    3. 异常输入测试\n    4. 使用pytest.mark.parametrize\n    '''\n    return llm.invoke(prompt)\n\n# 使用示例\ncode = '''\ndef divide(a, b):\n    if b == 0:\n        raise ValueError('Cannot divide by zero')\n    return a / b\n'''\ntests = generate_tests(code)",
+    "game": {"type": "fill_blank", "content": {"template": "AI测试生成应覆盖: ___, ___, ___", "blanks": ["正常输入", "边界条件", "异常输入"], "answer": "正常输入, 边界条件, 异常输入"}},
+    "quiz": {"question": "AI生成的测试用例需要什么？", "options": ["人工审查覆盖率和正确性", "直接使用无需检查", "只检查是否能运行", "只关注代码风格"], "correct": 0, "explanation": "AI生成的测试需要人工审查"}
+  },
+  {
+    "week": 12, "module": "practice",
+    "title": "项目需求分析方法",
+    "explanation": "项目需求分析是软件开发的第一步。方法包括：用户访谈、竞品分析、用户故事(User Story)、用例图。关键是理解用户真正需要什么。",
+    "code": "# 用户故事模板\nclass UserStory:\n    def __init__(self, role, action, benefit):\n        self.role = role      # 谁\n        self.action = action  # 做什么\n        self.benefit = benefit # 为什么\n    \n    def __str__(self):\n        return f'作为{self.role}，我想要{self.action}，以便{self.benefit}'\n\n# 示例\nstory = UserStory(\n    role='学生',\n    action='通过搜索快速找到知识点',\n    benefit='提高学习效率'\n)\nprint(story)",
+    "game": {"type": "fill_blank", "content": {"template": "用户故事三要素: ___, ___, ___", "blanks": ["角色", "动作", "收益"], "answer": "角色, 动作, 收益"}},
+    "quiz": {"question": "用户故事(User Story)的格式是什么？", "options": ["作为[角色]，我想要[动作]，以便[收益]", "如果[条件]，那么[结果]", "输入[数据]，输出[结果]", "需求[功能]，优先级[高/中/低]"], "correct": 0, "explanation": "用户故事标准格式包含角色、动作、收益"}
+  },
+  {
+    "week": 12, "module": "practice",
+    "title": "架构设计的决策框架",
+    "explanation": "架构设计需要权衡多个因素：性能、可维护性、成本、团队能力。决策框架包括：需求分析、方案对比、风险评估、原型验证。",
+    "code": "# 架构决策记录(ADR)\nadr = {\n    'title': '选择数据库方案',\n    'status': 'accepted',\n    'context': '需要存储用户数据和学习进度，预计10万用户',\n    'decision': '使用PostgreSQL + Redis缓存',\n    'consequences': {\n        'positive': ['成熟稳定', '社区支持好', '性能满足需求'],\n        'negative': ['需要运维', '成本比SQLite高'],\n        'risks': ['数据量超预期时需要分库分表']\n    }\n}",
+    "game": {"type": "code_order", "content": {"lines": ["分析需求和约束", "列出可选方案", "对比各方案优缺点", "评估风险和成本", "做出决策并记录(ADR)"], "correct_order": [0, 1, 2, 3, 4], "explanation": "架构决策流程"}},
+    "quiz": {"question": "ADR(Architecture Decision Record)的作用是什么？", "options": ["记录架构决策的背景和理由", "绘制系统架构图", "编写API文档", "管理项目进度"], "correct": 0, "explanation": "ADR记录决策的上下文、决策和后果"}
+  }
+]

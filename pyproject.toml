@@ -1,0 +1,17 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ai-era-programming"
+version = "0.1.0"
+description = "The Most Worth Learning Programming Content in the AI Era"
+requires-python = ">=3.11"
+dependencies = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests/python"]
+asyncio_mode = "auto"

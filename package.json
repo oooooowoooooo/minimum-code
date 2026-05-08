@@ -1,0 +1,13 @@
+{
+  "name": "ai-era-programming",
+  "version": "0.1.0",
+  "description": "The Most Worth Learning Programming Content in the AI Era",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  }
+}

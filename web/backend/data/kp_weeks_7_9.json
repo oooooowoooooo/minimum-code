@@ -1,0 +1,4507 @@
+[
+  {
+    "week": 7,
+    "module": "py-async",
+    "title": "什么是异步编程",
+    "explanation": "异步编程是一种让程序在等待慢操作（如网络请求、文件读写）时，可以去做其他事情的编程方式。就像你在等水烧开的时候，可以去切菜。",
+    "code": "import asyncio\n\nasync def make_tea():\n    print('烧水中...')\n    await asyncio.sleep(2)\n    print('水开了，泡茶！')\n\nasyncio.run(make_tea())",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码的输出是什么？",
+      "content": {
+        "code": "import asyncio\n\nasync def make_tea():\n    print('烧水中...')\n    await asyncio.sleep(2)\n    print('水开了，泡茶！')\n\nasyncio.run(make_tea())",
+        "options": [
+          "直接输出'水开了，泡茶！'",
+          "先输出'烧水中...'，等待2秒后输出'水开了，泡茶！'",
+          "报错",
+          "什么都不输出"
+        ],
+        "correct": 1,
+        "explanation": "async函数遇到await时会暂停，等待完成后继续执行。"
+      }
+    },
+    "quiz": {
+      "question": "异步编程的主要目的是什么？",
+      "options": [
+        "让代码更短",
+        "在等待慢操作时可以做其他事情",
+        "使用更多CPU",
+        "删除代码"
+      ],
+      "correct": 1,
+      "explanation": "异步编程让程序在等待I/O操作时可以处理其他任务，提高效率。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-async",
+    "title": "async def 创建协程",
+    "explanation": "用 async def 定义的函数叫做协程函数。调用它不会立即执行，而是返回一个协程对象，需要用 await 或 asyncio.run() 来运行。",
+    "code": "import asyncio\n\nasync def say_hello():\n    print('你好！')\n\nsay_hello()  # 这样调用不会执行！\nasyncio.run(say_hello())",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的问题",
+      "content": {
+        "code_lines": [
+          "import asyncio",
+          "",
+          "async def say_hello():",
+          "    print('你好！')",
+          "say_hello()",
+          "asyncio.run(say_hello())"
+        ],
+        "bug_line": 4,
+        "explanation": "第5行直接调用 say_hello() 不会执行函数体，只会创建协程对象但不运行它，产生 RuntimeWarning。"
+      }
+    },
+    "quiz": {
+      "question": "调用 async def 函数会怎样？",
+      "options": [
+        "立即执行",
+        "返回协程对象，不会立即执行",
+        "报错",
+        "返回None"
+      ],
+      "correct": 1,
+      "explanation": "async def 创建协程，调用后返回协程对象，需要 await 或 asyncio.run() 才执行。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-async",
+    "title": "await 关键字",
+    "explanation": "await 用于等待一个异步操作完成。在等待期间，事件循环可以去执行其他任务。只能在 async def 函数内部使用。",
+    "code": "import asyncio\n\nasync def get_data():\n    print('获取数据中...')\n    await asyncio.sleep(1)\n    return '数据'\n\nresult = asyncio.run(get_data())",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写正确的关键字",
+      "content": {
+        "code": "import asyncio\n\nasync def get_data():\n    print('获取数据中...')\n    ___ asyncio.sleep(1)\n    return '数据'\n\nresult = asyncio.run(get_data())",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "await",
+            "options": [
+              "await",
+              "wait",
+              "pause",
+              "sleep"
+            ]
+          }
+        ],
+        "explanation": "在async函数中等待异步操作必须使用await关键字。"
+      }
+    },
+    "quiz": {
+      "question": "await 只能在什么函数中使用？",
+      "options": [
+        "普通函数",
+        "async def 函数",
+        "lambda函数",
+        "任何函数"
+      ],
+      "correct": 1,
+      "explanation": "await 只能在 async def 函数内部使用，否则会语法错误。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-async",
+    "title": "asyncio.run() 启动事件循环",
+    "explanation": "asyncio.run() 是运行异步程序的入口点。它创建事件循环，运行传入的协程，最后关闭循环。Python 3.7+ 推荐使用。",
+    "code": "import asyncio\n\nasync def main():\n    print('开始')\n    await asyncio.sleep(1)\n    print('结束')\n\nasyncio.run(main())",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "asyncio.run(main())",
+          "    print('结束')",
+          "async def main():",
+          "    await asyncio.sleep(1)",
+          "import asyncio",
+          "    print('开始')"
+        ],
+        "correct_order": [
+          4,
+          2,
+          5,
+          3,
+          1,
+          0
+        ],
+        "explanation": "正确顺序：导入模块 -> 定义async函数 -> 函数体 -> 调用运行。"
+      }
+    },
+    "quiz": {
+      "question": "asyncio.run() 的作用是什么？",
+      "options": [
+        "创建线程",
+        "启动事件循环并运行协程",
+        "暂停程序",
+        "导入模块"
+      ],
+      "correct": 1,
+      "explanation": "asyncio.run() 创建事件循环、运行协程、最后关闭循环。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-async",
+    "title": "asyncio.gather 并发执行",
+    "explanation": "asyncio.gather() 可以同时运行多个协程。所有协程并发执行，总耗时等于最慢的那个。就像同时煮饭和炒菜。",
+    "code": "import asyncio\n\nasync def task_a():\n    await asyncio.sleep(2)\n    return 'A完成'\n\nasync def task_b():\n    await asyncio.sleep(1)\n    return 'B完成'\n\nasync def main():\n    results = await asyncio.gather(task_a(), task_b())\n    print(results)\n\nasyncio.run(main())",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "import asyncio\n\nasync def task_a():\n    await asyncio.sleep(2)\n    return 'A完成'\n\nasync def task_b():\n    await asyncio.sleep(1)\n    return 'B完成'\n\nasync def main():\n    results = await asyncio.gather(task_a(), task_b())\n    print(results)\n\nasyncio.run(main())",
+        "options": [
+          "['A完成']",
+          "['B完成', 'A完成']",
+          "['A完成', 'B完成']",
+          "报错"
+        ],
+        "correct": 2,
+        "explanation": "gather按传入顺序返回结果，虽然B先完成，但结果列表保持原始顺序。"
+      }
+    },
+    "quiz": {
+      "question": "asyncio.gather() 的总耗时是多少？",
+      "options": [
+        "所有任务时间之和",
+        "等于最慢任务的时间",
+        "等于最快任务的时间",
+        "固定1秒"
+      ],
+      "correct": 1,
+      "explanation": "gather并发执行，总耗时等于最慢的那个任务。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-async",
+    "title": "await 只能在 async 函数中使用",
+    "explanation": "await 关键字只能在 async def 函数内部使用。在普通函数中使用 await 会导致语法错误。",
+    "code": "import asyncio\n\ndef main():\n    result = await asyncio.sleep(1)\n    print('完成')\n\nasyncio.run(main())",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的错误",
+      "content": {
+        "code_lines": [
+          "import asyncio",
+          "",
+          "def main():",
+          "    result = await asyncio.sleep(1)",
+          "    print('完成')",
+          "",
+          "asyncio.run(main())"
+        ],
+        "bug_line": 3,
+        "explanation": "第4行在普通函数def main()中使用了await，应该改为async def main()。"
+      }
+    },
+    "quiz": {
+      "question": "在普通函数中使用await会怎样？",
+      "options": [
+        "正常运行",
+        "语法错误",
+        "运行时报错",
+        "返回None"
+      ],
+      "correct": 1,
+      "explanation": "await只能在async def函数中使用，否则语法错误。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-async",
+    "title": "并发运行多个任务",
+    "explanation": "asyncio.gather() 接受多个协程作为参数，并发执行它们。适合同时发起多个独立的异步操作。",
+    "code": "import asyncio\n\nasync def fetch(url):\n    await asyncio.sleep(1)\n    return f'{url}的数据'\n\nasync def main():\n    results = await asyncio.gather(\n        fetch('url1'),\n        fetch('url2'),\n        fetch('url3')\n    )\n    print(results)",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写正确的函数名",
+      "content": {
+        "code": "import asyncio\n\nasync def fetch(url):\n    await asyncio.sleep(1)\n    return f'{url}的数据'\n\nasync def main():\n    results = await asyncio.___(\n        fetch('url1'),\n        fetch('url2'),\n        fetch('url3')\n    )\n    print(results)",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "gather",
+            "options": [
+              "gather",
+              "run",
+              "wait",
+              "collect"
+            ]
+          }
+        ],
+        "explanation": "asyncio.gather()用于并发运行多个协程。"
+      }
+    },
+    "quiz": {
+      "question": "哪个函数可以并发运行多个协程？",
+      "options": [
+        "asyncio.run()",
+        "asyncio.gather()",
+        "asyncio.wait()",
+        "asyncio.create()"
+      ],
+      "correct": 1,
+      "explanation": "asyncio.gather() 是并发运行多个协程的标准方法。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-async",
+    "title": "异步获取多个数据",
+    "explanation": "实际开发中经常需要同时获取多个数据源。用asyncio.gather可以并发请求，比逐个请求快很多。",
+    "code": "import asyncio\n\nasync def fetch_data(name):\n    await asyncio.sleep(1)\n    return f'{name}的数据'\n\nasync def main():\n    a, b = await asyncio.gather(\n        fetch_data('源1'),\n        fetch_data('源2')\n    )\n    print(a, b)\n\nasyncio.run(main())",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "asyncio.run(main())",
+          "    return f'{name}的数据'",
+          "    a, b = await asyncio.gather(",
+          "async def main():",
+          "import asyncio",
+          "async def fetch_data(name):",
+          "    await asyncio.sleep(1)",
+          "        fetch_data('源1'),",
+          "    print(a, b)",
+          "        fetch_data('源2')"
+        ],
+        "correct_order": [
+          4,
+          5,
+          6,
+          1,
+          3,
+          2,
+          7,
+          9,
+          8,
+          0
+        ],
+        "explanation": "正确顺序：导入 -> 定义fetch函数 -> 函数体 -> 定义main -> gather调用 -> 运行。"
+      }
+    },
+    "quiz": {
+      "question": "并发请求比逐个请求快吗？",
+      "options": [
+        "不快，时间一样",
+        "快，因为同时发起请求",
+        "更慢",
+        "看情况"
+      ],
+      "correct": 1,
+      "explanation": "并发请求同时发出，总耗时等于最慢的那个，比逐个请求快。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-async",
+    "title": "async for 异步迭代",
+    "explanation": "async for 用于异步迭代器，每次迭代之间可以有异步等待。常用于流式数据处理。",
+    "code": "import asyncio\n\nasync def countdown():\n    for i in range(3, 0, -1):\n        await asyncio.sleep(0.5)\n        yield i\n\nasync def main():\n    async for num in countdown():\n        print(num)\n\nasyncio.run(main())",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "import asyncio\n\nasync def countdown():\n    for i in range(3, 0, -1):\n        await asyncio.sleep(0.5)\n        yield i\n\nasync def main():\n    async for num in countdown():\n        print(num)\n\nasyncio.run(main())",
+        "options": [
+          "3 2 1",
+          "1 2 3",
+          "报错",
+          "0 1 2"
+        ],
+        "correct": 0,
+        "explanation": "async for迭代异步生成器，从3倒数到1，每次间隔0.5秒。"
+      }
+    },
+    "quiz": {
+      "question": "async for 用于什么场景？",
+      "options": [
+        "普通列表遍历",
+        "异步迭代器，每次迭代间可有等待",
+        "创建线程",
+        "删除数据"
+      ],
+      "correct": 1,
+      "explanation": "async for 用于异步可迭代对象，每次迭代间可以有异步等待。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-async",
+    "title": "异步上下文管理器",
+    "explanation": "async with 使用异步上下文管理器，在进入和退出时执行异步操作。确保资源正确释放。",
+    "code": "import asyncio\n\nclass AsyncResource:\n    async def __aenter__(self):\n        print('打开资源')\n        return self\n    async def __aexit__(self, *args):\n        print('关闭资源')\n\nasync def main():\n    async with AsyncResource():\n        print('使用资源')\n\nasyncio.run(main())",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的错误",
+      "content": {
+        "code_lines": [
+          "import asyncio",
+          "",
+          "class AsyncResource:",
+          "    async def __aenter__(self):",
+          "        print('打开资源')",
+          "        return self",
+          "    def __aexit__(self, *args):",
+          "        print('关闭资源')",
+          "",
+          "async def main():",
+          "    async with AsyncResource():",
+          "        print('使用资源')"
+        ],
+        "bug_line": 6,
+        "explanation": "第7行的__aexit__应该是async def __aexit__，因为异步上下文管理器的退出方法也需要是异步的。"
+      }
+    },
+    "quiz": {
+      "question": "异步上下文管理器的__aexit__需要什么关键字？",
+      "options": [
+        "def",
+        "async def",
+        "static",
+        "class"
+      ],
+      "correct": 1,
+      "explanation": "异步上下文管理器的__aenter__和__aexit__都需要async def。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-async",
+    "title": "asyncio.sleep 模拟异步操作",
+    "explanation": "asyncio.sleep() 是一个协程，用于模拟异步等待。在实际项目中，网络请求、文件读写等才是真正的异步操作。",
+    "code": "import asyncio\n\nasync def work():\n    print('开始工作')\n    await asyncio.sleep(2)  # 模拟耗时2秒\n    print('工作完成')\n\nasyncio.run(work())",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写正确的函数名",
+      "content": {
+        "code": "import asyncio\n\nasync def work():\n    print('开始工作')\n    await asyncio.___(2)  # 模拟耗时2秒\n    print('工作完成')\n\nasyncio.run(work())",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "sleep",
+            "options": [
+              "sleep",
+              "wait",
+              "delay",
+              "pause"
+            ]
+          }
+        ],
+        "explanation": "asyncio.sleep()是异步版本的sleep。"
+      }
+    },
+    "quiz": {
+      "question": "asyncio.sleep() 的作用是什么？",
+      "options": [
+        "阻塞整个程序",
+        "异步等待指定秒数",
+        "创建线程",
+        "导入模块"
+      ],
+      "correct": 1,
+      "explanation": "asyncio.sleep(seconds) 异步等待指定秒数，不阻塞事件循环。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-async",
+    "title": "异步任务取消",
+    "explanation": "asyncio.Task 可以被取消。调用 task.cancel() 后，任务会在下一个 await 点抛出 CancelledError。",
+    "code": "import asyncio\n\nasync def long_task():\n    try:\n        await asyncio.sleep(10)\n    except asyncio.CancelledError:\n        print('任务被取消')\n\nasync def main():\n    task = asyncio.create_task(long_task())\n    await asyncio.sleep(1)\n    task.cancel()\n    await task\n\nasyncio.run(main())",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "    task.cancel()",
+          "    except asyncio.CancelledError:",
+          "asyncio.run(main())",
+          "async def long_task():",
+          "    await asyncio.sleep(10)",
+          "    try:",
+          "async def main():",
+          "    await task",
+          "    task = asyncio.create_task(long_task())",
+          "    await asyncio.sleep(1)"
+        ],
+        "correct_order": [
+          3,
+          5,
+          4,
+          1,
+          6,
+          8,
+          9,
+          0,
+          7,
+          2
+        ],
+        "explanation": "正确顺序：定义long_task -> try/except -> main函数 -> 创建任务 -> 取消。"
+      }
+    },
+    "quiz": {
+      "question": "task.cancel() 后任务会怎样？",
+      "options": [
+        "立即停止",
+        "在下一个await点抛出CancelledError",
+        "继续运行",
+        "返回None"
+      ],
+      "correct": 1,
+      "explanation": "取消后任务在下一个await点收到CancelledError异常。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-async",
+    "title": "asyncio.Queue 异步队列",
+    "explanation": "asyncio.Queue 是异步安全的队列。生产者用 await queue.put()，消费者用 await queue.get()。适合生产者-消费者模式。",
+    "code": "import asyncio\n\nasync def main():\n    queue = asyncio.Queue()\n    await queue.put('苹果')\n    await queue.put('香蕉')\n    item = await queue.get()\n    print(item)\n\nasyncio.run(main())",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "import asyncio\n\nasync def main():\n    queue = asyncio.Queue()\n    await queue.put('苹果')\n    await queue.put('香蕉')\n    item = await queue.get()\n    print(item)\n\nasyncio.run(main())",
+        "options": [
+          "香蕉",
+          "苹果",
+          "['苹果', '香蕉']",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "队列是先进先出(FIFO)，先put的'苹果'会先被get出来。"
+      }
+    },
+    "quiz": {
+      "question": "asyncio.Queue 是什么模式？",
+      "options": [
+        "栈(LIFO)",
+        "先进先出(FIFO)",
+        "随机",
+        "无序"
+      ],
+      "correct": 1,
+      "explanation": "Queue是先进先出(FIFO)，先放进去的先取出来。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-async",
+    "title": "Semaphore 信号量控制并发",
+    "explanation": "asyncio.Semaphore 限制同时运行的协程数量。就像餐厅限制同时用餐人数，超出的需要等待。",
+    "code": "import asyncio\n\nsem = asyncio.Semaphore(2)  # 最多2个并发\n\nasync def task(n):\n    async with sem:\n        print(f'任务{n}开始')\n        await asyncio.sleep(1)\n        print(f'任务{n}完成')\n\nasync def main():\n    await asyncio.gather(*(task(i) for i in range(4)))\n\nasyncio.run(main())",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写正确的变量名",
+      "content": {
+        "code": "import asyncio\n\nsem = asyncio.Semaphore(2)  # 最多2个并发\n\nasync def task(n):\n    async with ___:\n        print(f'任务{n}开始')\n        await asyncio.sleep(1)\n        print(f'任务{n}完成')\n\nasync def main():\n    await asyncio.gather(*(task(i) for i in range(4)))\n\nasyncio.run(main())",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "sem",
+            "options": [
+              "sem",
+              "lock",
+              "mutex",
+              "queue"
+            ]
+          }
+        ],
+        "explanation": "使用之前定义的Semaphore变量sem来限制并发。"
+      }
+    },
+    "quiz": {
+      "question": "Semaphore 的作用是什么？",
+      "options": [
+        "创建线程",
+        "限制同时运行的协程数量",
+        "加速程序",
+        "删除任务"
+      ],
+      "correct": 1,
+      "explanation": "Semaphore限制同时并发的数量，超出的协程需要等待。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-modules",
+    "title": "import 导入模块",
+    "explanation": "import 语句用来导入其他模块（文件）中的代码。Python标准库有很多内置模块，也可以安装第三方模块。",
+    "code": "import math\n\nprint(math.pi)       # 3.141592653589793\nprint(math.sqrt(16)) # 4.0",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "math.sqrt(16) 返回什么？",
+      "content": {
+        "code": "import math\n\nprint(math.pi)       # 3.141592653589793\nprint(math.sqrt(16)) # 4.0",
+        "options": [
+          "16",
+          "4.0",
+          "8.0",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "math.sqrt(16) 计算16的平方根，返回4.0。"
+      }
+    },
+    "quiz": {
+      "question": "import 语句的作用是什么？",
+      "options": [
+        "删除模块",
+        "导入其他模块中的代码",
+        "创建文件",
+        "打印输出"
+      ],
+      "correct": 1,
+      "explanation": "import 加载模块，使模块中的函数和变量可用。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-modules",
+    "title": "from import 导入特定功能",
+    "explanation": "from module import name 可以只导入模块中的特定函数或变量，使用时不需要加模块名前缀。",
+    "code": "from math import sqrt, pi\n\nprint(pi)          # 3.14159...\nprint(math.sqrt(9)) # 错误！\nprint(sqrt(9))      # 3.0",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的错误",
+      "content": {
+        "code_lines": [
+          "from math import sqrt, pi",
+          "",
+          "print(pi)          # 3.14159...",
+          "print(math.sqrt(9)) # 错误！",
+          "print(sqrt(9))      # 3.0"
+        ],
+        "bug_line": 3,
+        "explanation": "第4行用了math.sqrt(9)，但我们是用from import导入的，不需要math.前缀，直接写sqrt(9)即可。"
+      }
+    },
+    "quiz": {
+      "question": "from math import sqrt 后怎么使用sqrt？",
+      "options": [
+        "math.sqrt(9)",
+        "sqrt(9)",
+        "import.sqrt(9)",
+        "from.sqrt(9)"
+      ],
+      "correct": 1,
+      "explanation": "from import导入后直接使用函数名，不需要模块前缀。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-modules",
+    "title": "import as 别名导入",
+    "explanation": "import module as alias 可以为模块设置简短的别名。常见别名：numpy as np, pandas as pd, matplotlib.pyplot as plt。",
+    "code": "import numpy as np\n\narr = np.array([1, 2, 3])\nprint(arr.mean())  # 2.0",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写numpy的常用别名",
+      "content": {
+        "code": "import numpy as ___\n\narr = np.array([1, 2, 3])\nprint(arr.mean())  # 2.0",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "np",
+            "options": [
+              "np",
+              "num",
+              "numpy",
+              "n"
+            ]
+          }
+        ],
+        "explanation": "numpy的官方推荐别名是np。"
+      }
+    },
+    "quiz": {
+      "question": "import numpy as np 中 np 是什么？",
+      "options": [
+        "变量名",
+        "模块别名",
+        "函数名",
+        "文件名"
+      ],
+      "correct": 1,
+      "explanation": "as 后面的是别名，之后可以用 np 代替 numpy。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-modules",
+    "title": "创建自己的模块",
+    "explanation": "任何 .py 文件都可以作为一个模块。在另一个文件中用 import 文件名 就可以导入。模块名就是文件名（不含.py）。",
+    "code": "# my_utils.py\ndef greet(name):\n    return f'你好，{name}！'\nPI = 3.14\n\n# main.py\nimport my_utils\nprint(my_utils.greet('小明'))\nprint(my_utils.PI)",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序（先定义模块，再使用）",
+      "content": {
+        "lines": [
+          "print(my_utils.PI)",
+          "import my_utils",
+          "PI = 3.14",
+          "def greet(name):",
+          "# my_utils.py",
+          "    return f'你好，{name}！'",
+          "print(my_utils.greet('小明'))",
+          "# main.py"
+        ],
+        "correct_order": [
+          4,
+          3,
+          5,
+          2,
+          7,
+          1,
+          6,
+          0
+        ],
+        "explanation": "先定义模块(my_utils.py)，再在main.py中导入使用。"
+      }
+    },
+    "quiz": {
+      "question": "Python中如何创建自己的模块？",
+      "options": [
+        "用class关键字",
+        "创建一个.py文件",
+        "用import语句",
+        "用def关键字"
+      ],
+      "correct": 1,
+      "explanation": "任何.py文件都是一个模块，用import文件名即可导入。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-modules",
+    "title": "__name__ 和 __main__",
+    "explanation": "当一个 .py 文件被直接运行时，__name__ 等于 '__main__'。当被导入时，__name__ 等于模块名。这是区分直接运行和被导入的标准写法。",
+    "code": "# calculator.py\ndef add(a, b):\n    return a + b\n\nif __name__ == '__main__':\n    print(add(2, 3))",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "直接运行 calculator.py 输出什么？",
+      "content": {
+        "code": "# calculator.py\ndef add(a, b):\n    return a + b\n\nif __name__ == '__main__':\n    print(add(2, 3))",
+        "options": [
+          "什么都不输出",
+          "5",
+          "报错",
+          "add"
+        ],
+        "correct": 1,
+        "explanation": "直接运行时__name__为'__main__'，所以if条件成立，执行print(add(2,3))输出5。"
+      }
+    },
+    "quiz": {
+      "question": "直接运行时 __name__ 等于什么？",
+      "options": [
+        "'__name__'",
+        "'__main__'",
+        "文件名",
+        "None"
+      ],
+      "correct": 1,
+      "explanation": "直接运行时__name__等于'__main__'，被导入时等于模块名。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-modules",
+    "title": "__init__.py 包初始化文件",
+    "explanation": "包含 __init__.py 文件的目录叫做包(package)。__init__.py 可以是空文件，也可以定义包级别的初始化代码。",
+    "code": "# mypackage/__init__.py\nclass MyError(Exception):\n    pass\n\n# main.py\nfrom mypackage import MyError\n\nraise MyError('出错了')",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "这段代码有什么问题？",
+      "content": {
+        "code_lines": [
+          "# mypackage/__init__.py",
+          "class MyError(Exception):",
+          "    pass",
+          "",
+          "# main.py",
+          "from mypackage import MyError",
+          "",
+          "raise MyError('出错了')"
+        ],
+        "bug_line": 5,
+        "explanation": "第6行应该确保mypackage目录下有__init__.py文件存在，否则无法作为包导入。"
+      }
+    },
+    "quiz": {
+      "question": "__init__.py 的作用是什么？",
+      "options": [
+        "运行程序",
+        "标识目录为Python包",
+        "删除文件",
+        "创建变量"
+      ],
+      "correct": 1,
+      "explanation": "__init__.py 标识目录是一个Python包，可以为空或包含初始化代码。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-modules",
+    "title": "pip 安装第三方包",
+    "explanation": "pip 是Python的包管理工具，用来安装、升级、卸载第三方包。命令格式：pip install 包名。",
+    "code": "# 在终端中执行\n# pip install requests\n\nimport requests\n\nresponse = requests.get('https://api.example.com')\nprint(response.status_code)",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写requests库的请求方法",
+      "content": {
+        "code": "# 在终端中执行\n# pip install requests\n\nimport requests\n\nresponse = requests.___('https://api.example.com')\nprint(response.status_code)",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "get",
+            "options": [
+              "get",
+              "fetch",
+              "request",
+              "download"
+            ]
+          }
+        ],
+        "explanation": "requests.get()发送HTTP GET请求。"
+      }
+    },
+    "quiz": {
+      "question": "pip install requests 的作用是什么？",
+      "options": [
+        "运行requests",
+        "安装requests包",
+        "删除requests",
+        "更新Python"
+      ],
+      "correct": 1,
+      "explanation": "pip install 安装第三方包到当前Python环境。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-modules",
+    "title": "包的目录结构",
+    "explanation": "Python包是一组模块的集合，用目录结构组织。每个目录需要__init__.py文件（可以为空）。",
+    "code": "# 目录结构:\n# myproject/\n#   __init__.py\n#   utils.py\n#   models.py\n# main.py\nfrom myproject.utils import helper\nfrom myproject.models import User",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "from myproject.models import User",
+          "# myproject/",
+          "#   __init__.py",
+          "from myproject.utils import helper",
+          "#   utils.py",
+          "# main.py",
+          "#   models.py"
+        ],
+        "correct_order": [
+          1,
+          2,
+          4,
+          6,
+          5,
+          3,
+          0
+        ],
+        "explanation": "先展示包结构，再展示main.py中的导入。"
+      }
+    },
+    "quiz": {
+      "question": "Python包的目录中必须有什么文件？",
+      "options": [
+        "main.py",
+        "__init__.py",
+        "config.py",
+        "setup.py"
+      ],
+      "correct": 1,
+      "explanation": "__init__.py 标识目录为Python包，可以是空文件。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-modules",
+    "title": "dir() 查看模块内容",
+    "explanation": "dir(module) 返回模块中所有可用的名称列表。是探索模块功能的好工具。",
+    "code": "import math\nnames = [n for n in dir(math) if not n.startswith('_')]\nprint(len(names) > 10)",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "import math\nnames = [n for n in dir(math) if not n.startswith('_')]\nprint(len(names) > 10)",
+        "options": [
+          "True",
+          "False",
+          "报错",
+          "None"
+        ],
+        "correct": 0,
+        "explanation": "math模块有很多公开函数（如sin, cos, sqrt等），不以下划线开头的超过10个，所以返回True。"
+      }
+    },
+    "quiz": {
+      "question": "dir(math) 返回什么？",
+      "options": [
+        "math的源代码",
+        "math模块中所有可用名称的列表",
+        "math的版本",
+        "math的路径"
+      ],
+      "correct": 1,
+      "explanation": "dir()返回模块中所有可用的名称列表，用于探索模块。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-modules",
+    "title": "相对导入与绝对导入",
+    "explanation": "在包内部，可以用相对导入（from . import xxx）引用同级模块。相对导入只能在包内部使用。",
+    "code": "# mypackage/sub/module_a.py\nfrom . import module_b  # 相对导入\n\n# main.py（包外文件）\nfrom . import mypackage  # 错误！",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的错误",
+      "content": {
+        "code_lines": [
+          "# mypackage/sub/module_a.py",
+          "from . import module_b  # 相对导入",
+          "",
+          "# main.py（包外文件）",
+          "from . import mypackage  # 错误！"
+        ],
+        "bug_line": 4,
+        "explanation": "第5行在包外文件中使用了相对导入，包外文件必须使用绝对导入：import mypackage。"
+      }
+    },
+    "quiz": {
+      "question": "相对导入（from . import）能在包外使用吗？",
+      "options": [
+        "能",
+        "不能，只能在包内部使用",
+        "看情况",
+        "只在Python2中能"
+      ],
+      "correct": 1,
+      "explanation": "相对导入只能在包内部使用，包外文件必须用绝对导入。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-modules",
+    "title": "pip freeze 导出依赖",
+    "explanation": "pip freeze > requirements.txt 可以导出当前环境安装的所有包及版本。别人用 pip install -r requirements.txt 就能安装相同环境。",
+    "code": "# 导出依赖\n# pip freeze > requirements.txt\n\n# 安装依赖\n# pip install -r requirements.txt",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写依赖文件名",
+      "content": {
+        "code": "# 导出依赖\n# pip freeze > requirements.txt\n\n# 安装依赖\n# pip install -r ___",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "requirements.txt",
+            "options": [
+              "requirements.txt",
+              "packages.txt",
+              "dependencies.txt",
+              "setup.txt"
+            ]
+          }
+        ],
+        "explanation": "requirements.txt是Python社区约定的依赖文件名。"
+      }
+    },
+    "quiz": {
+      "question": "pip freeze > requirements.txt 的作用是什么？",
+      "options": [
+        "安装所有包",
+        "导出当前环境的包列表",
+        "删除所有包",
+        "更新pip"
+      ],
+      "correct": 1,
+      "explanation": "pip freeze导出已安装包的列表，重定向到文件便于分享环境。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-modules",
+    "title": "虚拟环境隔离项目依赖",
+    "explanation": "虚拟环境为每个项目创建独立的Python环境，避免不同项目的包版本冲突。venv是Python内置的虚拟环境工具。",
+    "code": "# 创建虚拟环境\npython -m venv .venv\n# 激活虚拟环境（Windows）\n.venv\\Scripts\\activate\n# 安装依赖\npip install requests\n# 导出依赖\npip freeze > requirements.txt",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列命令到正确顺序",
+      "content": {
+        "lines": [
+          "pip freeze > requirements.txt",
+          "pip install requests",
+          ".venv\\Scripts\\activate",
+          "python -m venv .venv"
+        ],
+        "correct_order": [
+          3,
+          2,
+          1,
+          0
+        ],
+        "explanation": "正确顺序：创建环境 -> 激活 -> 安装包 -> 导出依赖。"
+      }
+    },
+    "quiz": {
+      "question": "为什么要使用虚拟环境？",
+      "options": [
+        "让代码更快",
+        "隔离项目依赖，避免版本冲突",
+        "减少内存",
+        "加快安装"
+      ],
+      "correct": 1,
+      "explanation": "虚拟环境为每个项目创建独立环境，避免不同项目的包版本冲突。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-modules",
+    "title": "模块搜索路径",
+    "explanation": "Python按顺序搜索模块：当前目录 -> PYTHONPATH -> 标准库 -> 第三方包(site-packages)。可以用sys.path查看。",
+    "code": "import sys\nprint(sys.path[0])",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "sys.path[0] 通常是什么？",
+      "content": {
+        "code": "import sys\nprint(sys.path[0])",
+        "options": [
+          "Python安装目录",
+          "当前脚本所在目录",
+          "系统根目录",
+          "空字符串"
+        ],
+        "correct": 1,
+        "explanation": "sys.path[0] 通常是当前运行脚本所在的目录。"
+      }
+    },
+    "quiz": {
+      "question": "Python搜索模块的第一个位置是哪里？",
+      "options": [
+        "Python安装目录",
+        "当前脚本所在目录",
+        "系统根目录",
+        "第三方包目录"
+      ],
+      "correct": 1,
+      "explanation": "Python先在当前目录搜索，然后是PYTHONPATH、标准库、第三方包。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-file-io",
+    "title": "open() 打开文件",
+    "explanation": "open() 函数打开一个文件，返回文件对象。第一个参数是文件路径，第二个是模式（'r'读取，'w'写入，'a'追加）。",
+    "code": "# 假设 hello.txt 内容为: Hello World\nwith open('hello.txt', 'r') as f:\n    content = f.read()\n    print(content)",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "# 假设 hello.txt 内容为: Hello World\nwith open('hello.txt', 'r') as f:\n    content = f.read()\n    print(content)",
+        "options": [
+          "hello.txt",
+          "Hello World",
+          "报错",
+          "None"
+        ],
+        "correct": 1,
+        "explanation": "f.read() 读取文件全部内容，返回文件中的文本'Hello World'。"
+      }
+    },
+    "quiz": {
+      "question": "open('file.txt', 'r') 中 'r' 表示什么？",
+      "options": [
+        "写入",
+        "读取",
+        "追加",
+        "删除"
+      ],
+      "correct": 1,
+      "explanation": "'r'表示读取模式，'w'写入，'a'追加。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-file-io",
+    "title": "with 语句管理文件",
+    "explanation": "with 语句（上下文管理器）确保文件在使用后自动关闭，即使发生异常也一样。推荐始终使用with打开文件。",
+    "code": "f = open('data.txt', 'r')\ncontent = f.read()\nprint(content)\n# 忘记关闭文件！",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的问题",
+      "content": {
+        "code_lines": [
+          "f = open('data.txt', 'r')",
+          "content = f.read()",
+          "print(content)",
+          "# 忘记关闭文件！"
+        ],
+        "bug_line": 0,
+        "explanation": "第1行没有用with语句，文件可能不会被正确关闭。应改为 with open('data.txt', 'r') as f:。"
+      }
+    },
+    "quiz": {
+      "question": "为什么推荐用 with 打开文件？",
+      "options": [
+        "代码更短",
+        "确保文件自动关闭",
+        "读取更快",
+        "写入更安全"
+      ],
+      "correct": 1,
+      "explanation": "with语句确保文件在使用后自动关闭，即使发生异常。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-file-io",
+    "title": "读取文件的三种方式",
+    "explanation": "read() 读全部，readline() 读一行，readlines() 读所有行返回列表。根据需要选择合适的方法。",
+    "code": "with open('data.txt', 'r') as f:\n    lines = f.readlines()  # 返回所有行的列表\n    for line in lines:\n        print(line.strip())",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写读取所有行的方法",
+      "content": {
+        "code": "with open('data.txt', 'r') as f:\n    lines = f.___()  # 返回所有行的列表\n    for line in lines:\n        print(line.strip())",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "readlines",
+            "options": [
+              "readlines",
+              "readline",
+              "read",
+              "lines"
+            ]
+          }
+        ],
+        "explanation": "readlines()返回一个包含所有行的列表。"
+      }
+    },
+    "quiz": {
+      "question": "read() 和 readlines() 的区别是什么？",
+      "options": [
+        "没有区别",
+        "read()返回字符串，readlines()返回列表",
+        "read()更快",
+        "readlines()只读一行"
+      ],
+      "correct": 1,
+      "explanation": "read()返回全部文本为字符串，readlines()返回每行为元素的列表。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-file-io",
+    "title": "写入文件",
+    "explanation": "用 open('file.txt', 'w') 打开文件进行写入。'w'模式会覆盖已有内容，'a'模式会追加到末尾。",
+    "code": "with open('output.txt', 'w') as f:\n    f.write('第一行\\n')\n    f.write('第二行\\n')\nprint('写入完成')",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "    f.write('第二行\\n')",
+          "with open('output.txt', 'w') as f:",
+          "print('写入完成')",
+          "    f.write('第一行\\n')"
+        ],
+        "correct_order": [
+          1,
+          3,
+          0,
+          2
+        ],
+        "explanation": "正确顺序：打开文件 -> 写入第一行 -> 写入第二行 -> 打印完成。"
+      }
+    },
+    "quiz": {
+      "question": "'w' 模式打开文件会怎样？",
+      "options": [
+        "追加内容",
+        "覆盖已有内容",
+        "只读",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "'w'模式会覆盖文件已有内容，'a'模式才是追加。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-file-io",
+    "title": "文件写入模式",
+    "explanation": "'w'模式写入会覆盖原内容，'a'模式写入会追加到末尾。选择错误的模式可能导致数据丢失！",
+    "code": "with open('log.txt', 'w') as f:\n    f.write('第一次写入\\n')\n\nwith open('log.txt', 'a') as f:\n    f.write('第二次写入\\n')\n\nwith open('log.txt', 'r') as f:\n    print(f.read())",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "log.txt 的最终内容是什么？",
+      "content": {
+        "code": "with open('log.txt', 'w') as f:\n    f.write('第一次写入\\n')\n\nwith open('log.txt', 'a') as f:\n    f.write('第二次写入\\n')\n\nwith open('log.txt', 'r') as f:\n    print(f.read())",
+        "options": [
+          "第二次写入",
+          "第一次写入\\n第二次写入\\n",
+          "第一次写入",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "'w'覆盖写入'第一次'，'a'追加'第二次'，最终两行都有。"
+      }
+    },
+    "quiz": {
+      "question": "'a' 模式打开文件会怎样？",
+      "options": [
+        "覆盖内容",
+        "追加到末尾",
+        "只读",
+        "创建新文件"
+      ],
+      "correct": 1,
+      "explanation": "'a'模式将新内容追加到文件末尾，不会覆盖原有内容。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-file-io",
+    "title": "逐行读取大文件",
+    "explanation": "处理大文件时，不要一次读入内存。用 for line in f 逐行读取，内存效率最高。",
+    "code": "with open('big_file.txt', 'r') as f:\n    content = f.read()  # 大文件危险！\n    for line in content:\n        print(line)",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的问题",
+      "content": {
+        "code_lines": [
+          "with open('big_file.txt', 'r') as f:",
+          "    content = f.read()  # 大文件危险！",
+          "    for line in content:",
+          "        print(line)"
+        ],
+        "bug_line": 2,
+        "explanation": "第3行对字符串content迭代是逐字符，不是逐行。应该直接 for line in f: 逐行读取。"
+      }
+    },
+    "quiz": {
+      "question": "读取大文件最高效的方式是什么？",
+      "options": [
+        "f.read()一次读完",
+        "for line in f 逐行读取",
+        "readlines()读所有行",
+        "input()"
+      ],
+      "correct": 1,
+      "explanation": "for line in f 逐行读取最省内存，不会一次性加载整个文件。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-file-io",
+    "title": "json.dumps 序列化",
+    "explanation": "json.dumps() 将Python对象转为JSON字符串。json.loads() 将JSON字符串转为Python对象。",
+    "code": "import json\n\ndata = {'name': '小明', 'age': 20}\njson_str = json.dumps(data, ensure_ascii=False)\nprint(json_str)",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写序列化方法名",
+      "content": {
+        "code": "import json\n\ndata = {'name': '小明', 'age': 20}\njson_str = json.___(data, ensure_ascii=False)\nprint(json_str)",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "dumps",
+            "options": [
+              "dumps",
+              "loads",
+              "dump",
+              "load"
+            ]
+          }
+        ],
+        "explanation": "dumps将对象转为字符串，loads将字符串转为对象。"
+      }
+    },
+    "quiz": {
+      "question": "json.dumps() 和 json.loads() 的区别是什么？",
+      "options": [
+        "没有区别",
+        "dumps转为字符串，loads从字符串解析",
+        "dumps更快",
+        "loads更安全"
+      ],
+      "correct": 1,
+      "explanation": "dumps (dump string) 输出JSON字符串，loads (load string) 解析JSON字符串。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-file-io",
+    "title": "读取JSON文件",
+    "explanation": "json.load() 从文件对象读取JSON。json.loads() 从字符串解析JSON。注意load和loads的区别。",
+    "code": "import json\n\nwith open('config.json', 'r', encoding='utf-8') as f:\n    config = json.load(f)\n    print(config['name'])",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "    print(config['name'])",
+          "import json",
+          "    config = json.load(f)",
+          "with open('config.json', 'r', encoding='utf-8') as f:"
+        ],
+        "correct_order": [
+          1,
+          3,
+          2,
+          0
+        ],
+        "explanation": "正确顺序：导入json -> 打开文件 -> 读取解析 -> 使用数据。"
+      }
+    },
+    "quiz": {
+      "question": "json.load() 和 json.loads() 的区别是什么？",
+      "options": [
+        "没有区别",
+        "load从文件读取，loads从字符串解析",
+        "load更快",
+        "loads更安全"
+      ],
+      "correct": 1,
+      "explanation": "json.load(file)从文件对象读取，json.loads(string)从字符串解析。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-file-io",
+    "title": "csv 模块读取CSV",
+    "explanation": "csv.reader 读取CSV文件，每行返回一个列表。适合处理表格数据。",
+    "code": "import csv\nimport io\n\ncsv_data = 'name,age\\n小明,20\\n小红,22'\nreader = csv.reader(io.StringIO(csv_data))\nnext(reader)  # 跳过表头\nfor row in reader:\n    print(row[0])",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "import csv\nimport io\n\ncsv_data = 'name,age\\n小明,20\\n小红,22'\nreader = csv.reader(io.StringIO(csv_data))\nnext(reader)  # 跳过表头\nfor row in reader:\n    print(row[0])",
+        "options": [
+          "name",
+          "小明 小红",
+          "['name', 'age']",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "next(reader)跳过表头，然后逐行读取，打印每行第一列（姓名）。"
+      }
+    },
+    "quiz": {
+      "question": "csv.reader 返回的每行是什么类型？",
+      "options": [
+        "字符串",
+        "列表",
+        "字典",
+        "元组"
+      ],
+      "correct": 1,
+      "explanation": "csv.reader每行返回一个列表，元素是各列的值。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-file-io",
+    "title": "处理文件编码",
+    "explanation": "中文文件必须指定 encoding='utf-8'，否则在Windows上可能用默认的gbk编码读取，导致乱码或报错。",
+    "code": "with open('中文文件.txt', encoding='utf-8') as f:\n    content = f.read()\n    print(content)",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的问题",
+      "content": {
+        "code_lines": [
+          "with open('中文文件.txt') as f:",
+          "    content = f.read()",
+          "    print(content)"
+        ],
+        "bug_line": 0,
+        "explanation": "第1行没有指定 encoding='utf-8'，读取中文文件可能出现编码错误。应加上 encoding='utf-8'。"
+      }
+    },
+    "quiz": {
+      "question": "读取中文文件时应该指定什么？",
+      "options": [
+        "文件大小",
+        "encoding='utf-8'",
+        "文件权限",
+        "缓冲区大小"
+      ],
+      "correct": 1,
+      "explanation": "指定 encoding='utf-8' 确保中文正确读取，避免Windows默认gbk导致的问题。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-file-io",
+    "title": "pathlib 路径操作",
+    "explanation": "pathlib.Path 是现代的路径操作方式，比os.path更优雅。支持 / 运算符拼接路径。",
+    "code": "from pathlib import Path\n\np = Path('data') / 'files' / 'info.txt'\nprint(p.exists())  # 检查文件是否存在",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写Path的构造方式",
+      "content": {
+        "code": "from pathlib import Path\n\np = ___('data') / 'files' / 'info.txt'\nprint(p.exists())  # 检查文件是否存在",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "Path",
+            "options": [
+              "Path",
+              "path",
+              "File",
+              "Dir"
+            ]
+          }
+        ],
+        "explanation": "Path()构造路径对象。"
+      }
+    },
+    "quiz": {
+      "question": "pathlib.Path 用什么运算符拼接路径？",
+      "options": [
+        "+",
+        "/",
+        "&",
+        "."
+      ],
+      "correct": 1,
+      "explanation": "Path支持 / 运算符拼接路径，如 Path('a') / 'b' 得到 Path('a/b')。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-file-io",
+    "title": "CSV写入",
+    "explanation": "csv.writer 写入CSV文件。writerow() 写一行，writerows() 写多行。",
+    "code": "import csv\n\nwith open('users.csv', 'w', newline='', encoding='utf-8') as f:\n    writer = csv.writer(f)\n    writer.writerow(['姓名', '年龄'])\n    writer.writerow(['小明', 20])\n    writer.writerow(['小红', 22])",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "    writer.writerow(['小明', 20])",
+          "import csv",
+          "    writer = csv.writer(f)",
+          "    writer.writerow(['小红', 22])",
+          "with open('users.csv', 'w', newline='', encoding='utf-8') as f:",
+          "    writer.writerow(['姓名', '年龄'])"
+        ],
+        "correct_order": [
+          1,
+          4,
+          2,
+          5,
+          0,
+          3
+        ],
+        "explanation": "正确顺序：导入csv -> 打开文件 -> 创建writer -> 写表头 -> 写数据。"
+      }
+    },
+    "quiz": {
+      "question": "写入CSV文件时 newline='' 的作用是什么？",
+      "options": [
+        "不写换行",
+        "避免Windows下多出空行",
+        "加快写入",
+        "加密数据"
+      ],
+      "correct": 1,
+      "explanation": "Windows下CSV写入会多出空行，newline='' 解决这个问题。"
+    }
+  },
+  {
+    "week": 7,
+    "module": "py-file-io",
+    "title": "json.dumps 的 ensure_ascii 参数",
+    "explanation": "json.dumps 默认将中文转为 \\uXXXX 转义。设置 ensure_ascii=False 可以保留中文原文。",
+    "code": "import json\n\ndata = {'城市': '北京'}\nprint(json.dumps(data))\nprint(json.dumps(data, ensure_ascii=False))",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "两次输出分别是什么？",
+      "content": {
+        "code": "import json\n\ndata = {'城市': '北京'}\nprint(json.dumps(data))\nprint(json.dumps(data, ensure_ascii=False))",
+        "options": [
+          "两次相同",
+          "{\"\\u5317\\u4eac\": ...} 和 {\"城市\": \"北京\"}",
+          "报错",
+          "都是None"
+        ],
+        "correct": 1,
+        "explanation": "默认ensure_ascii=True会转义中文，设为False保留原文。"
+      }
+    },
+    "quiz": {
+      "question": "ensure_ascii=False 的作用是什么？",
+      "options": [
+        "加速JSON生成",
+        "保留中文原文，不转义",
+        "压缩JSON",
+        "验证JSON"
+      ],
+      "correct": 1,
+      "explanation": "ensure_ascii=False 让JSON保留中文原文，不转义为\\uXXXX。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "什么是TypeScript",
+    "explanation": "TypeScript是JavaScript的超集，添加了静态类型系统。代码先编译成JS再运行，在编译阶段就能发现类型错误。",
+    "code": "// TypeScript代码\nlet name: string = '小明';\nlet age: number = 20;\nconsole.log(`${name}, ${age}岁`);",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "// TypeScript代码\nlet name: string = '小明';\nlet age: number = 20;\nconsole.log(`${name}, ${age}岁`);",
+        "options": [
+          "小明, 20岁",
+          "报错",
+          "undefined",
+          "name, age"
+        ],
+        "correct": 0,
+        "explanation": "TypeScript代码编译后就是普通JS，输出模板字符串的结果。"
+      }
+    },
+    "quiz": {
+      "question": "TypeScript 和 JavaScript 的关系是什么？",
+      "options": [
+        "完全不同",
+        "TypeScript是JavaScript的超集",
+        "JavaScript是TypeScript的子集",
+        "没有关系"
+      ],
+      "correct": 1,
+      "explanation": "TypeScript是JavaScript的超集，添加了静态类型系统。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "基本类型注解",
+    "explanation": "TypeScript用冒号: 给变量添加类型注解。常见类型：string, number, boolean, null, undefined。",
+    "code": "let count: number = 42;\nlet message: string = '你好';\nlet active: boolean = true;\nlet nothing: null = null;",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的错误",
+      "content": {
+        "code_lines": [
+          "let count: number = 42;",
+          "let message: string = '你好';",
+          "let active: boolean = true;",
+          "let nothing: null = undefined;"
+        ],
+        "bug_line": 3,
+        "explanation": "第4行null类型的变量不能赋值undefined，应该 let nothing: null = null;。"
+      }
+    },
+    "quiz": {
+      "question": "let x: number = 42 中 number 是什么？",
+      "options": [
+        "变量名",
+        "类型注解",
+        "函数名",
+        "注释"
+      ],
+      "correct": 1,
+      "explanation": "冒号后面的是类型注解，声明变量的数据类型。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "类型推断",
+    "explanation": "TypeScript可以根据赋值自动推断类型。如果声明时就赋值，可以不写类型注解。",
+    "code": "let x = 42;      // 自动推断为number类型\nlet y = 'hello';  // 自动推断为string\nlet z = true;      // 自动推断为boolean",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写x的推断类型",
+      "content": {
+        "code": "let x = 42;      // 自动推断为___类型\nlet y = 'hello';  // 自动推断为string\nlet z = true;      // 自动推断为boolean",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "number",
+            "options": [
+              "number",
+              "int",
+              "float",
+              "any"
+            ]
+          }
+        ],
+        "explanation": "42是数字，TypeScript推断为number类型。"
+      }
+    },
+    "quiz": {
+      "question": "let x = 42 TypeScript会推断为什么类型？",
+      "options": [
+        "int",
+        "number",
+        "any",
+        "float"
+      ],
+      "correct": 1,
+      "explanation": "TypeScript中数字类型统一为number，不区分int和float。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "数组类型",
+    "explanation": "TypeScript有两种数组写法：type[] 和 Array<type>。两者等价，推荐用 type[] 更简洁。",
+    "code": "let nums: number[] = [1, 2, 3];\nlet names: Array<string> = ['a', 'b'];\nconsole.log(nums[0]);  // 1\nconsole.log(names.length);  // 2",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "console.log(names.length);  // 2",
+          "let nums: number[] = [1, 2, 3];",
+          "console.log(nums[0]);  // 1",
+          "let names: Array<string> = ['a', 'b'];"
+        ],
+        "correct_order": [
+          1,
+          3,
+          2,
+          0
+        ],
+        "explanation": "正确顺序：定义数字数组 -> 定义字符串数组 -> 使用。"
+      }
+    },
+    "quiz": {
+      "question": "TypeScript中如何声明数字数组？",
+      "options": [
+        "number{}",
+        "number[]",
+        "Array(number)",
+        "[number]"
+      ],
+      "correct": 1,
+      "explanation": "number[] 或 Array<number> 都可以声明数字数组。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "元组类型 Tuple",
+    "explanation": "元组是固定长度、固定类型的数组。每个位置的类型可以不同。",
+    "code": "let person: [string, number] = ['小明', 20];\nconsole.log(person[0]);  // 小明\nconsole.log(person[1]);  // 20",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "person[0] 的类型是什么？",
+      "content": {
+        "code": "let person: [string, number] = ['小明', 20];\nconsole.log(person[0]);  // 小明\nconsole.log(person[1]);  // 20",
+        "options": [
+          "number",
+          "string",
+          "any",
+          "undefined"
+        ],
+        "correct": 1,
+        "explanation": "元组第一个位置定义为string，所以person[0]是string类型。"
+      }
+    },
+    "quiz": {
+      "question": "元组和数组的区别是什么？",
+      "options": [
+        "没有区别",
+        "元组长度和类型固定",
+        "元组更快",
+        "数组更安全"
+      ],
+      "correct": 1,
+      "explanation": "元组是固定长度、固定类型的数组，每个位置类型可以不同。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "枚举类型 enum",
+    "explanation": "enum 定义一组命名常量。默认从0开始编号，也可以手动指定值。",
+    "code": "enum Direction {\n    Up,     // 0\n    Down,   // 1\n    Left,   // 2\n    Right   // 3\n}\nlet dir: Direction = Direction.Up;\nconsole.log(dir);  // 0",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的问题",
+      "content": {
+        "code_lines": [
+          "enum Direction {",
+          "    Up,     // 0",
+          "    Down,   // 1",
+          "    Left,   // 2",
+          "    Right   // 3",
+          "}",
+          "let dir: Direction = Direction.Up;",
+          "console.log(dir);  // 'Up'"
+        ],
+        "bug_line": 7,
+        "explanation": "第8行注释错误，dir的值是0（数字），不是'Up'（字符串）。默认枚举值是数字。"
+      }
+    },
+    "quiz": {
+      "question": "enum 默认从几开始编号？",
+      "options": [
+        "1",
+        "0",
+        "-1",
+        "随机"
+      ],
+      "correct": 1,
+      "explanation": "枚举默认从0开始编号，可以手动指定起始值。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "any 类型",
+    "explanation": "any 类型可以赋值任何值，跳过类型检查。应尽量避免使用，因为它失去了TypeScript的类型保护。",
+    "code": "let mystery: any = 42;\nmystery = 'hello';  // 不报错\nmystery = true;     // 不报错",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写允许任意值的类型",
+      "content": {
+        "code": "let mystery: ___ = 42;\nmystery = 'hello';  // 不报错\nmystery = true;     // 不报错",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "any",
+            "options": [
+              "any",
+              "unknown",
+              "object",
+              "void"
+            ]
+          }
+        ],
+        "explanation": "any类型允许赋值任意类型的值。"
+      }
+    },
+    "quiz": {
+      "question": "为什么应尽量避免使用 any 类型？",
+      "options": [
+        "更慢",
+        "失去类型保护",
+        "代码更长",
+        "不兼容"
+      ],
+      "correct": 1,
+      "explanation": "any关闭类型检查，失去了TypeScript的核心优势。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "联合类型 Union",
+    "explanation": "联合类型用 | 表示一个值可以是多种类型之一。使用时需要先判断具体类型（类型收窄）。",
+    "code": "let id: string | number;\nid = 'abc123';\nid = 42;\nif (typeof id === 'string') {\n    console.log(id.toUpperCase());\n} else {\n    console.log(id.toFixed(2));\n}",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "    console.log(id.toFixed(2));",
+          "id = 'abc123';",
+          "let id: string | number;",
+          "    console.log(id.toUpperCase());",
+          "id = 42;",
+          "if (typeof id === 'string') {",
+          "} else {"
+        ],
+        "correct_order": [
+          2,
+          1,
+          4,
+          5,
+          3,
+          6,
+          0
+        ],
+        "explanation": "正确顺序：声明联合类型 -> 赋值字符串 -> 赋值数字 -> 类型判断 -> 使用。"
+      }
+    },
+    "quiz": {
+      "question": "string | number 表示什么？",
+      "options": [
+        "string和number",
+        "string或number",
+        "不是string也不是number",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "| 表示联合类型，值可以是多种类型之一。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "类型别名 type",
+    "explanation": "type 关键字为类型创建别名，简化复杂类型的使用。可以定义联合类型、对象类型等。",
+    "code": "type ID = string | number;\ntype User = { name: string; age: number };\n\nlet userId: ID = 42;\nlet user: User = { name: '小明', age: 20 };\nconsole.log(user.name);",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "type ID = string | number;\ntype User = { name: string; age: number };\n\nlet userId: ID = 42;\nlet user: User = { name: '小明', age: 20 };\nconsole.log(user.name);",
+        "options": [
+          "42",
+          "小明",
+          "{name: '小明', age: 20}",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "user.name 是 '小明'，console.log 输出字符串。"
+      }
+    },
+    "quiz": {
+      "question": "type 和 interface 的主要区别是什么？",
+      "options": [
+        "没有区别",
+        "type更灵活可以定义联合类型",
+        "interface更灵活",
+        "type更快"
+      ],
+      "correct": 1,
+      "explanation": "type可以定义联合类型、交叉类型等，interface主要用于对象形状。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "接口 interface 基础",
+    "explanation": "interface 定义对象的结构（有哪些属性、什么类型）。是TypeScript类型系统的核心。",
+    "code": "interface Person {\n    name: string;\n    age: number;\n}\n\nlet p: Person = { name: '小明', age: 20 };",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写属性名",
+      "content": {
+        "code": "interface Person {\n    name: string;\n    age: number;\n}\n\nlet p: Person = { name: '小明', ___: 20 };",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "age",
+            "options": [
+              "age",
+              "old",
+              "years",
+              "number"
+            ]
+          }
+        ],
+        "explanation": "根据Person接口，对象必须有name和age两个属性。"
+      }
+    },
+    "quiz": {
+      "question": "interface 定义了对象的什么？",
+      "options": [
+        "值",
+        "结构（属性和类型）",
+        "方法",
+        "变量"
+      ],
+      "correct": 1,
+      "explanation": "interface定义对象应该有哪些属性、什么类型。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "可选属性 ?",
+    "explanation": "在属性名后加 ? 表示该属性可选。可选属性的类型自动包含 undefined。",
+    "code": "interface Config {\n    name: string;\n    debug?: boolean;\n    timeout?: number;\n}\nlet c: Config = { name: 'app' };  // OK!",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "    timeout?: number;",
+          "let c: Config = { name: 'app' };  // OK!",
+          "interface Config {",
+          "    name: string;",
+          "    debug?: boolean;",
+          "}"
+        ],
+        "correct_order": [
+          2,
+          3,
+          4,
+          0,
+          5,
+          1
+        ],
+        "explanation": "正确顺序：定义接口 -> 必选属性 -> 可选属性 -> 创建对象。"
+      }
+    },
+    "quiz": {
+      "question": "属性名后的 ? 表示什么？",
+      "options": [
+        "必选属性",
+        "可选属性",
+        "只读属性",
+        "私有属性"
+      ],
+      "correct": 1,
+      "explanation": "? 表示该属性可选，可以不提供。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "readonly 只读属性",
+    "explanation": "readonly 修饰的属性在初始化后不能修改。适合定义常量配置。",
+    "code": "interface Point {\n    readonly x: number;\n    readonly y: number;\n}\nlet p: Point = { x: 10, y: 20 };\np.x = 30;  // 编译错误！",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "p.x = 30 会怎样？",
+      "content": {
+        "code": "interface Point {\n    readonly x: number;\n    readonly y: number;\n}\nlet p: Point = { x: 10, y: 20 };\np.x = 30;  // 编译错误！",
+        "options": [
+          "正常修改",
+          "编译时报错",
+          "运行时报错",
+          "x变为30"
+        ],
+        "correct": 1,
+        "explanation": "readonly属性不能修改，编译阶段就会报错。"
+      }
+    },
+    "quiz": {
+      "question": "readonly 属性的特点是什么？",
+      "options": [
+        "只能读取，初始化后不能修改",
+        "更快",
+        "自动转换类型",
+        "可选的"
+      ],
+      "correct": 0,
+      "explanation": "readonly属性初始化后不能修改，编译时检查。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "泛型基础 <T>",
+    "explanation": "泛型让函数/类型可以适用于多种类型，而不是只写死一种。用 <T> 声明类型参数。",
+    "code": "function identity<T>(value: T): T {\n    return value;\n}\n\nlet num = identity<number>(42);\nlet str = identity('hello');  // 自动推断\nconsole.log(num, str);",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "这段代码有没有错误？",
+      "content": {
+        "code_lines": [
+          "function identity<T>(value: T): T {",
+          "    return value;",
+          "}",
+          "",
+          "let num = identity<number>(42);",
+          "let str = identity('hello');  // 自动推断",
+          "console.log(num, str);"
+        ],
+        "bug_line": -1,
+        "explanation": "这段代码没有错误。泛型函数可以显式指定类型<number>，也可以自动推断。"
+      }
+    },
+    "quiz": {
+      "question": "泛型 <T> 的作用是什么？",
+      "options": [
+        "删除类型",
+        "让函数适用于多种类型",
+        "创建变量",
+        "导入模块"
+      ],
+      "correct": 1,
+      "explanation": "泛型让函数/类型可以适用于多种类型，保持类型安全。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "泛型接口",
+    "explanation": "泛型可以用于接口，让接口适用于多种类型。创建对象时再指定具体类型。",
+    "code": "interface Box<T> {\n    value: T;\n}\n\nlet numBox: Box<number> = { value: 42 };\nlet strBox: Box<string> = { value: 'hi' };",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写泛型参数",
+      "content": {
+        "code": "interface Box<T> {\n    value: T;\n}\n\nlet numBox: Box<___> = { value: 42 };\nlet strBox: Box<string> = { value: 'hi' };",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "number",
+            "options": [
+              "number",
+              "T",
+              "any",
+              "object"
+            ]
+          }
+        ],
+        "explanation": "value是42（数字），所以泛型参数填number。"
+      }
+    },
+    "quiz": {
+      "question": "Box<number> 表示什么？",
+      "options": [
+        "Box里放number类型的值",
+        "Box的大小是number",
+        "Box的名字",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "泛型参数指定Box中存放的值的类型。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "字面量类型",
+    "explanation": "字面量类型限制值为特定的字面量。常与联合类型配合，模拟枚举。",
+    "code": "type Theme = 'light' | 'dark';\nfunction setTheme(theme: Theme) {\n    console.log(`切换到${theme}模式`);\n}\nsetTheme('light');  // OK\nsetTheme('blue');   // 错误！",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "setTheme('light');  // OK",
+          "type Theme = 'light' | 'dark';",
+          "setTheme('blue');   // 错误！",
+          "function setTheme(theme: Theme) {",
+          "}"
+        ],
+        "correct_order": [
+          1,
+          3,
+          4,
+          0,
+          2
+        ],
+        "explanation": "正确顺序：定义字面量类型 -> 定义函数 -> 函数体 -> 调用。"
+      }
+    },
+    "quiz": {
+      "question": "type Theme = 'light' | 'dark' 表示什么？",
+      "options": [
+        "Theme只能是'light'或'dark'",
+        "Theme可以是任何字符串",
+        "Theme是数字",
+        "报错"
+      ],
+      "correct": 0,
+      "explanation": "字面量类型限制值只能是特定的字面量值之一。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "类型收窄 narrowing",
+    "explanation": "通过类型检查（如 typeof, instanceof）收窄联合类型的范围，让编译器知道当前的具体类型。",
+    "code": "function format(value: string | number) {\n    if (typeof value === 'string') {\n        return value.toUpperCase();\n    }\n    return value.toFixed(2);\n}\nconsole.log(format('hello'));\nconsole.log(format(3.14159));",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "function format(value: string | number) {\n    if (typeof value === 'string') {\n        return value.toUpperCase();\n    }\n    return value.toFixed(2);\n}\nconsole.log(format('hello'));\nconsole.log(format(3.14159));",
+        "options": [
+          "HELLO 和 3.14",
+          "报错",
+          "hello 和 3.14159",
+          "HELLO 和 3.14159"
+        ],
+        "correct": 0,
+        "explanation": "字符串走toUpperCase()得到HELLO，数字走toFixed(2)得到3.14。"
+      }
+    },
+    "quiz": {
+      "question": "typeof value === 'string' 的作用是什么？",
+      "options": [
+        "删除value",
+        "收窄类型，确认value是string",
+        "创建变量",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "typeof检查收窄联合类型，让编译器知道当前的具体类型。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "交叉类型 &",
+    "explanation": "交叉类型用 & 把多个类型合并成一个。对象必须同时满足所有类型的约束。",
+    "code": "type HasName = { name: string };\ntype HasAge = { age: number };\ntype Person = HasName & HasAge;\n\nlet p: Person = { name: '小明', age: 20 };",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的错误",
+      "content": {
+        "code_lines": [
+          "type HasName = { name: string };",
+          "type HasAge = { age: number };",
+          "type Person = HasName & HasAge;",
+          "",
+          "let p: Person = { name: '小明' };  // 缺少age!"
+        ],
+        "bug_line": 4,
+        "explanation": "第5行Person交叉类型要求同时有name和age，但对象缺少age属性。"
+      }
+    },
+    "quiz": {
+      "question": "A & B 交叉类型表示什么？",
+      "options": [
+        "A或B",
+        "A且B（同时满足）",
+        "既不是A也不是B",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "& 表示交叉类型，对象必须同时满足所有类型的约束。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "unknown 类型",
+    "explanation": "unknown 比 any 安全。unknown 类型的值必须先检查类型才能使用，any 则可以直接用。",
+    "code": "let value: unknown = 'hello';\n// value.toUpperCase();  // 错误！unknown不能直接用\nif (typeof value === 'string') {\n    console.log(value.toUpperCase());  // OK\n}",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写更安全的类型",
+      "content": {
+        "code": "let value: ___ = 'hello';\n// value.toUpperCase();  // 错误！unknown不能直接用\nif (typeof value === 'string') {\n    console.log(value.toUpperCase());  // OK\n}",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "unknown",
+            "options": [
+              "unknown",
+              "any",
+              "object",
+              "void"
+            ]
+          }
+        ],
+        "explanation": "unknown是类型安全的any，必须先检查类型。"
+      }
+    },
+    "quiz": {
+      "question": "unknown 和 any 哪个更安全？",
+      "options": [
+        "any",
+        "unknown",
+        "一样安全",
+        "都不安全"
+      ],
+      "correct": 1,
+      "explanation": "unknown比any安全，使用前必须进行类型检查。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "never 类型",
+    "explanation": "never 表示永远不会发生的类型。常见于总是抛出错误的函数或不可能的类型收窄。",
+    "code": "function throwError(msg: string): never {\n    throw new Error(msg);\n}\nfunction check(x: string | number) {\n    if (typeof x === 'string') return;\n    if (typeof x === 'number') return;\n    const result: never = x;  // 编译检查\n}",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "    const result: never = x;  // 编译检查",
+          "function throwError(msg: string): never {",
+          "function check(x: string | number) {",
+          "    throw new Error(msg);",
+          "    if (typeof x === 'string') return;",
+          "    if (typeof x === 'number') return;",
+          "}"
+        ],
+        "correct_order": [
+          1,
+          3,
+          2,
+          4,
+          5,
+          0,
+          6
+        ],
+        "explanation": "正确顺序：定义throwError -> 函数体 -> 定义check -> 类型收窄。"
+      }
+    },
+    "quiz": {
+      "question": "never 类型表示什么？",
+      "options": [
+        "任何值",
+        "永远不会发生的类型",
+        "null",
+        "undefined"
+      ],
+      "correct": 1,
+      "explanation": "never表示永远不会发生，如总是抛错的函数或不可能的类型。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-types",
+    "title": "Partial 可选工具类型",
+    "explanation": "Partial<T> 把类型T的所有属性变为可选。适合更新操作，只需要传入要修改的属性。",
+    "code": "interface User {\n    name: string;\n    age: number;\n    email: string;\n}\ntype UserUpdate = Partial<User>;\nconst update: UserUpdate = { name: '新名字' };  // OK，其他属性可选",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "UserUpdate 类型的属性是怎样的？",
+      "content": {
+        "code": "interface User {\n    name: string;\n    age: number;\n    email: string;\n}\ntype UserUpdate = Partial<User>;\nconst update: UserUpdate = { name: '新名字' };",
+        "options": [
+          "全部必选",
+          "全部可选",
+          "全部只读",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "Partial<T> 把所有属性变为可选，适合部分更新场景。"
+      }
+    },
+    "quiz": {
+      "question": "Partial<User> 的作用是什么？",
+      "options": [
+        "让所有属性只读",
+        "让所有属性可选",
+        "删除属性",
+        "创建新类型"
+      ],
+      "correct": 1,
+      "explanation": "Partial<T> 把类型T的所有属性变为可选（加?）。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "函数类型注解",
+    "explanation": "TypeScript可以为函数参数和返回值添加类型注解。参数类型在冒号后面，返回值类型在括号后面。",
+    "code": "function add(a: number, b: number): number {\n    return a + b;\n}\nconsole.log(add(3, 5));",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "add(3, 5) 返回什么？",
+      "content": {
+        "code": "function add(a: number, b: number): number {\n    return a + b;\n}\nconsole.log(add(3, 5));",
+        "options": [
+          "8",
+          "'35'",
+          "undefined",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "两个数字相加返回数字8。"
+      }
+    },
+    "quiz": {
+      "question": "函数返回值类型注解写在哪里？",
+      "options": [
+        "函数名前面",
+        "参数括号后面",
+        "return后面",
+        "函数体内部"
+      ],
+      "correct": 1,
+      "explanation": "返回值类型注解写在参数括号后面，如 ): number。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "箭头函数类型",
+    "explanation": "箭头函数（lambda）的类型注解写在参数后面和箭头后面。",
+    "code": "const multiply = (a: number, b: number): number => {\n    return a * b;\n};\nconst result = multiply(3, 4);\nconsole.log(result);",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的错误",
+      "content": {
+        "code_lines": [
+          "const multiply = (a: number, b: number): number => {",
+          "    return a * b;",
+          "};",
+          "const result = multiply(3, '4');",
+          "console.log(result);"
+        ],
+        "bug_line": 3,
+        "explanation": "第4行传入'4'（字符串），但参数b期望number类型。"
+      }
+    },
+    "quiz": {
+      "question": "箭头函数的类型注解写在哪里？",
+      "options": [
+        "箭头前面",
+        "参数后面和箭头后面",
+        "函数名后面",
+        "return后面"
+      ],
+      "correct": 1,
+      "explanation": "箭头函数类型：(参数: 类型): 返回类型 => { ... }。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "可选参数 ?",
+    "explanation": "参数名后加 ? 表示可选参数。可选参数必须在必选参数后面。",
+    "code": "function greet(name: string, greeting?: string): string {\n    return `${greeting || '你好'}, ${name}!`;\n}\ngreet('小明');           // 你好, 小明!\ngreet('小明', '嗨');     // 嗨, 小明!",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写参数名",
+      "content": {
+        "code": "function greet(name: string, greeting?: string): string {\n    return `${___ || '你好'}, ${name}!`;\n}\ngreet('小明');           // 你好, 小明!\ngreet('小明', '嗨');     // 嗨, 小明!",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "greeting",
+            "options": [
+              "greeting",
+              "name",
+              "msg",
+              "str"
+            ]
+          }
+        ],
+        "explanation": "使用可选参数greeting，如果没传就用默认值'你好'。"
+      }
+    },
+    "quiz": {
+      "question": "可选参数必须放在哪里？",
+      "options": [
+        "必选参数前面",
+        "必选参数后面",
+        "任何位置",
+        "函数外面"
+      ],
+      "correct": 1,
+      "explanation": "可选参数必须在必选参数后面，否则语法错误。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "默认参数",
+    "explanation": "参数可以有默认值。调用时不传该参数就使用默认值。默认参数在TypeScript中自动变为可选的。",
+    "code": "function createUser(\n    name: string,\n    role: string = 'viewer',\n    active: boolean = true\n) {\n    return { name, role, active };\n}\nconsole.log(createUser('小明'));",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "    return { name, role, active };",
+          "    role: string = 'viewer',",
+          "function createUser(",
+          "console.log(createUser('小明'));",
+          "    active: boolean = true",
+          "    name: string,",
+          ") {"
+        ],
+        "correct_order": [
+          2,
+          5,
+          1,
+          4,
+          6,
+          0,
+          3
+        ],
+        "explanation": "正确顺序：函数名 -> 参数 -> 默认值 -> 函数体 -> 调用。"
+      }
+    },
+    "quiz": {
+      "question": "默认参数需要放在必选参数前面吗？",
+      "options": [
+        "需要",
+        "不需要，放后面",
+        "看情况",
+        "不能有默认参数"
+      ],
+      "correct": 1,
+      "explanation": "默认参数放在必选参数后面，调用时可以省略。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "剩余参数 ...args",
+    "explanation": "...args 收集多余的参数到数组中。类型写在参数名后面，如 args: number[]。",
+    "code": "function sum(...nums: number[]): number {\n    return nums.reduce((a, b) => a + b, 0);\n}\nconsole.log(sum(1, 2, 3, 4));",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "sum(1, 2, 3, 4) 返回什么？",
+      "content": {
+        "code": "function sum(...nums: number[]): number {\n    return nums.reduce((a, b) => a + b, 0);\n}\nconsole.log(sum(1, 2, 3, 4));",
+        "options": [
+          "[1, 2, 3, 4]",
+          "10",
+          "undefined",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "reduce把所有数字累加：1+2+3+4=10。"
+      }
+    },
+    "quiz": {
+      "question": "...args 的作用是什么？",
+      "options": [
+        "删除参数",
+        "收集多余参数到数组",
+        "创建变量",
+        "导入模块"
+      ],
+      "correct": 1,
+      "explanation": "...args 收集所有多余参数到一个数组中。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "函数重载 overload",
+    "explanation": "函数重载让一个函数接受不同类型的参数。先声明多个重载签名，最后写实现签名。",
+    "code": "function format(value: string): string;\nfunction format(value: number): string;\nfunction format(value: any): string {\n    if (typeof value === 'string') return value;\n    return value.toString();\n}\nconsole.log(format('hello'));",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的问题",
+      "content": {
+        "code_lines": [
+          "function format(value: string): string;",
+          "function format(value: number): string;",
+          "function format(value: any): string {",
+          "    if (typeof value === 'string') return value;",
+          "    return value.toString();",
+          "}",
+          "console.log(format(true));"
+        ],
+        "bug_line": 6,
+        "explanation": "第7行传入true（boolean），但重载签名只声明了string和number，编译时报错。"
+      }
+    },
+    "quiz": {
+      "question": "函数重载的签名顺序是什么？",
+      "options": [
+        "实现签名在前",
+        "重载签名在前，实现在后",
+        "任意顺序",
+        "只有一个签名"
+      ],
+      "correct": 1,
+      "explanation": "先声明多个重载签名，最后写实现签名。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "返回值类型 void",
+    "explanation": "void 表示函数没有返回值。如果函数不写return或return后面没有值，返回类型就是void。",
+    "code": "function logMessage(msg: string): void {\n    console.log(msg);\n    // 没有return语句\n}\nlogMessage('测试');",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写返回值类型",
+      "content": {
+        "code": "function logMessage(msg: string): ___ {\n    console.log(msg);\n    // 没有return语句\n}\nlogMessage('测试');",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "void",
+            "options": [
+              "void",
+              "null",
+              "undefined",
+              "never"
+            ]
+          }
+        ],
+        "explanation": "函数没有返回值，用void表示。"
+      }
+    },
+    "quiz": {
+      "question": "void 返回类型表示什么？",
+      "options": [
+        "返回null",
+        "没有返回值",
+        "返回undefined",
+        "返回空字符串"
+      ],
+      "correct": 1,
+      "explanation": "void表示函数不返回任何值。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "回调函数类型",
+    "explanation": "回调函数的类型用 (参数) => 返回值 的方式定义。常见于事件处理、异步操作等。",
+    "code": "type Callback = (result: string) => void;\nfunction fetchData(url: string, cb: Callback) {\n    cb('数据获取成功');\n}\nfetchData('/api', (result) => {\n    console.log(result);\n});",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "fetchData('/api', (result) => {",
+          "type Callback = (result: string) => void;",
+          "    console.log(result);",
+          "function fetchData(url: string, cb: Callback) {",
+          "});",
+          "    cb('数据获取成功');",
+          "}"
+        ],
+        "correct_order": [
+          1,
+          3,
+          5,
+          6,
+          0,
+          2,
+          4
+        ],
+        "explanation": "正确顺序：定义回调类型 -> 定义函数 -> 函数体 -> 调用。"
+      }
+    },
+    "quiz": {
+      "question": "回调函数类型 (x: number) => string 表示什么？",
+      "options": [
+        "接受number返回string",
+        "接受string返回number",
+        "接受number返回number",
+        "报错"
+      ],
+      "correct": 0,
+      "explanation": "箭头左边是参数类型，右边是返回值类型。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "函数作为参数",
+    "explanation": "TypeScript中函数是一等公民，可以作为参数传递。用类型描述函数的签名。",
+    "code": "function apply(\n    fn: (x: number) => number,\n    value: number\n): number {\n    return fn(value);\n}\nconsole.log(apply(x => x * 2, 5));",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "function apply(\n    fn: (x: number) => number,\n    value: number\n): number {\n    return fn(value);\n}\nconsole.log(apply(x => x * 2, 5));",
+        "options": [
+          "5",
+          "10",
+          "undefined",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "apply接收一个函数和值，用函数处理值。x => x * 2 把5变成10。"
+      }
+    },
+    "quiz": {
+      "question": "函数可以作为参数传递吗？",
+      "options": [
+        "不能",
+        "可以，函数是一等公民",
+        "只能传箭头函数",
+        "看情况"
+      ],
+      "correct": 1,
+      "explanation": "TypeScript中函数是一等公民，可以作为参数、返回值传递。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "this 的类型",
+    "explanation": "在对象方法中，this 的类型可以通过 this 参数显式声明。避免 this 指向错误。",
+    "code": "interface Counter {\n    count: number;\n    increment(): void;\n}\nconst counter: Counter = {\n    count: 0,\n    increment() {\n        this.count++;\n    }\n};",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "这段代码有没有错误？",
+      "content": {
+        "code_lines": [
+          "interface Counter {",
+          "    count: number;",
+          "    increment(): void;",
+          "}",
+          "const counter: Counter = {",
+          "    count: 0,",
+          "    increment() {",
+          "        this.count++;",
+          "    }",
+          "};"
+        ],
+        "bug_line": -1,
+        "explanation": "这段代码没有错误。TypeScript能正确推断对象方法中的this类型。"
+      }
+    },
+    "quiz": {
+      "question": "this 参数的作用是什么？",
+      "options": [
+        "创建对象",
+        "显式声明this的类型",
+        "删除this",
+        "导入模块"
+      ],
+      "correct": 1,
+      "explanation": "this参数显式声明this的类型，避免this指向错误。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "泛型函数",
+    "explanation": "泛型函数用 <T> 声明类型参数，函数可以处理任意类型的输入，同时保持类型安全。",
+    "code": "function getFirst<T>(arr: T[]): T | undefined {\n    return arr[0];\n}\ngetFirst([1, 2, 3]);      // 1\ngetFirst(['a', 'b']);      // 'a'",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写数组索引",
+      "content": {
+        "code": "function getFirst<T>(arr: T[]): T | undefined {\n    return arr[___];\n}\ngetFirst([1, 2, 3]);      // 1\ngetFirst(['a', 'b']);      // 'a'",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "0",
+            "options": [
+              "0",
+              "1",
+              "arr.length",
+              "-1"
+            ]
+          }
+        ],
+        "explanation": "获取第一个元素用索引0。"
+      }
+    },
+    "quiz": {
+      "question": "泛型函数 <T> 中 T 代表什么？",
+      "options": [
+        "具体类型",
+        "类型参数（占位符）",
+        "变量名",
+        "常量"
+      ],
+      "correct": 1,
+      "explanation": "T是类型参数，调用时由具体类型替换。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "函数类型别名",
+    "explanation": "用 type 定义函数类型别名，可以让代码更清晰，也方便复用函数签名。",
+    "code": "type MathFn = (a: number, b: number) => number;\nconst add: MathFn = (a, b) => a + b;\nconst subtract: MathFn = (a, b) => a - b;\nconsole.log(add(5, 3));      // 8\nconsole.log(subtract(5, 3)); // 2",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "const subtract: MathFn = (a, b) => a - b;",
+          "type MathFn = (a: number, b: number) => number;",
+          "console.log(add(5, 3));      // 8",
+          "const add: MathFn = (a, b) => a + b;",
+          "console.log(subtract(5, 3)); // 2"
+        ],
+        "correct_order": [
+          1,
+          3,
+          0,
+          2,
+          4
+        ],
+        "explanation": "正确顺序：定义类型别名 -> 定义add -> 定义subtract -> 使用。"
+      }
+    },
+    "quiz": {
+      "question": "函数类型别名的好处是什么？",
+      "options": [
+        "更快",
+        "复用函数签名，代码更清晰",
+        "删除类型",
+        "创建变量"
+      ],
+      "correct": 1,
+      "explanation": "函数类型别名让多个函数共享同一签名，代码更清晰。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "Promise 返回类型",
+    "explanation": "异步函数返回 Promise。在TypeScript中用 Promise<T> 描述返回类型，T是resolve的值的类型。",
+    "code": "async function fetchUser(): Promise<{ name: string }> {\n    return { name: '小明' };\n}\nfetchUser().then(u => console.log(u.name));",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "async function fetchUser(): Promise<{ name: string }> {\n    return { name: '小明' };\n}\nfetchUser().then(u => console.log(u.name));",
+        "options": [
+          "{name: '小明'}",
+          "小明",
+          "Promise",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "then回调接收解析后的对象，u.name是'小明'。"
+      }
+    },
+    "quiz": {
+      "question": "async 函数返回什么类型？",
+      "options": [
+        "直接返回值",
+        "Promise",
+        "void",
+        "any"
+      ],
+      "correct": 1,
+      "explanation": "async函数总是返回Promise，即使return普通值也包装为Promise。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "rest 参数类型",
+    "explanation": "rest 参数收集多余参数。类型写在参数名后面，是一个数组类型。",
+    "code": "function log(prefix: string, ...messages: string[]) {\n    messages.forEach(m => console.log(prefix, m));\n}\nlog('INFO', '启动', '成功');",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的错误",
+      "content": {
+        "code_lines": [
+          "function log(prefix: string, ...messages: string) {",
+          "    messages.forEach(m => console.log(prefix, m));",
+          "}",
+          "log('INFO', '启动', '成功');"
+        ],
+        "bug_line": 0,
+        "explanation": "第1行rest参数类型应该是string[]（数组），不是string。改为 ...messages: string[]。"
+      }
+    },
+    "quiz": {
+      "question": "rest 参数的类型应该是什么？",
+      "options": [
+        "单个类型",
+        "数组类型",
+        "对象类型",
+        "void"
+      ],
+      "correct": 1,
+      "explanation": "rest参数收集为数组，类型应该是数组类型如 string[]。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "解构参数",
+    "explanation": "函数参数可以解构对象。在参数位置直接解构，并为每个属性添加类型注解。",
+    "code": "function display({ name, age }: { name: string; age: number }) {\n    console.log(`${name}, ${age}岁`);\n}\ndisplay({ name: '小明', age: 20 });",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写变量名",
+      "content": {
+        "code": "function display({ name, age }: { name: string; age: number }) {\n    console.log(`${___}, ${age}岁`);\n}\ndisplay({ name: '小明', age: 20 });",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "name",
+            "options": [
+              "name",
+              "this.name",
+              "user",
+              "str"
+            ]
+          }
+        ],
+        "explanation": "解构参数中name变量直接可用。"
+      }
+    },
+    "quiz": {
+      "question": "解构参数 { name, age } 的作用是什么？",
+      "options": [
+        "创建对象",
+        "直接提取对象属性为变量",
+        "删除属性",
+        "导入模块"
+      ],
+      "correct": 1,
+      "explanation": "解构参数直接将对象属性提取为函数内的局部变量。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "构造函数类型 new",
+    "explanation": "用 new() 描述构造函数类型。常见于工厂模式和依赖注入。",
+    "code": "interface Constructor<T> {\n    new (...args: any[]): T;\n}\nfunction create<T>(ctor: Constructor<T>): T {\n    return new ctor();\n}",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "function create<T>(ctor: Constructor<T>): T {",
+          "interface Constructor<T> {",
+          "    new (...args: any[]): T;",
+          "    return new ctor();",
+          "}"
+        ],
+        "correct_order": [
+          1,
+          2,
+          4,
+          0,
+          3
+        ],
+        "explanation": "正确顺序：定义构造函数接口 -> new签名 -> 定义工厂函数 -> 返回。"
+      }
+    },
+    "quiz": {
+      "question": "new (...args: any[]) => T 表示什么？",
+      "options": [
+        "普通函数",
+        "构造函数类型",
+        "回调函数",
+        "箭头函数"
+      ],
+      "correct": 1,
+      "explanation": "new()签名描述构造函数类型，用于new关键字调用。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "函数签名 vs 箭头函数类型",
+    "explanation": "函数类型有两种写法：调用签名 (a: number) => number 和方法签名 (a: number): number。箭头函数类型更常用。",
+    "code": "type Formatter = (input: string) => string;\n\nconst upper: Formatter = (s) => s.toUpperCase();\nconst lower: Formatter = (s) => s.toLowerCase();\n\nconsole.log(upper('hello'));\nconsole.log(lower('WORLD'));",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "type Formatter = (input: string) => string;\n\nconst upper: Formatter = (s) => s.toUpperCase();\nconst lower: Formatter = (s) => s.toLowerCase();\n\nconsole.log(upper('hello'));\nconsole.log(lower('WORLD'));",
+        "options": [
+          "hello 和 WORLD",
+          "HELLO 和 world",
+          "报错",
+          "undefined 和 undefined"
+        ],
+        "correct": 1,
+        "explanation": "upper转大写得到HELLO，lower转小写得到world。"
+      }
+    },
+    "quiz": {
+      "question": "箭头函数类型 (x: number) => number 中 => 表示什么？",
+      "options": [
+        "赋值",
+        "函数类型（参数到返回值）",
+        "比较",
+        "导入"
+      ],
+      "correct": 1,
+      "explanation": "=> 表示函数类型，左边参数右边返回值。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "条件类型函数",
+    "explanation": "条件类型 extends ... ? ... : ... 根据类型关系返回不同类型。常用于泛型函数。",
+    "code": "function process<T extends string | number>(\n    value: T\n): T extends string ? string : number {\n    if (typeof value === 'string') {\n        return value.toUpperCase() as any;\n    }\n    return (value as number).toFixed(2) as any;\n}",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "这段代码有没有错误？",
+      "content": {
+        "code_lines": [
+          "function process<T extends string | number>(",
+          "    value: T",
+          "): T extends string ? string : number {",
+          "    if (typeof value === 'string') {",
+          "        return value.toUpperCase() as any;",
+          "    }",
+          "    return (value as number).toFixed(2) as any;",
+          "}"
+        ],
+        "bug_line": -1,
+        "explanation": "这段代码没有语法错误。条件类型的返回值需要类型断言来匹配。"
+      }
+    },
+    "quiz": {
+      "question": "T extends string ? string : number 表示什么？",
+      "options": [
+        "如果T是string返回string，否则返回number",
+        "报错",
+        "总是返回string",
+        "总是返回number"
+      ],
+      "correct": 0,
+      "explanation": "条件类型根据类型关系选择返回类型。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "infer 关键字",
+    "explanation": "infer 在条件类型中推断类型变量。常用于提取函数返回值类型等场景。",
+    "code": "type ReturnType<T> = T extends (...args: any[]) => infer R ? R : never;\ntype A = ReturnType<() => string>;  // string\ntype B = ReturnType<() => number>;  // number",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写type B的类型",
+      "content": {
+        "code": "type ReturnType<T> = T extends (...args: any[]) => infer R ? R : never;\ntype A = ReturnType<() => string>;  // string\ntype B = ReturnType<() => number>;  // ___",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "number",
+            "options": [
+              "number",
+              "string",
+              "any",
+              "never"
+            ]
+          }
+        ],
+        "explanation": "ReturnType提取函数返回值类型，() => number的返回值是number。"
+      }
+    },
+    "quiz": {
+      "question": "infer 关键字的作用是什么？",
+      "options": [
+        "删除类型",
+        "在条件类型中推断类型变量",
+        "创建变量",
+        "导入模块"
+      ],
+      "correct": 1,
+      "explanation": "infer在条件类型中推断（提取）类型变量。"
+    }
+  },
+  {
+    "week": 8,
+    "module": "ts-functions",
+    "title": "函数组合",
+    "explanation": "函数组合是把多个函数串联起来，前一个的输出作为后一个的输入。这是函数式编程的基础。",
+    "code": "type Fn = (x: number) => number;\nconst double: Fn = x => x * 2;\nconst addOne: Fn = x => x + 1;\nfunction compose(f: Fn, g: Fn): Fn {\n    return x => f(g(x));\n}\nconst doubleThenAdd = compose(addOne, double);\nconsole.log(doubleThenAdd(3));  // 7",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "const addOne: Fn = x => x + 1;",
+          "console.log(doubleThenAdd(3));  // 7",
+          "type Fn = (x: number) => number;",
+          "    return x => f(g(x));",
+          "const double: Fn = x => x * 2;",
+          "function compose(f: Fn, g: Fn): Fn {",
+          "const doubleThenAdd = compose(addOne, double);",
+          "}"
+        ],
+        "correct_order": [
+          2,
+          4,
+          0,
+          5,
+          3,
+          7,
+          6,
+          1
+        ],
+        "explanation": "正确顺序：定义类型 -> 定义函数 -> compose函数 -> 创建组合 -> 使用。"
+      }
+    },
+    "quiz": {
+      "question": "compose(addOne, double)(3) 等于多少？",
+      "options": [
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "correct": 1,
+      "explanation": "先double(3)=6，再addOne(6)=7。compose(g,f)(x) = g(f(x))。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-interfaces",
+    "title": "interface 定义对象形状",
+    "explanation": "interface 定义对象应该有哪些属性和方法。就像一份合同，对象必须遵守。",
+    "code": "interface User {\n    name: string;\n    age: number;\n}\n\nconst user: User = { name: '小明', age: 20 };\nconsole.log(user.name);",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "interface User {\n    name: string;\n    age: number;\n}\n\nconst user: User = { name: '小明', age: 20 };\nconsole.log(user.name);",
+        "options": [
+          "20",
+          "小明",
+          "{name: '小明', age: 20}",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "user.name 是 '小明'。"
+      }
+    },
+    "quiz": {
+      "question": "interface 的主要作用是什么？",
+      "options": [
+        "创建变量",
+        "定义对象的形状（结构）",
+        "导入模块",
+        "删除代码"
+      ],
+      "correct": 1,
+      "explanation": "interface定义对象应该有哪些属性和类型。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-interfaces",
+    "title": "interface vs type 的区别",
+    "explanation": "interface 和 type 都能定义对象类型，但 interface 可以被 extends 和 implements，type 更灵活可以定义联合类型。",
+    "code": "interface Animal {\n    name: string;\n}\ninterface Dog extends Animal {\n    breed: string;\n}\ntype Cat = Animal & { color: string };",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "这段代码有没有错误？",
+      "content": {
+        "code_lines": [
+          "interface Animal {",
+          "    name: string;",
+          "}",
+          "interface Dog extends Animal {",
+          "    breed: string;",
+          "}",
+          "type Cat = Animal & { color: string };"
+        ],
+        "bug_line": -1,
+        "explanation": "这段代码没有错误。interface用extends继承，type用&交叉。两种方式都正确。"
+      }
+    },
+    "quiz": {
+      "question": "interface 用什么关键字继承？",
+      "options": [
+        "implements",
+        "extends",
+        "import",
+        "type"
+      ],
+      "correct": 1,
+      "explanation": "interface用extends继承其他接口。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-interfaces",
+    "title": "接口继承 extends",
+    "explanation": "interface 可以用 extends 继承其他接口。子接口拥有父接口的所有属性，还可以添加新属性。",
+    "code": "interface Shape {\n    color: string;\n}\ninterface Circle extends Shape {\n    radius: number;\n}",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写半径属性名",
+      "content": {
+        "code": "interface Shape {\n    color: string;\n}\ninterface Circle extends Shape {\n    ___: number;  // 半径\n}",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "radius",
+            "options": [
+              "radius",
+              "r",
+              "size",
+              "width"
+            ]
+          }
+        ],
+        "explanation": "radius是圆的半径，是标准命名。"
+      }
+    },
+    "quiz": {
+      "question": "Circle extends Shape 表示什么？",
+      "options": [
+        "Circle创建Shape",
+        "Circle继承Shape的所有属性",
+        "Shape继承Circle",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "extends让子接口拥有父接口的所有属性，还可以添加新属性。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-interfaces",
+    "title": "多接口继承",
+    "explanation": "一个接口可以继承多个接口，用逗号分隔。实现所有父接口的属性。",
+    "code": "interface Printable {\n    print(): void;\n}\ninterface Loggable {\n    log(): void;\n}\ninterface Document extends Printable, Loggable {\n    title: string;\n}",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "interface Document extends Printable, Loggable {",
+          "    title: string;",
+          "interface Loggable {",
+          "interface Printable {",
+          "    log(): void;",
+          "    print(): void;",
+          "}"
+        ],
+        "correct_order": [
+          3,
+          5,
+          6,
+          2,
+          4,
+          6,
+          0,
+          1,
+          6
+        ],
+        "explanation": "正确顺序：定义Printable -> 定义Loggable -> 定义Document继承两者。"
+      }
+    },
+    "quiz": {
+      "question": "一个接口可以继承几个接口？",
+      "options": [
+        "只能1个",
+        "任意多个",
+        "最多2个",
+        "0个"
+      ],
+      "correct": 1,
+      "explanation": "接口可以继承多个接口，用逗号分隔。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-interfaces",
+    "title": "interface 合并 declaration merging",
+    "explanation": "同名interface会自动合并（声明合并）。这是interface独有的特性，type不支持。",
+    "code": "interface Box {\n    width: number;\n}\ninterface Box {\n    height: number;\n}\nconst box: Box = { width: 10, height: 20 };\nconsole.log(box.width);",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码能正常运行吗？",
+      "content": {
+        "code": "interface Box {\n    width: number;\n}\ninterface Box {\n    height: number;\n}\nconst box: Box = { width: 10, height: 20 };\nconsole.log(box.width);",
+        "options": [
+          "能，输出10",
+          "报错：重复定义",
+          "输出undefined",
+          "输出20"
+        ],
+        "correct": 0,
+        "explanation": "同名interface会自动合并，Box同时有width和height属性。"
+      }
+    },
+    "quiz": {
+      "question": "同名interface会怎样？",
+      "options": [
+        "报错",
+        "自动合并",
+        "覆盖前一个",
+        "忽略后一个"
+      ],
+      "correct": 1,
+      "explanation": "同名interface自动合并（声明合并），这是interface独有的特性。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-interfaces",
+    "title": "索引签名",
+    "explanation": "索引签名 [key: string]: type 允许对象有任意数量的指定类型属性。常用于字典类型。",
+    "code": "interface StringMap {\n    [key: string]: string;\n}\nconst map: StringMap = {\n    name: '小明',\n    city: '北京',\n};",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的错误",
+      "content": {
+        "code_lines": [
+          "interface StringMap {",
+          "    [key: string]: string;",
+          "}",
+          "const map: StringMap = {",
+          "    name: '小明',",
+          "    age: 20,  // 错误！不是string",
+          "};"
+        ],
+        "bug_line": 5,
+        "explanation": "第6行age: 20是number类型，但索引签名要求所有值都是string。"
+      }
+    },
+    "quiz": {
+      "question": "[key: string]: string 表示什么？",
+      "options": [
+        "只有一个属性",
+        "任意数量的string类型属性",
+        "报错",
+        "空对象"
+      ],
+      "correct": 1,
+      "explanation": "索引签名允许对象有任意数量的指定类型属性。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-interfaces",
+    "title": "readonly 接口属性",
+    "explanation": "interface 中用 readonly 标记只读属性。创建后不能修改。",
+    "code": "interface Config {\n    readonly host: string;\n    readonly port: number;\n}\nconst config: Config = { host: 'localhost', port: 3000 };\nconfig.port = 8080;  // 编译报错",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写结果",
+      "content": {
+        "code": "interface Config {\n    readonly host: string;\n    readonly port: number;\n}\nconst config: Config = { host: 'localhost', port: 3000 };\nconfig.port = 8080;  // 编译___",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "报错",
+            "options": [
+              "报错",
+              "正常运行",
+              "port变为8080",
+              "port变为3000"
+            ]
+          }
+        ],
+        "explanation": "readonly属性在赋值后不可修改，编译时报错。"
+      }
+    },
+    "quiz": {
+      "question": "readonly 属性可以修改吗？",
+      "options": [
+        "可以",
+        "不可以，编译时报错",
+        "运行时可以",
+        "看情况"
+      ],
+      "correct": 1,
+      "explanation": "readonly属性初始化后不能修改，编译时检查。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-interfaces",
+    "title": "实现接口 implements",
+    "explanation": "类用 implements 实现接口，必须提供接口定义的所有属性和方法。这是面向对象的核心。",
+    "code": "interface Serializable {\n    serialize(): string;\n}\nclass User implements Serializable {\n    constructor(public name: string) {}\n    serialize(): string {\n        return JSON.stringify({ name: this.name });\n    }\n}",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "    constructor(public name: string) {}",
+          "interface Serializable {",
+          "class User implements Serializable {",
+          "    serialize(): string {",
+          "    serialize(): string;",
+          "}",
+          "        return JSON.stringify({ name: this.name });"
+        ],
+        "correct_order": [
+          1,
+          4,
+          5,
+          2,
+          0,
+          3,
+          6,
+          5
+        ],
+        "explanation": "正确顺序：定义接口 -> 方法签名 -> 类实现接口 -> 构造函数 -> 方法实现。"
+      }
+    },
+    "quiz": {
+      "question": "class implements interface 表示什么？",
+      "options": [
+        "类继承接口",
+        "类实现接口（必须提供所有属性）",
+        "接口实现类",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "implements让类必须实现接口定义的所有属性和方法。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-interfaces",
+    "title": "接口继承类",
+    "explanation": "interface 可以继承 class，获取类的结构。这在高级场景中很有用。",
+    "code": "class Base {\n    x: number = 0;\n}\ninterface Extended extends Base {\n    y: number;\n}\nconst obj: Extended = { x: 1, y: 2 };\nconsole.log(obj.x + obj.y);",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "class Base {\n    x: number = 0;\n}\ninterface Extended extends Base {\n    y: number;\n}\nconst obj: Extended = { x: 1, y: 2 };\nconsole.log(obj.x + obj.y);",
+        "options": [
+          "0",
+          "3",
+          "undefined",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "obj.x=1, obj.y=2, 1+2=3。"
+      }
+    },
+    "quiz": {
+      "question": "interface 可以继承 class 吗？",
+      "options": [
+        "不能",
+        "可以，获取类的结构",
+        "只能继承abstract类",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "interface可以继承class，获取类的属性结构。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-interfaces",
+    "title": "可调用接口",
+    "explanation": "接口可以描述函数类型。用调用签名 (参数): 返回值 定义。",
+    "code": "interface Searcher {\n    (source: string, query: string): boolean;\n}\nconst search: Searcher = (src, q) => {\n    return src.includes(q);\n};",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "这段代码有没有错误？",
+      "content": {
+        "code_lines": [
+          "interface Searcher {",
+          "    (source: string, query: string): boolean;",
+          "}",
+          "const search: Searcher = (src, q) => {",
+          "    return src.includes(q);",
+          "};"
+        ],
+        "bug_line": -1,
+        "explanation": "这段代码没有错误。接口可以有调用签名，描述函数类型。"
+      }
+    },
+    "quiz": {
+      "question": "接口中的 (参数): 返回值 叫什么？",
+      "options": [
+        "方法签名",
+        "调用签名",
+        "构造签名",
+        "索引签名"
+      ],
+      "correct": 1,
+      "explanation": "调用签名描述函数类型，让接口可以描述函数。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-interfaces",
+    "title": "泛型接口",
+    "explanation": "泛型接口让接口适用于多种类型。创建对象时指定具体类型参数。",
+    "code": "interface Repository<T> {\n    getById(id: number): T;\n    save(item: T): void;\n}\ninterface User { name: string; }\nconst userRepo: Repository<User> = {\n    getById: (id) => ({ name: '小明' }),\n    save: (user) => console.log(user.name),\n};",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写泛型参数",
+      "content": {
+        "code": "interface Repository<T> {\n    getById(id: number): T;\n    save(item: T): void;\n}\ninterface User { name: string; }\nconst userRepo: Repository<___> = {\n    getById: (id) => ({ name: '小明' }),\n    save: (user) => console.log(user.name),\n};",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "User",
+            "options": [
+              "User",
+              "T",
+              "any",
+              "object"
+            ]
+          }
+        ],
+        "explanation": "Repository的泛型参数填具体类型User。"
+      }
+    },
+    "quiz": {
+      "question": "Repository<User> 表示什么？",
+      "options": [
+        "Repository里放User类型",
+        "Repository的名字",
+        "报错",
+        "创建User"
+      ],
+      "correct": 0,
+      "explanation": "泛型参数指定Repository操作的具体类型。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-interfaces",
+    "title": "条件类型与接口",
+    "explanation": "条件类型可以根据类型关系选择不同的类型。extends在这里表示'如果是'的意思。",
+    "code": "type IsString<T> = T extends string ? 'yes' : 'no';\ntype A = IsString<string>;  // 'yes'\ntype B = IsString<number>;  // 'no'\ntype C = IsString<'hello'>; // 'yes'",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "type B = IsString<number>;  // 'no'",
+          "type IsString<T> = T extends string ? 'yes' : 'no';",
+          "type C = IsString<'hello'>; // 'yes'",
+          "type A = IsString<string>;  // 'yes'"
+        ],
+        "correct_order": [
+          1,
+          3,
+          0,
+          2
+        ],
+        "explanation": "正确顺序：定义条件类型 -> string测试 -> number测试 -> 字面量测试。"
+      }
+    },
+    "quiz": {
+      "question": "T extends string ? 'yes' : 'no' 中 extends 表示什么？",
+      "options": [
+        "继承",
+        "如果是（类型约束）",
+        "导入",
+        "导出"
+      ],
+      "correct": 1,
+      "explanation": "在条件类型中，extends表示'如果是'（类型约束检查）。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-interfaces",
+    "title": "映射类型 Readonly",
+    "explanation": "映射类型把现有类型的所有属性变成只读。Readonly<T> 是内置的映射类型。",
+    "code": "interface Todo {\n    title: string;\n    completed: boolean;\n}\ntype ReadonlyTodo = Readonly<Todo>;\nconst todo: ReadonlyTodo = { title: '学习', completed: false };\ntodo.completed = true;  // 编译错误！",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "todo.completed = true 会怎样？",
+      "content": {
+        "code": "interface Todo {\n    title: string;\n    completed: boolean;\n}\ntype ReadonlyTodo = Readonly<Todo>;\nconst todo: ReadonlyTodo = { title: '学习', completed: false };\ntodo.completed = true;  // 编译错误！",
+        "options": [
+          "正常修改",
+          "编译时报错",
+          "运行时报错",
+          "completed变为true"
+        ],
+        "correct": 1,
+        "explanation": "Readonly把所有属性变为只读，修改编译报错。"
+      }
+    },
+    "quiz": {
+      "question": "Readonly<T> 的作用是什么？",
+      "options": [
+        "让所有属性可选",
+        "让所有属性只读",
+        "删除属性",
+        "创建新属性"
+      ],
+      "correct": 1,
+      "explanation": "Readonly<T> 把类型T的所有属性变为readonly。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-interfaces",
+    "title": "Pick 和 Omit 工具类型",
+    "explanation": "Pick<T, K> 从类型T中选取部分属性K。Omit<T, K> 从类型T中排除属性K。",
+    "code": "interface User {\n    id: number;\n    name: string;\n    email: string;\n    age: number;\n}\ntype UserPreview = Pick<User, 'name' | 'email'>;\ntype UserWithoutAge = Omit<User, 'age'>;",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "这段代码有没有错误？",
+      "content": {
+        "code_lines": [
+          "interface User {",
+          "    id: number;",
+          "    name: string;",
+          "    email: string;",
+          "    age: number;",
+          "}",
+          "type UserPreview = Pick<User, 'name' | 'email'>;",
+          "type UserWithoutAge = Omit<User, 'age'>;"
+        ],
+        "bug_line": -1,
+        "explanation": "这段代码没有错误。Pick选取'name'和'email'，Omit排除'age'。"
+      }
+    },
+    "quiz": {
+      "question": "Pick<User, 'name' | 'email'> 的结果是什么？",
+      "options": [
+        "所有属性",
+        "只有name和email",
+        "没有属性",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "Pick从类型中选取指定的属性。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-async",
+    "title": "Promise 基础",
+    "explanation": "Promise 代表一个异步操作的最终结果。有三种状态：pending（进行中）、fulfilled（成功）、rejected（失败）。",
+    "code": "const promise = new Promise<string>((resolve) => {\n    setTimeout(() => resolve('完成'), 1000);\n});\npromise.then(result => console.log(result));",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "1秒后输出什么？",
+      "content": {
+        "code": "const promise = new Promise<string>((resolve) => {\n    setTimeout(() => resolve('完成'), 1000);\n});\npromise.then(result => console.log(result));",
+        "options": [
+          "undefined",
+          "完成",
+          "Promise",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "Promise在1秒后resolve('完成'), then回调打印结果。"
+      }
+    },
+    "quiz": {
+      "question": "Promise 有几种状态？",
+      "options": [
+        "2种",
+        "3种：pending、fulfilled、rejected",
+        "1种",
+        "4种"
+      ],
+      "correct": 1,
+      "explanation": "Promise有三种状态：pending（进行中）、fulfilled（成功）、rejected（失败）。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-async",
+    "title": "async/await 语法",
+    "explanation": "async 函数返回 Promise。await 等待 Promise 完成并获取结果。让异步代码看起来像同步代码。",
+    "code": "async function getData(): Promise<number> {\n    const response = await fetch('/api/data');\n    const data = await response.json();\n    return data.value;\n}",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "这段代码有没有错误？",
+      "content": {
+        "code_lines": [
+          "async function getData(): Promise<number> {",
+          "    const response = await fetch('/api/data');",
+          "    const data = await response.json();",
+          "    return data.value;",
+          "}"
+        ],
+        "bug_line": -1,
+        "explanation": "这段代码没有错误。async函数用await等待Promise，返回值自动包装为Promise。"
+      }
+    },
+    "quiz": {
+      "question": "await 的作用是什么？",
+      "options": [
+        "创建Promise",
+        "等待Promise完成并获取结果",
+        "删除Promise",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "await暂停async函数执行，等待Promise完成并获取结果。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-async",
+    "title": "Promise.all 并发",
+    "explanation": "Promise.all() 接受Promise数组，等所有Promise都完成后返回结果数组。任何一个失败就整体失败。",
+    "code": "const promises = [\n    fetch('/api/users'),\n    fetch('/api/posts'),\n];\nconst results = await Promise.all(promises);\nconsole.log(results.length);  // 2",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写Promise方法名",
+      "content": {
+        "code": "const promises = [\n    fetch('/api/users'),\n    fetch('/api/posts'),\n];\nconst results = await Promise.___(promises);\nconsole.log(results.length);  // 2",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "all",
+            "options": [
+              "all",
+              "race",
+              "any",
+              "resolve"
+            ]
+          }
+        ],
+        "explanation": "Promise.all()等待所有Promise完成。"
+      }
+    },
+    "quiz": {
+      "question": "Promise.all() 中任何一个失败会怎样？",
+      "options": [
+        "其他继续",
+        "整体失败",
+        "返回空数组",
+        "忽略错误"
+      ],
+      "correct": 1,
+      "explanation": "Promise.all()中任何一个reject，整体就reject。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-async",
+    "title": "错误处理 try/catch",
+    "explanation": "在async函数中用 try/catch 捕获异步错误。也可以用 .catch() 方法。",
+    "code": "async function fetchUser() {\n    try {\n        const res = await fetch('/api/user');\n        if (!res.ok) throw new Error('请求失败');\n        return await res.json();\n    } catch (error) {\n        console.error('错误:', error);\n        return null;\n    }\n}",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "        if (!res.ok) throw new Error('请求失败');",
+          "    } catch (error) {",
+          "        return null;",
+          "    try {",
+          "        return await res.json();",
+          "        console.error('错误:', error);",
+          "async function fetchUser() {"
+        ],
+        "correct_order": [
+          6,
+          3,
+          0,
+          4,
+          1,
+          5,
+          2
+        ],
+        "explanation": "正确顺序：定义函数 -> try块 -> 检查响应 -> 返回数据 -> catch处理错误。"
+      }
+    },
+    "quiz": {
+      "question": "async函数中如何捕获异步错误？",
+      "options": [
+        "if语句",
+        "try/catch",
+        "console.log",
+        "return"
+      ],
+      "correct": 1,
+      "explanation": "async函数中用try/catch捕获await可能抛出的错误。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-async",
+    "title": "Promise.race 竞速",
+    "explanation": "Promise.race() 返回最先完成的Promise的结果（无论成功或失败）。",
+    "code": "const fast = new Promise<string>(resolve => {\n    setTimeout(() => resolve('快'), 100);\n});\nconst slow = new Promise<string>(resolve => {\n    setTimeout(() => resolve('慢'), 500);\n});\nconst result = await Promise.race([fast, slow]);\nconsole.log(result);",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "const fast = new Promise<string>(resolve => {\n    setTimeout(() => resolve('快'), 100);\n});\nconst slow = new Promise<string>(resolve => {\n    setTimeout(() => resolve('慢'), 500);\n});\nconst result = await Promise.race([fast, slow]);\nconsole.log(result);",
+        "options": [
+          "慢",
+          "快",
+          "['快', '慢']",
+          "undefined"
+        ],
+        "correct": 1,
+        "explanation": "race返回最先完成的，fast 100ms就完成了，所以输出'快'。"
+      }
+    },
+    "quiz": {
+      "question": "Promise.race() 返回什么？",
+      "options": [
+        "所有结果",
+        "最先完成的结果",
+        "最后完成的结果",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "Promise.race() 返回最先完成（无论成功或失败）的Promise的结果。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-async",
+    "title": "await 的错误处理",
+    "explanation": "await 可能抛出错误（Promise被reject时）。必须用try/catch包裹，否则错误会传播到外层。",
+    "code": "async function riskyOperation() {\n    try {\n        const data = await fetchData();\n        console.log(data);\n    } catch (error) {\n        console.error(error);\n    }\n}",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的问题",
+      "content": {
+        "code_lines": [
+          "async function riskyOperation() {",
+          "    const data = await fetchData();",
+          "    console.log(data);  // 如果fetchData失败呢？",
+          "}"
+        ],
+        "bug_line": 1,
+        "explanation": "第2行await可能抛错但没有try/catch处理。如果fetchData reject，错误会传播出去。"
+      }
+    },
+    "quiz": {
+      "question": "不处理await的错误会怎样？",
+      "options": [
+        "自动忽略",
+        "错误传播到外层",
+        "返回undefined",
+        "程序崩溃"
+      ],
+      "correct": 1,
+      "explanation": "不处理的错误会传播到调用者，可能导致未捕获的Promise rejection。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-async",
+    "title": "Promise 泛型类型",
+    "explanation": "Promise<T> 的泛型参数T是resolve时传递的值的类型。用它描述异步函数的返回值。",
+    "code": "async function getName(): Promise<string> {\n    return '小明';\n}\nconst name = await getName();\nconsole.log(name.toUpperCase());",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写Promise的泛型参数",
+      "content": {
+        "code": "async function getName(): Promise<___> {\n    return '小明';\n}\nconst name = await getName();\nconsole.log(name.toUpperCase());",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "string",
+            "options": [
+              "string",
+              "number",
+              "any",
+              "void"
+            ]
+          }
+        ],
+        "explanation": "返回值'小明'是string，所以Promise<string>。"
+      }
+    },
+    "quiz": {
+      "question": "Promise<string> 表示什么？",
+      "options": [
+        "Promise里放string",
+        "Promise的名字",
+        "报错",
+        "创建string"
+      ],
+      "correct": 0,
+      "explanation": "Promise<string> 表示异步操作最终返回一个字符串。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-async",
+    "title": "Promise.allSettled",
+    "explanation": "Promise.allSettled() 等待所有Promise完成（无论成功或失败），返回每个的结果状态。",
+    "code": "const results = await Promise.allSettled([\n    fetch('/api/a'),\n    fetch('/api/b'),\n]);\nresults.forEach(r => {\n    if (r.status === 'fulfilled') {\n        console.log('成功:', r.value);\n    } else {\n        console.log('失败:', r.reason);\n    }\n});",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "    if (r.status === 'fulfilled') {",
+          "        console.log('失败:', r.reason);",
+          "    } else {",
+          "const results = await Promise.allSettled([",
+          "        console.log('成功:', r.value);",
+          "]);",
+          "results.forEach(r => {"
+        ],
+        "correct_order": [
+          3,
+          5,
+          6,
+          0,
+          4,
+          2,
+          1
+        ],
+        "explanation": "正确顺序：allSettled调用 -> 结果数组 -> forEach -> 判断状态。"
+      }
+    },
+    "quiz": {
+      "question": "Promise.allSettled 和 Promise.all 的区别是什么？",
+      "options": [
+        "没有区别",
+        "allSettled等待所有完成（含失败），all任一失败就失败",
+        "allSettled更快",
+        "all更安全"
+      ],
+      "correct": 1,
+      "explanation": "allSettled等待所有Promise完成（无论成败），all任一失败就整体失败。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-async",
+    "title": "async 函数返回值",
+    "explanation": "async 函数总是返回 Promise。即使你 return 一个普通值，它也会被包装成 Promise.resolve(值)。",
+    "code": "async function getNumber(): Promise<number> {\n    return 42;\n}\ngetNumber().then(n => console.log(n + 8));",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "async function getNumber(): Promise<number> {\n    return 42;\n}\ngetNumber().then(n => console.log(n + 8));",
+        "options": [
+          "42",
+          "50",
+          "Promise",
+          "NaN"
+        ],
+        "correct": 1,
+        "explanation": "async函数返回42，被包装为Promise.resolve(42)，then中42+8=50。"
+      }
+    },
+    "quiz": {
+      "question": "async 函数 return 42 会怎样？",
+      "options": [
+        "直接返回42",
+        "返回Promise.resolve(42)",
+        "报错",
+        "返回undefined"
+      ],
+      "correct": 1,
+      "explanation": "async函数总是返回Promise，普通值被包装为Promise.resolve()。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-async",
+    "title": "Promise.reject 类型",
+    "explanation": "创建被拒绝的Promise时，应该传入 Error 对象而不是字符串。",
+    "code": "function fail(): Promise<never> {\n    return Promise.reject(new Error('出错了'));\n}\nfail().catch(err => console.log(err.message));",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "找出代码中的问题",
+      "content": {
+        "code_lines": [
+          "function fail(): Promise<never> {",
+          "    return Promise.reject('出错了');",
+          "}",
+          "fail().catch(err => console.log(err.message));"
+        ],
+        "bug_line": 1,
+        "explanation": "第2行reject传入字符串，但第4行用err.message。字符串没有message属性，应改为 new Error('出错了')。"
+      }
+    },
+    "quiz": {
+      "question": "Promise.reject() 应该传入什么？",
+      "options": [
+        "字符串",
+        "Error对象",
+        "数字",
+        "null"
+      ],
+      "correct": 1,
+      "explanation": "推荐传入Error对象，这样有stack trace等调试信息。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-async",
+    "title": "finally 方法",
+    "explanation": "Promise 的 .finally() 无论成功或失败都会执行。适合做清理工作。",
+    "code": "fetch('/api/data')\n    .then(res => res.json())\n    .then(data => console.log(data))\n    .catch(err => console.error(err))\n    .finally(() => console.log('请求结束'));",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写方法名",
+      "content": {
+        "code": "fetch('/api/data')\n    .then(res => res.json())\n    .then(data => console.log(data))\n    .catch(err => console.error(err))\n    .___(() => console.log('请求结束'));",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "finally",
+            "options": [
+              "finally",
+              "always",
+              "done",
+              "complete"
+            ]
+          }
+        ],
+        "explanation": ".finally()无论成功失败都会执行。"
+      }
+    },
+    "quiz": {
+      "question": "finally() 什么时候执行？",
+      "options": [
+        "只在成功时",
+        "只在失败时",
+        "无论成功或失败都执行",
+        "从不执行"
+      ],
+      "correct": 2,
+      "explanation": "finally()无论Promise成功或失败都会执行，适合清理工作。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-async",
+    "title": "串行与并行异步",
+    "explanation": "串行：一个接一个 await。并行：同时发起，用 Promise.all 等待。并行更快但要注意依赖关系。",
+    "code": "// 串行：总共2秒\nconst a = await delay(1000);\nconst b = await delay(1000);\n\n// 并行：总共1秒\nconst [c, d] = await Promise.all([\n    delay(1000),\n    delay(1000),\n]);",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序（先串行后并行）",
+      "content": {
+        "lines": [
+          "    delay(1000),",
+          "// 并行：总共1秒",
+          "const [c, d] = await Promise.all([",
+          "const b = await delay(1000);",
+          "    delay(1000),",
+          "const a = await delay(1000);",
+          "]);",
+          "// 串行：总共2秒"
+        ],
+        "correct_order": [
+          7,
+          5,
+          3,
+          1,
+          2,
+          0,
+          4,
+          6
+        ],
+        "explanation": "正确顺序：串行注释 -> 串行代码 -> 并行注释 -> 并行代码。"
+      }
+    },
+    "quiz": {
+      "question": "串行和并行哪个更快？",
+      "options": [
+        "串行",
+        "并行",
+        "一样",
+        "看情况"
+      ],
+      "correct": 1,
+      "explanation": "并行同时发起请求，总耗时等于最慢的那个，比串行快。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-async",
+    "title": "async 迭代器",
+    "explanation": "for await...of 遍历异步可迭代对象。每个迭代步骤可以是异步的。",
+    "code": "async function* generate() {\n    yield 1;\n    yield 2;\n    yield 3;\n}\nasync function main() {\n    for await (const num of generate()) {\n        console.log(num);\n    }\n}\nmain();",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "async function* generate() {\n    yield 1;\n    yield 2;\n    yield 3;\n}\nasync function main() {\n    for await (const num of generate()) {\n        console.log(num);\n    }\n}\nmain();",
+        "options": [
+          "1 2 3",
+          "[1, 2, 3]",
+          "报错",
+          "Promise Promise Promise"
+        ],
+        "correct": 0,
+        "explanation": "for await...of 逐个获取异步生成器的值，依次输出1, 2, 3。"
+      }
+    },
+    "quiz": {
+      "question": "for await...of 用于什么？",
+      "options": [
+        "普通数组",
+        "异步可迭代对象",
+        "创建Promise",
+        "删除数据"
+      ],
+      "correct": 1,
+      "explanation": "for await...of 遍历异步可迭代对象，每次迭代可异步等待。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-modules",
+    "title": "export 导出",
+    "explanation": "export 关键字把变量、函数、类等标记为可被其他文件导入。没有export的就是模块私有的。",
+    "code": "// math.ts\nexport function add(a: number, b: number): number {\n    return a + b;\n}\nexport const PI = 3.14159;\nconst SECRET = '内部变量';  // 不能被导入",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "其他文件能导入SECRET吗？",
+      "content": {
+        "code": "// math.ts\nexport function add(a: number, b: number): number {\n    return a + b;\n}\nexport const PI = 3.14159;\nconst SECRET = '内部变量';  // 不能被导入",
+        "options": [
+          "能",
+          "不能，SECRET没有export",
+          "看情况",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "没有export的变量是模块私有的，外部无法导入。"
+      }
+    },
+    "quiz": {
+      "question": "没有export的变量能被其他文件导入吗？",
+      "options": [
+        "能",
+        "不能，是模块私有的",
+        "看情况",
+        "只有class可以"
+      ],
+      "correct": 1,
+      "explanation": "只有export标记的内容才能被其他文件导入。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-modules",
+    "title": "import 导入",
+    "explanation": "import 从其他模块导入已导出的内容。可以导入单个、多个或全部。",
+    "code": "import { add, PI } from './math';\nimport * as MathModule from './math';\n\nconsole.log(add(1, 2));\nconsole.log(MathModule.PI);",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "这段代码有没有错误？",
+      "content": {
+        "code_lines": [
+          "import { add, PI } from './math';",
+          "import * as MathModule from './math';",
+          "",
+          "console.log(add(1, 2));",
+          "console.log(MathModule.PI);"
+        ],
+        "bug_line": -1,
+        "explanation": "这段代码没有错误。两种导入方式都可以使用，命名导入和命名空间导入。"
+      }
+    },
+    "quiz": {
+      "question": "import * as M from './mod' 中 M 是什么？",
+      "options": [
+        "变量",
+        "命名空间（包含所有导出）",
+        "函数",
+        "类"
+      ],
+      "correct": 1,
+      "explanation": "* as M 把模块所有导出收集到M命名空间中。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-modules",
+    "title": "default export 默认导出",
+    "explanation": "每个模块可以有一个 default export。导入时可以任意命名。",
+    "code": "// Logger.ts\nexport default class Logger {\n    log(msg: string) {\n        console.log(msg);\n    }\n}\n\n// main.ts\nimport MyLogger from './Logger';",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写导出关键字",
+      "content": {
+        "code": "// Logger.ts\nexport ___ class Logger {\n    log(msg: string) {\n        console.log(msg);\n    }\n}\n\n// main.ts\nimport MyLogger from './Logger';",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "default",
+            "options": [
+              "default",
+              "as",
+              "class",
+              "public"
+            ]
+          }
+        ],
+        "explanation": "export default 定义默认导出。"
+      }
+    },
+    "quiz": {
+      "question": "每个模块可以有几个 default export？",
+      "options": [
+        "任意多个",
+        "只能1个",
+        "0个",
+        "看情况"
+      ],
+      "correct": 1,
+      "explanation": "每个模块只能有一个default export，导入时可以任意命名。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-modules",
+    "title": "重新导出 re-export",
+    "explanation": "可以从一个模块导入后再导出，创建统一的入口文件（barrel export）。",
+    "code": "// index.ts\nexport { add, subtract } from './math';\nexport { User, Admin } from './models';\nexport { default as Logger } from './logger';\n\n// main.ts\nimport { add, User, Logger } from './index';",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "export { default as Logger } from './logger';",
+          "import { add, User, Logger } from './index';",
+          "export { add, subtract } from './math';",
+          "// index.ts",
+          "export { User, Admin } from './models';",
+          "// main.ts"
+        ],
+        "correct_order": [
+          3,
+          2,
+          4,
+          0,
+          5,
+          1
+        ],
+        "explanation": "正确顺序：index.ts入口 -> 重导出math -> 重导出models -> 重导出logger -> main.ts导入。"
+      }
+    },
+    "quiz": {
+      "question": "re-export 的作用是什么？",
+      "options": [
+        "删除模块",
+        "创建统一的入口文件",
+        "加速导入",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "re-export创建barrel export，让外部从一个入口导入所有需要的内容。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-modules",
+    "title": "type-only import",
+    "explanation": "import type 只导入类型信息，编译后会被完全删除。用于只需要类型不需要运行时值的场景。",
+    "code": "// types.ts\nexport interface User {\n    name: string;\n}\n\n// main.ts\nimport type { User } from './types';\nconst user: User = { name: '小明' };\nconsole.log(user.name);",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "// types.ts\nexport interface User {\n    name: string;\n}\n\n// main.ts\nimport type { User } from './types';\nconst user: User = { name: '小明' };\nconsole.log(user.name);",
+        "options": [
+          "小明",
+          "报错：User未定义",
+          "undefined",
+          "User"
+        ],
+        "correct": 0,
+        "explanation": "import type在编译时检查类型，运行时User被删除，但对象字面量仍然正确。"
+      }
+    },
+    "quiz": {
+      "question": "import type 的特点是什么？",
+      "options": [
+        "运行时可用",
+        "编译后被删除，只用于类型检查",
+        "更快",
+        "导入值"
+      ],
+      "correct": 1,
+      "explanation": "import type只导入类型信息，编译后完全删除，不影响运行时。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-modules",
+    "title": "命名空间 namespace",
+    "explanation": "namespace 将相关的代码组织在一个命名空间下。现代项目更推荐用ES模块，但类型声明中仍常用。",
+    "code": "namespace Validation {\n    export function isEmail(email: string): boolean {\n        return email.includes('@');\n    }\n}\nconsole.log(Validation.isEmail('test@test.com'));",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "这段代码有没有错误？",
+      "content": {
+        "code_lines": [
+          "namespace Validation {",
+          "    export function isEmail(email: string): boolean {",
+          "        return email.includes('@');",
+          "    }",
+          "}",
+          "console.log(Validation.isEmail('test@test.com'));"
+        ],
+        "bug_line": -1,
+        "explanation": "这段代码没有错误。namespace内的函数需要export才能在外部访问。"
+      }
+    },
+    "quiz": {
+      "question": "namespace 内的函数需要什么才能在外部访问？",
+      "options": [
+        "public",
+        "export",
+        "import",
+        "declare"
+      ],
+      "correct": 1,
+      "explanation": "namespace内需要export标记才能在外部通过命名空间访问。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-modules",
+    "title": "声明文件 .d.ts",
+    "explanation": ".d.ts 文件只包含类型声明，不包含实现代码。用来描述JavaScript库的类型，让TypeScript能正确检查。",
+    "code": "// lodash.d.ts\ndeclare module 'lodash' {\n    function sum(nums: number[]): number;\n    function map<T, U>(arr: T[], fn: (item: T) => U): U[];\n}",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写关键字",
+      "content": {
+        "code": "// lodash.d.ts\ndeclare ___ {\n    function sum(nums: number[]): number;\n    function map<T, U>(arr: T[], fn: (item: T) => U): U[];\n}",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "module",
+            "options": [
+              "module",
+              "namespace",
+              "class",
+              "function"
+            ]
+          }
+        ],
+        "explanation": "declare module声明一个JS模块的类型定义。"
+      }
+    },
+    "quiz": {
+      "question": ".d.ts 文件的作用是什么？",
+      "options": [
+        "运行代码",
+        "声明类型（不含实现）",
+        "创建变量",
+        "导入模块"
+      ],
+      "correct": 1,
+      "explanation": ".d.ts只包含类型声明，用来描述JS库的类型，让TS能正确检查。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-modules",
+    "title": "模块解析策略",
+    "explanation": "tsconfig.json 中 moduleResolution 控制如何查找模块。'node' 模仿Node.js的查找方式。",
+    "code": "{\n    \"compilerOptions\": {\n        \"module\": \"ESNext\",\n        \"moduleResolution\": \"node\",\n        \"target\": \"ES2020\"\n    }\n}",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列配置项到正确顺序",
+      "content": {
+        "lines": [
+          "    \"target\": \"ES2020\"",
+          "    \"compilerOptions\": {",
+          "    \"moduleResolution\": \"node\",",
+          "    \"module\": \"ESNext\",",
+          "}"
+        ],
+        "correct_order": [
+          1,
+          3,
+          2,
+          0,
+          4
+        ],
+        "explanation": "正确顺序：compilerOptions -> module -> moduleResolution -> target -> 闭合。"
+      }
+    },
+    "quiz": {
+      "question": "moduleResolution: 'node' 表示什么？",
+      "options": [
+        "使用Python查找",
+        "模仿Node.js的模块查找方式",
+        "禁用模块",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "'node'模仿Node.js的查找方式，按node_modules等路径搜索。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-modules",
+    "title": "动态导入 import()",
+    "explanation": "import() 是动态导入，返回Promise。用于按需加载模块，减少初始加载时间。",
+    "code": "async function loadModule() {\n    const { add } = await import('./math');\n    console.log(add(1, 2));\n}\nloadModule();",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码输出什么？",
+      "content": {
+        "code": "async function loadModule() {\n    const { add } = await import('./math');\n    console.log(add(1, 2));\n}\nloadModule();",
+        "options": [
+          "报错",
+          "3",
+          "Promise",
+          "undefined"
+        ],
+        "correct": 1,
+        "explanation": "动态导入后解构出add函数，1+2=3。"
+      }
+    },
+    "quiz": {
+      "question": "动态导入 import() 返回什么？",
+      "options": [
+        "模块对象",
+        "Promise",
+        "void",
+        "string"
+      ],
+      "correct": 1,
+      "explanation": "import()返回Promise，resolve后得到模块对象。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-modules",
+    "title": "ambient 声明",
+    "explanation": "declare 关键字声明一个在其他地方定义的变量。告诉TypeScript'这个东西存在，但不在这里定义'。",
+    "code": "declare const API_URL: string;\ndeclare function fetchData(url: string): Promise<any>;\n\nconsole.log(API_URL);\nfetchData('/api');",
+    "game": {
+      "type": "find_bug",
+      "title": "找Bug",
+      "instructions": "这段代码有没有错误？",
+      "content": {
+        "code_lines": [
+          "declare const API_URL: string;",
+          "declare function fetchData(url: string): Promise<any>;",
+          "",
+          "console.log(API_URL);",
+          "fetchData('/api');"
+        ],
+        "bug_line": -1,
+        "explanation": "这段代码没有错误。declare声明在其他地方定义的全局变量和函数。"
+      }
+    },
+    "quiz": {
+      "question": "declare 的作用是什么？",
+      "options": [
+        "创建变量",
+        "声明在其他地方定义的东西",
+        "删除代码",
+        "导入模块"
+      ],
+      "correct": 1,
+      "explanation": "declare告诉TypeScript某个东西存在，但不在当前文件定义。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-modules",
+    "title": "path 映射",
+    "explanation": "tsconfig.json 中 paths 可以定义模块路径别名，避免深层相对路径如 '../../../utils'。",
+    "code": "{\n    \"compilerOptions\": {\n        \"baseUrl\": \".\",\n        \"paths\": {\n            \"@utils/*\": [\"src/utils/*\"],\n            \"@components/*\": [\"src/components/*\"]\n        }\n    }\n}",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空题",
+      "instructions": "填写配置项名",
+      "content": {
+        "code": "{\n    \"compilerOptions\": {\n        \"baseUrl\": \".\",\n        \"___\": {\n            \"@utils/*\": [\"src/utils/*\"],\n            \"@components/*\": [\"src/components/*\"]\n        }\n    }\n}",
+        "blanks": [
+          {
+            "position": 0,
+            "answer": "paths",
+            "options": [
+              "paths",
+              "aliases",
+              "mapping",
+              "imports"
+            ]
+          }
+        ],
+        "explanation": "paths配置模块路径映射。"
+      }
+    },
+    "quiz": {
+      "question": "paths 配置的作用是什么？",
+      "options": [
+        "删除路径",
+        "定义模块路径别名",
+        "创建目录",
+        "导入模块"
+      ],
+      "correct": 1,
+      "explanation": "paths定义模块路径别名，让导入语句更简洁。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-modules",
+    "title": "全局类型声明",
+    "explanation": "在 .d.ts 文件中声明全局类型，不用导入就能在整个项目中使用。",
+    "code": "// global.d.ts\ndeclare global {\n    interface Window {\n        __APP_CONFIG__: {\n            apiUrl: string;\n        };\n    }\n}\nexport {};",
+    "game": {
+      "type": "code_order",
+      "title": "代码排序",
+      "instructions": "排列代码到正确顺序",
+      "content": {
+        "lines": [
+          "export {};",
+          "declare global {",
+          "// global.d.ts",
+          "    }",
+          "    interface Window {",
+          "        __APP_CONFIG__:",
+          "            apiUrl: string;",
+          "        };",
+          "}"
+        ],
+        "correct_order": [
+          2,
+          1,
+          4,
+          5,
+          6,
+          7,
+          3,
+          8,
+          0
+        ],
+        "explanation": "正确顺序：注释 -> declare global -> interface Window -> 属性定义 -> 闭合 -> export。"
+      }
+    },
+    "quiz": {
+      "question": "declare global 的作用是什么？",
+      "options": [
+        "删除全局变量",
+        "声明全局可用的类型",
+        "创建局部变量",
+        "导入模块"
+      ],
+      "correct": 1,
+      "explanation": "declare global在.d.ts中声明全局可用的类型，无需导入。"
+    }
+  },
+  {
+    "week": 9,
+    "module": "ts-modules",
+    "title": "三斜线指令",
+    "explanation": "三斜线指令 /// <reference path='...' /> 告诉编译器包含另一个文件的类型。现代项目中已少用，被模块导入取代。",
+    "code": "// app.ts\n/// <reference path='./types.d.ts' />\n\nconst user: User = { name: '小明' };\nconsole.log(user.name);",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "这段代码能识别User类型吗？",
+      "content": {
+        "code": "// app.ts\n/// <reference path='./types.d.ts' />\n\nconst user: User = { name: '小明' };\nconsole.log(user.name);",
+        "options": [
+          "能，通过三斜线引用",
+          "不能，需要import",
+          "报错",
+          "运行时才识别"
+        ],
+        "correct": 0,
+        "explanation": "三斜线指令让编译器包含types.d.ts中的类型声明，User类型可用。"
+      }
+    },
+    "quiz": {
+      "question": "三斜线指令在现代项目中的地位是什么？",
+      "options": [
+        "必须使用",
+        "已少用，被模块导入取代",
+        "更快",
+        "更安全"
+      ],
+      "correct": 1,
+      "explanation": "现代项目推荐用ES模块导入，三斜线指令已少用。"
+    }
+  }
+]

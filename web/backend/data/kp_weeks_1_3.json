@@ -1,0 +1,3982 @@
+[
+  {
+    "week": 1,
+    "module": "cognitive-why",
+    "title": "什么是程序",
+    "explanation": "程序就是给计算机的一组指令。就像菜谱告诉你怎么做菜一样，程序告诉计算机该做什么。你写的每一行代码，都是在和计算机对话。",
+    "code": "print('你好世界！')\n# 输出: 你好世界！",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "print('你好世界！')",
+        "options": [
+          "你好世界！",
+          "你好世界",
+          "报错",
+          "什么都没有"
+        ],
+        "correct": 0,
+        "explanation": "print() 会把括号里的内容输出到屏幕上"
+      }
+    },
+    "quiz": {
+      "question": "程序是什么？",
+      "options": [
+        "一台电脑",
+        "给计算机的一组指令",
+        "一种语言",
+        "一个网站"
+      ],
+      "correct": 1,
+      "explanation": "程序就是给计算机的指令，告诉它该做什么。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-why",
+    "title": "输入和输出",
+    "explanation": "程序的工作流程：接收输入 → 处理数据 → 产出输出。就像自动贩卖机：投币（输入），机器处理，掉出饮料（输出）。",
+    "code": "name = input('请输入你的名字：')\nprint(f'你好，{name}！')\n# 如果输入 '小明'，输出: 你好，小明！",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "name = '小明'\nprint(f'你好，{name}！')",
+        "options": [
+          "你好，小明！",
+          "你好，name！",
+          "报错",
+          "你好，None！"
+        ],
+        "correct": 0,
+        "explanation": "f-string 中的 {name} 会被变量的值替换"
+      }
+    },
+    "quiz": {
+      "question": "input() 函数的作用是什么？",
+      "options": [
+        "输出文字到屏幕",
+        "从用户那里获取输入",
+        "计算数学题",
+        "删除数据"
+      ],
+      "correct": 1,
+      "explanation": "input() 用于从用户那里获取输入数据。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-why",
+    "title": "什么是变量",
+    "explanation": "变量就像一个有标签的盒子，你可以在里面放东西。给盒子贴上标签（变量名），以后就能通过标签找到里面的东西。",
+    "code": "name = '小红'\nage = 20\nprint(name)   # 输出: 小红\nprint(age)    # 输出: 20",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "x = 10\ny = x\nx = 20\nprint(y)",
+        "options": [
+          "20",
+          "10",
+          "30",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "y = x 时，y 得到的是 x 当时的值 10。之后 x 改为 20，不影响 y。"
+      }
+    },
+    "quiz": {
+      "question": "变量的作用是什么？",
+      "options": [
+        "画图",
+        "存储数据以便后续使用",
+        "连接网络",
+        "打印文字"
+      ],
+      "correct": 1,
+      "explanation": "变量用来存储数据，方便后续使用和操作。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-why",
+    "title": "什么是算法",
+    "explanation": "算法就是解决问题的步骤。比如查字典：先翻到中间，看比目标大还是小，再决定往前或往后翻。这就是「二分查找」算法。",
+    "code": "# 算法示例：找到列表中最大的数\nnumbers = [3, 7, 1, 9, 4]\nbiggest = numbers[0]  # 假设第一个最大\nfor n in numbers:     # 逐个比较\n    if n > biggest:\n        biggest = n\nprint(biggest)  # 输出: 9",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "numbers = [3, 7, 1, 9, 4]\nresult = max(numbers)\nprint(result)",
+        "options": [
+          "3",
+          "7",
+          "9",
+          "4"
+        ],
+        "correct": 2,
+        "explanation": "max() 返回列表中的最大值，即 9。"
+      }
+    },
+    "quiz": {
+      "question": "算法是什么？",
+      "options": [
+        "一种编程语言",
+        "解决问题的步骤",
+        "一种电脑",
+        "一个软件"
+      ],
+      "correct": 1,
+      "explanation": "算法是解决问题的步骤，就像菜谱是做菜的步骤。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-why",
+    "title": "程序的三大结构：顺序",
+    "explanation": "顺序结构：代码从上到下一行一行执行。这是最基本的程序结构。",
+    "code": "print('第一步：起床')\nprint('第二步：刷牙')\nprint('第三步：吃早餐')\n# 按顺序输出三行",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "print('A')\nprint('B')\nprint('C')",
+        "options": [
+          "C B A",
+          "A B C",
+          "A C B",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "顺序结构：从上到下依次执行，先A再B再C。"
+      }
+    },
+    "quiz": {
+      "question": "顺序结构是怎样的？",
+      "options": [
+        "随机执行",
+        "从上到下依次执行",
+        "从下到上执行",
+        "跳着执行"
+      ],
+      "correct": 1,
+      "explanation": "顺序结构是最基本的：代码从上到下一行一行执行。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-why",
+    "title": "程序的三大结构：条件判断",
+    "explanation": "条件判断让程序能做选择。就像人生路口：如果下雨，带伞；否则，不带。",
+    "code": "weather = '下雨'\nif weather == '下雨':\n    print('带伞')\nelse:\n    print('不带伞')\n# 输出: 带伞",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "score = 85\nif score >= 60:\n    print('及格')\nelse:\n    print('不及格')",
+        "options": [
+          "及格",
+          "不及格",
+          "85",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "85 >= 60 为 True，所以执行 if 里的代码，输出'及格'。"
+      }
+    },
+    "quiz": {
+      "question": "if 语句的作用是什么？",
+      "options": [
+        "重复执行代码",
+        "根据条件做选择",
+        "定义变量",
+        "输出文字"
+      ],
+      "correct": 1,
+      "explanation": "if 语句根据条件的真假来决定执行哪段代码。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-why",
+    "title": "程序的三大结构：循环",
+    "explanation": "循环让程序能重复做事情。就像每天闹钟响了就要起床，直到周末关掉闹钟。",
+    "code": "# 用 for 循环打印 1 到 5\nfor i in range(1, 6):\n    print(i)\n# 输出: 1 2 3 4 5（每行一个）",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "for i in range(3):\n    print(i)",
+        "options": [
+          "1 2 3",
+          "0 1 2",
+          "0 1 2 3",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "range(3) 生成 0、1、2，所以输出 0 1 2（每行一个）。"
+      }
+    },
+    "quiz": {
+      "question": "循环的作用是什么？",
+      "options": [
+        "做选择",
+        "重复执行代码",
+        "存储数据",
+        "输出文字"
+      ],
+      "correct": 1,
+      "explanation": "循环让程序能重复执行某段代码，避免手动写重复的内容。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-why",
+    "title": "什么是调试",
+    "explanation": "调试（Debug）就是找错误、修错误的过程。就像医生看病：先观察症状，再诊断病因，最后开药治疗。",
+    "code": "# 调试示例\nage = 20\n# 错误写法：\n# print('年龄是' + age)  # 报错！数字不能直接和文字拼接\n# 正确写法：\nprint('年龄是' + str(age))  # 输出: 年龄是20",
+    "game": {
+      "type": "find_bug",
+      "title": "找出Bug",
+      "instructions": "以下代码有错误，请找出出错的那一行",
+      "content": {
+        "code_lines": [
+          "age = 20",
+          "print('年龄是' + age)"
+        ],
+        "bug_line": 2,
+        "explanation": "age 是数字类型，不能直接和字符串用 + 拼接，需要用 str(age) 转换。"
+      }
+    },
+    "quiz": {
+      "question": "调试的第一步是什么？",
+      "options": [
+        "直接改代码",
+        "观察错误信息",
+        "删掉代码",
+        "重装系统"
+      ],
+      "correct": 1,
+      "explanation": "调试第一步是观察错误信息，了解发生了什么问题。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-why",
+    "title": "错误类型：语法错误",
+    "explanation": "语法错误（SyntaxError）是代码不符合 Python 的语法规则。就像写作文时的错别字和病句。",
+    "code": "# 语法错误示例（不要运行）\n# print('hello'   # 缺少右括号\n# if True         # 缺少冒号\n#     print('hi')\n\n# 正确写法：\nif True:\n    print('hi')",
+    "game": {
+      "type": "find_bug",
+      "title": "找出Bug",
+      "instructions": "以下代码有错误，请找出出错的那一行",
+      "content": {
+        "code_lines": [
+          "print('hello world'",
+          "# 缺少右括号"
+        ],
+        "bug_line": 1,
+        "explanation": "print() 的括号没有闭合，需要加上右括号 )。"
+      }
+    },
+    "quiz": {
+      "question": "SyntaxError 是什么错误？",
+      "options": [
+        "逻辑错误",
+        "语法错误（代码不符合规则）",
+        "网络错误",
+        "文件错误"
+      ],
+      "correct": 1,
+      "explanation": "SyntaxError 表示代码不符合 Python 的语法规则。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-why",
+    "title": "错误类型：运行时错误",
+    "explanation": "运行时错误（RuntimeError）在代码运行时才出现。比如除以零。",
+    "code": "# 运行时错误示例\nx = 10\ny = 0\n# print(x / y)  # ZeroDivisionError!\n\n# 正确做法：先检查\nif y != 0:\n    print(x / y)\nelse:\n    print('不能除以零')",
+    "game": {
+      "type": "find_bug",
+      "title": "找出Bug",
+      "instructions": "以下代码有错误，请找出出错的那一行",
+      "content": {
+        "code_lines": [
+          "x = 10",
+          "y = 0",
+          "result = x / y",
+          "print(result)"
+        ],
+        "bug_line": 3,
+        "explanation": "y 为 0 时不能做除法，会报 ZeroDivisionError。需要先检查 y != 0。"
+      }
+    },
+    "quiz": {
+      "question": "ZeroDivisionError 是什么错误？",
+      "options": [
+        "语法错误",
+        "除以零的运行时错误",
+        "网络错误",
+        "拼写错误"
+      ],
+      "correct": 1,
+      "explanation": "ZeroDivisionError 是运行时错误，当你尝试除以零时会发生。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-why",
+    "title": "错误类型：逻辑错误",
+    "explanation": "逻辑错误不会报错，但结果不对。程序能运行，但不是你想要的结果。这是最难发现的错误。",
+    "code": "# 逻辑错误示例：计算平均分\nscores = [80, 90, 100]\n# 错误：忘了加括号\navg = 80 + 90 + 100 / 3  # 先算了 100/3!\nprint(avg)  # 输出: 203.33...\n\n# 正确：\navg = (80 + 90 + 100) / 3\nprint(avg)  # 输出: 90.0",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "a = 80\nb = 90\nc = 100\nresult = a + b + c / 3\nprint(result)",
+        "options": [
+          "90.0",
+          "203.33...",
+          "170",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "运算符优先级：c / 3 先执行 = 33.33...，然后 a + b + 33.33... = 203.33...。"
+      }
+    },
+    "quiz": {
+      "question": "逻辑错误的特点是什么？",
+      "options": [
+        "会报错",
+        "不报错但结果不对",
+        "程序无法运行",
+        "和语法有关"
+      ],
+      "correct": 1,
+      "explanation": "逻辑错误不会报错，程序正常运行，但结果不是你想要的。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-why",
+    "title": "读错误信息",
+    "explanation": "Python 的错误信息包含：错误类型、出错位置（文件名和行号）、具体描述。学会读错误信息是编程的基本功。",
+    "code": "# 看这个错误信息：\n# Traceback (most recent call last):\n#   File \"test.py\", line 2, in <module>\n#     print(name)\n# NameError: name 'name' is not defined\n\n# 正确做法：先定义变量\nname = '小明'\nprint(name)  # 输出: 小明",
+    "game": {
+      "type": "find_bug",
+      "title": "找出Bug",
+      "instructions": "以下代码有错误，请找出出错的那一行",
+      "content": {
+        "code_lines": [
+          "# 第1行：没有任何变量定义",
+          "print(name)",
+          "# 错误: NameError: name 'name' is not defined"
+        ],
+        "bug_line": 2,
+        "explanation": "name 变量没有被定义就使用了，会报 NameError。需要先给 name 赋值。"
+      }
+    },
+    "quiz": {
+      "question": "NameError 通常是什么原因？",
+      "options": [
+        "拼写错误",
+        "使用了未定义的变量",
+        "除以零",
+        "括号不匹配"
+      ],
+      "correct": 1,
+      "explanation": "NameError 表示使用了一个还没有定义的变量名。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-why",
+    "title": "注释的作用",
+    "explanation": "注释是写给人看的，Python 会忽略它们。用 # 开头的就是注释。好的注释能帮助你和他人理解代码。",
+    "code": "# 这是一条注释\nname = '小明'  # 这也是注释\n\n# 计算年龄\nbirth_year = 2000\nage = 2024 - birth_year  # 今年减去出生年\nprint(age)",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "x = 5  # 这是注释\nprint(x)",
+        "options": [
+          "5  # 这是注释",
+          "5",
+          "报错",
+          "什么都没有"
+        ],
+        "correct": 1,
+        "explanation": "注释不会被执行，print(x) 只输出变量 x 的值 5。"
+      }
+    },
+    "quiz": {
+      "question": "Python 中 # 的作用是什么？",
+      "options": [
+        "定义变量",
+        "写注释（Python 会忽略）",
+        "输出文字",
+        "循环"
+      ],
+      "correct": 1,
+      "explanation": "# 后面的内容是注释，Python 不会执行它，是写给人看的。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-why",
+    "title": "什么是函数",
+    "explanation": "函数就是把一段代码打包起来，取个名字，需要的时候调用它。就像微波炉：把食物放进去（输入），按按钮（调用），拿出热好的食物（输出）。",
+    "code": "def greet(name):\n    return f'你好，{name}！'\n\nprint(greet('小明'))  # 输出: 你好，小明！\nprint(greet('小红'))  # 输出: 你好，小红！",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "def add(a, b):\n    return a + b\n\nresult = add(3, 5)\nprint(result)",
+        "options": [
+          "35",
+          "8",
+          "a + b",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "add(3, 5) 返回 3 + 5 = 8，所以输出 8。"
+      }
+    },
+    "quiz": {
+      "question": "函数的主要好处是什么？",
+      "options": [
+        "让代码更长",
+        "代码可以复用，避免重复",
+        "让程序变慢",
+        "只能用一次"
+      ],
+      "correct": 1,
+      "explanation": "函数可以把代码打包复用，避免重复写同样的代码。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-why",
+    "title": "什么是库和模块",
+    "explanation": "库（Library）是别人写好的代码集合，你直接拿来用就行。就像工具箱：不用自己造锤子，直接用现成的。",
+    "code": "import random  # 导入随机数库\n\nnumber = random.randint(1, 6)  # 掷骰子\nprint(f'你掷出了 {number} 点')",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "import math\nprint(math.sqrt(16))",
+        "options": [
+          "4.0",
+          "16",
+          "256",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "math.sqrt(16) 计算 16 的平方根，结果是 4.0。"
+      }
+    },
+    "quiz": {
+      "question": "import 语句的作用是什么？",
+      "options": [
+        "定义函数",
+        "导入别人写好的代码库",
+        "输出文字",
+        "删除文件"
+      ],
+      "correct": 1,
+      "explanation": "import 用来导入库，让你使用别人已经写好的功能。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-why",
+    "title": "编程的本质",
+    "explanation": "编程的本质不是写代码，而是解决问题。代码只是工具，思路才是关键。先想清楚怎么解决，再写代码。",
+    "code": "# 问题：判断一个数是奇数还是偶数\n# 思路：能被2整除就是偶数\nnumber = 7\nif number % 2 == 0:\n    print('偶数')\nelse:\n    print('奇数')  # 输出: 奇数",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "number = 10\nif number % 2 == 0:\n    print('偶数')\nelse:\n    print('奇数')",
+        "options": [
+          "奇数",
+          "偶数",
+          "10",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "10 % 2 == 0 为 True，所以输出'偶数'。"
+      }
+    },
+    "quiz": {
+      "question": "编程的本质是什么？",
+      "options": [
+        "写很多代码",
+        "解决问题",
+        "背语法",
+        "用最新技术"
+      ],
+      "correct": 1,
+      "explanation": "编程的本质是解决问题，代码只是实现思路的工具。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-thinking",
+    "title": "AI时代的编程思维",
+    "explanation": "在AI时代，编程思维比写代码更重要。你需要学会：定义问题、分解任务、设计方案、验证结果。AI帮你写代码，但思路要你来想。",
+    "code": "# AI时代的工作流程\n# 1. 定义问题：我要做什么？\n# 2. 分解任务：拆成小步骤\n# 3. 设计方案：每步怎么做\n# 4. 用AI生成代码\n# 5. 验证结果\nprint('AI是工具，思维是核心')",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "task = '写一个计算器'\nsteps = ['获取输入', '解析运算符', '计算结果', '显示结果']\nprint(len(steps))",
+        "options": [
+          "4",
+          "3",
+          "5",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "列表 steps 有 4 个元素，len() 返回 4。"
+      }
+    },
+    "quiz": {
+      "question": "AI时代，什么比写代码更重要？",
+      "options": [
+        "背语法",
+        "编程思维（定义问题、分解任务）",
+        "打字速度",
+        "英语水平"
+      ],
+      "correct": 1,
+      "explanation": "AI可以帮你写代码，但解决问题的思路需要你自己来。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-thinking",
+    "title": "分解思维",
+    "explanation": "分解就是把大问题拆成小问题。就像吃大象：一口一口来。每个小问题都更容易解决。",
+    "code": "# 分解示例：计算班级平均分\n# 大问题：计算平均分\n# 分解：\n# 步骤1：获取所有分数\nscores = [85, 90, 78, 92, 88]\n# 步骤2：计算总分\ntotal = sum(scores)\n# 步骤3：计算平均分\navg = total / len(scores)\nprint(f'平均分: {avg}')",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "scores = [80, 90, 100]\ntotal = sum(scores)\navg = total / len(scores)\nprint(avg)",
+        "options": [
+          "90.0",
+          "80.0",
+          "270",
+          "3"
+        ],
+        "correct": 0,
+        "explanation": "sum = 270, len = 3, 270 / 3 = 90.0。"
+      }
+    },
+    "quiz": {
+      "question": "分解思维是什么？",
+      "options": [
+        "合并多个问题",
+        "把大问题拆成小问题",
+        "跳过难题",
+        "只做简单的事"
+      ],
+      "correct": 1,
+      "explanation": "分解思维是把复杂的大问题拆分成多个简单的小问题，逐个解决。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-thinking",
+    "title": "抽象思维",
+    "explanation": "抽象就是忽略细节，抓住重点。你用手机打电话时，不需要知道信号是怎么传输的——那些细节被抽象掉了。",
+    "code": "# 抽象示例\ndef calculate_area(length, width):\n    '''计算矩形面积（抽象：隐藏了乘法细节）'''\n    return length * width\n\n# 使用时只需要知道：传入长和宽\nresult = calculate_area(5, 3)\nprint(f'面积: {result}')  # 面积: 15",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "def double(x):\n    return x * 2\n\nprint(double(7))",
+        "options": [
+          "7",
+          "14",
+          "72",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "double(7) 返回 7 * 2 = 14。"
+      }
+    },
+    "quiz": {
+      "question": "抽象思维的作用是什么？",
+      "options": [
+        "展示所有细节",
+        "忽略细节，抓住重点",
+        "让代码更复杂",
+        "删除信息"
+      ],
+      "correct": 1,
+      "explanation": "抽象帮助我们忽略不必要的细节，专注于核心问题。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-thinking",
+    "title": "模式识别",
+    "explanation": "模式识别就是发现事物之间的相似之处。如果你发现两个问题的解法类似，就可以复用之前的方案。",
+    "code": "# 模式识别示例\ndef find_max(numbers):\n    result = numbers[0]\n    for n in numbers:\n        if n > result:\n            result = n\n    return result\n\ndef find_min(numbers):\n    result = numbers[0]\n    for n in numbers:\n        if n < result:\n            result = n\n    return result\n# 两个函数结构一样，只是比较符号不同",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空补全",
+      "instructions": "请将代码中的空白处填写正确内容",
+      "content": {
+        "code": "def find_max(numbers):\n    result = numbers[0]\n    for n in numbers:\n        if n ____ result:\n            result = n\n    return result",
+        "blanks": [
+          {
+            "position": 1,
+            "answer": ">",
+            "options": [
+              ">",
+              "<",
+              "==",
+              ">="
+            ]
+          }
+        ],
+        "explanation": "找最大值时，如果当前数比已知最大值更大（>），就更新最大值。"
+      }
+    },
+    "quiz": {
+      "question": "模式识别的好处是什么？",
+      "options": [
+        "让代码更长",
+        "复用已有的解决方案",
+        "增加复杂度",
+        "没有好处"
+      ],
+      "correct": 1,
+      "explanation": "识别模式可以让你复用之前的解决方案，提高效率。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-thinking",
+    "title": "逐步细化",
+    "explanation": "逐步细化就是先写大纲，再补充细节。就像画画：先画轮廓，再填颜色，最后加细节。",
+    "code": "# 逐步细化示例\n# 第一步：大纲\ndef greet_user(name, time):\n    if time < 12:\n        return f'早上好，{name}！'\n    elif time < 18:\n        return f'下午好，{name}！'\n    else:\n        return f'晚上好，{name}！'\n\nprint(greet_user('小明', 9))",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "def greet_user(name, time):\n    if time < 12:\n        return f'早上好，{name}！'\n    elif time < 18:\n        return f'下午好，{name}！'\n    else:\n        return f'晚上好，{name}！'\n\nprint(greet_user('小明', 15))",
+        "options": [
+          "早上好，小明！",
+          "下午好，小明！",
+          "晚上好，小明！",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "15 < 18 为 True 且 >= 12，所以返回'下午好，小明！'。"
+      }
+    },
+    "quiz": {
+      "question": "逐步细化的正确顺序是什么？",
+      "options": [
+        "先细节再大纲",
+        "先大纲再补充细节",
+        "随便写",
+        "只写大纲"
+      ],
+      "correct": 1,
+      "explanation": "先写整体框架（大纲），再逐步补充每个部分的细节。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-thinking",
+    "title": "假设与验证",
+    "explanation": "编程时经常需要假设代码的执行结果，然后运行验证。假设错了？修改，再验证。这就是编程的日常。",
+    "code": "# 假设：这段代码会输出什么？\nx = 5\ny = 3\nresult = x ** y\n# 假设：5的3次方 = 125\nprint(result)  # 验证：确实输出 125",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "x = 2\ny = 10\nresult = x ** y\nprint(result)",
+        "options": [
+          "20",
+          "1024",
+          "12",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "2 ** 10 = 1024，即 2 的 10 次方。"
+      }
+    },
+    "quiz": {
+      "question": "假设与验证的循环是什么？",
+      "options": [
+        "写代码 → 不测试",
+        "假设结果 → 运行验证 → 修改",
+        "只假设不验证",
+        "只验证不假设"
+      ],
+      "correct": 1,
+      "explanation": "编程的核心循环：假设 → 验证 → 修正 → 再验证。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-thinking",
+    "title": "从具体到一般",
+    "explanation": "先解决一个具体问题，再推广到一般情况。比如：先算 3+5，再写一个函数算任意两个数的和。",
+    "code": "# 从具体到一般\n# 具体：算 3 + 5\nprint(3 + 5)  # 8\n\n# 一般：写一个函数\ndef add(a, b):\n    return a + b\n\nprint(add(3, 5))   # 8\nprint(add(10, 20))  # 30\nprint(add(100, 200))  # 300",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "def multiply(a, b):\n    return a * b\n\nprint(multiply(4, 5))\nprint(multiply(3, 3))",
+        "options": [
+          "20 和 9",
+          "45 和 33",
+          "20 和 3",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "4 * 5 = 20, 3 * 3 = 9，输出两行：20 和 9。"
+      }
+    },
+    "quiz": {
+      "question": "从具体到一般的思路是什么？",
+      "options": [
+        "先一般再具体",
+        "先解决具体问题，再推广",
+        "只做具体的",
+        "只做一般的"
+      ],
+      "correct": 1,
+      "explanation": "先解决具体问题，找到规律，再推广成通用方案。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-thinking",
+    "title": "逆向思维",
+    "explanation": "有时候从结果倒推更简单。知道想要什么输出，倒推需要什么输入和步骤。",
+    "code": "# 逆向思维：想让用户看到 'Hello, Alice!'\n# 倒推：需要一个 f-string\n# 再倒推：需要变量 name = 'Alice'\nname = 'Alice'\nprint(f'Hello, {name}!')  # 正是我们想要的",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空补全",
+      "instructions": "请将代码中的空白处填写正确内容",
+      "content": {
+        "code": "# 目标：输出 '分数: 90'\nscore = 90\nprint(f'分数: ____')",
+        "blanks": [
+          {
+            "position": 1,
+            "answer": "{score}",
+            "options": [
+              "{score}",
+              "score",
+              "[score]",
+              "(score)"
+            ]
+          }
+        ],
+        "explanation": "f-string 中用 {score} 嵌入变量的值。"
+      }
+    },
+    "quiz": {
+      "question": "逆向思维怎么用在编程中？",
+      "options": [
+        "从代码开始写",
+        "从想要的结果倒推步骤",
+        "随机尝试",
+        "不写代码"
+      ],
+      "correct": 1,
+      "explanation": "逆向思维：先明确想要什么结果，再倒推需要什么步骤来实现。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-thinking",
+    "title": "测试思维",
+    "explanation": "写完代码要测试。测试边界情况：0、负数、空值、最大值。好的程序员一半时间在写测试。",
+    "code": "# 测试思维\nimport math\ndef is_positive(n):\n    return n > 0\n\n# 测试正常情况\nprint(is_positive(5))    # True\n# 测试边界\nprint(is_positive(0))    # False（边界！）\nprint(is_positive(-3))   # False",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "def is_positive(n):\n    return n > 0\n\nprint(is_positive(0))",
+        "options": [
+          "True",
+          "False",
+          "0",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "0 > 0 为 False，所以 is_positive(0) 返回 False。"
+      }
+    },
+    "quiz": {
+      "question": "测试时应该注意什么？",
+      "options": [
+        "只测正常情况",
+        "测试边界情况（0、负数、空值等）",
+        "不测试",
+        "只测一次"
+      ],
+      "correct": 1,
+      "explanation": "好的测试要覆盖边界情况，比如 0、负数、空值等特殊输入。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-thinking",
+    "title": "简单优先原则",
+    "explanation": "能用简单方法解决的，就不要用复杂的。简单代码更好理解、更好维护、更少错误。",
+    "code": "# 简单 vs 复杂\n# 复杂：用循环判断奇偶\nn = 7\nresult = '偶数'\nfor i in range(1):\n    if n % 2 != 0:\n        result = '奇数'\n\n# 简单：直接判断\nif n % 2 == 0:\n    print('偶数')\nelse:\n    print('奇数')  # 更清晰！",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "x = 10\n# 简单方法\nresult = x > 0\nprint(result)",
+        "options": [
+          "True",
+          "False",
+          "10",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "10 > 0 为 True，简单直接。"
+      }
+    },
+    "quiz": {
+      "question": "为什么简单代码更好？",
+      "options": [
+        "因为简单代码运行更快",
+        "因为简单代码更易理解和维护",
+        "因为复杂代码不能运行",
+        "没有区别"
+      ],
+      "correct": 1,
+      "explanation": "简单代码更容易理解、维护，也更少出错。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-thinking",
+    "title": "数据驱动思维",
+    "explanation": "让数据说话。不要凭感觉做决定，用数据来验证。程序的输入输出就是数据。",
+    "code": "# 数据驱动：统计成绩\nscores = [85, 90, 78, 92, 88, 65, 95]\n\n# 用数据说话\nprint(f'最高分: {max(scores)}')\nprint(f'最低分: {min(scores)}')\nprint(f'平均分: {sum(scores)/len(scores):.1f}')",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "data = [10, 20, 30, 40, 50]\nprint(max(data) - min(data))",
+        "options": [
+          "40",
+          "50",
+          "10",
+          "150"
+        ],
+        "correct": 0,
+        "explanation": "max = 50, min = 10, 50 - 10 = 40。"
+      }
+    },
+    "quiz": {
+      "question": "数据驱动思维的核心是什么？",
+      "options": [
+        "凭感觉做决定",
+        "用数据来验证和做决定",
+        "忽略数据",
+        "只看最大的数"
+      ],
+      "correct": 1,
+      "explanation": "数据驱动：用实际数据来验证假设和做决定，而不是凭感觉。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-thinking",
+    "title": "迭代改进",
+    "explanation": "好的程序不是一次写成的。先写一个能用的版本，再不断改进。这就是迭代。",
+    "code": "# 迭代改进示例\n# 版本1：简单版\ndef is_even_v1(n):\n    if n % 2 == 0:\n        return True\n    else:\n        return False\n\n# 版本2：简化版\ndef is_even_v2(n):\n    return n % 2 == 0\n\nprint(is_even_v2(4))  # True",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "def is_even(n):\n    return n % 2 == 0\n\nprint(is_even(7))\nprint(is_even(8))",
+        "options": [
+          "True True",
+          "False True",
+          "True False",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "7 % 2 = 1 != 0 → False, 8 % 2 = 0 → True。"
+      }
+    },
+    "quiz": {
+      "question": "迭代改进是什么意思？",
+      "options": [
+        "一次写完美",
+        "先写能用的版本，再不断改进",
+        "不改进代码",
+        "删掉重写"
+      ],
+      "correct": 1,
+      "explanation": "迭代改进：先写一个基本能用的版本，然后不断优化和完善。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-thinking",
+    "title": "分解复杂问题的实例",
+    "explanation": "面对复杂问题时，先把它分解成小任务。每个小任务写一个函数，最后组合起来。",
+    "code": "# 分解：写一个简单的计算器\n# 小任务1：获取数字\ndef get_number(prompt):\n    return float(input(prompt))\n\n# 小任务2：计算\ndef calculate(a, b, op):\n    if op == '+': return a + b\n    if op == '-': return a - b\n    if op == '*': return a * b\n    if op == '/': return a / b if b != 0 else '不能除以零'\n\nprint(calculate(10, 3, '+'))  # 13.0",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "def calculate(a, b, op):\n    if op == '+': return a + b\n    if op == '-': return a - b\n\nprint(calculate(10, 3, '-'))",
+        "options": [
+          "13.0",
+          "7.0",
+          "30",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "op 是 '-'，所以返回 10 - 3 = 7.0。"
+      }
+    },
+    "quiz": {
+      "question": "分解复杂问题时，每个小任务应该怎么实现？",
+      "options": [
+        "写在一个大函数里",
+        "每个小任务写一个独立函数",
+        "不写函数",
+        "用全局变量"
+      ],
+      "correct": 1,
+      "explanation": "每个小任务写一个独立的函数，职责单一，最后组合调用。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-languages",
+    "title": "为什么学Python",
+    "explanation": "Python 是 AI 和数据科学的第一语言。语法简洁，像读英语一样。拥有庞大的库生态：NumPy、PyTorch、Pandas 等。",
+    "code": "# Python 的简洁之美\nname = 'Python'\nprint(f'{name} 是 AI 时代最重要的语言')\n\n# 同样的功能，其他语言可能需要更多代码",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "language = 'Python'\nprint(f'{language}很简洁')",
+        "options": [
+          "Python很简洁",
+          "language很简洁",
+          "报错",
+          "很简洁"
+        ],
+        "correct": 0,
+        "explanation": "f-string 中 {language} 被替换为变量值 'Python'。"
+      }
+    },
+    "quiz": {
+      "question": "Python 在哪个领域排名第一？",
+      "options": [
+        "游戏开发",
+        "AI 和数据科学",
+        "手机开发",
+        "操作系统"
+      ],
+      "correct": 1,
+      "explanation": "Python 是 AI、机器学习和数据科学领域的第一语言。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-languages",
+    "title": "为什么学TypeScript",
+    "explanation": "TypeScript 是 JavaScript 的超集，添加了类型系统。是前端开发的主流语言，也用于后端（Node.js）。类型安全能在运行前发现错误。",
+    "code": "// TypeScript 示例\nfunction add(a: number, b: number): number {\n    return a + b;\n}\nconsole.log(add(3, 5)); // 8\n// add('3', 5)  // 编译时报错！",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空补全",
+      "instructions": "请将代码中的空白处填写正确内容",
+      "content": {
+        "code": "// TypeScript 函数签名\nfunction greet(name: ____): string {\n    return 'Hello, ' + name;\n}",
+        "blanks": [
+          {
+            "position": 1,
+            "answer": "string",
+            "options": [
+              "string",
+              "number",
+              "boolean",
+              "any"
+            ]
+          }
+        ],
+        "explanation": "参数 name 应该是字符串类型，用 string 声明。"
+      }
+    },
+    "quiz": {
+      "question": "TypeScript 相比 JavaScript 的主要优势是什么？",
+      "options": [
+        "运行更快",
+        "添加了类型系统，提前发现错误",
+        "语法更简单",
+        "不需要学 JavaScript"
+      ],
+      "correct": 1,
+      "explanation": "TypeScript 的类型系统能在编译时就发现错误，比运行时才发现更安全。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-languages",
+    "title": "Python和TypeScript的分工",
+    "explanation": "Python 负责 AI/数据/后端，TypeScript 负责前端/全栈。两者配合覆盖 90%+ 的现代开发需求。",
+    "code": "# Python: AI 后端\nfrom flask import Flask\napp = Flask(__name__)\n\n@app.route('/api/data')\ndef get_data():\n    return {'result': 42}",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "python_tasks = ['AI', '数据分析', '后端']\nts_tasks = ['前端', '全栈', '类型安全']\nprint(len(python_tasks) + len(ts_tasks))",
+        "options": [
+          "3",
+          "6",
+          "5",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "两个列表各有 3 个元素，3 + 3 = 6。"
+      }
+    },
+    "quiz": {
+      "question": "Python 和 TypeScript 的分工是？",
+      "options": [
+        "Python 做前端，TS 做后端",
+        "Python 做 AI/数据/后端，TS 做前端/全栈",
+        "完全重叠",
+        "互不相关"
+      ],
+      "correct": 1,
+      "explanation": "Python 擅长 AI、数据分析和后端，TypeScript 擅长前端和全栈开发。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-languages",
+    "title": "静态类型 vs 动态类型",
+    "explanation": "Python 是动态类型：变量类型在运行时确定。TypeScript 是静态类型：类型在编写代码时就确定。两种方式各有优缺点。",
+    "code": "# Python 动态类型\nx = 5       # x 是 int\nx = 'hello' # x 变成了 str，没问题！\nprint(x)    # hello",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "x = 42\nx = 'hello'\nprint(x)",
+        "options": [
+          "42",
+          "hello",
+          "报错",
+          "42 hello"
+        ],
+        "correct": 1,
+        "explanation": "Python 是动态类型，x 可以从 int 变成 str。"
+      }
+    },
+    "quiz": {
+      "question": "动态类型语言的特点是什么？",
+      "options": [
+        "变量类型固定不变",
+        "变量类型在运行时确定",
+        "不能用变量",
+        "只有数字类型"
+      ],
+      "correct": 1,
+      "explanation": "动态类型语言中，变量的类型在运行时才确定，可以随时改变。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-languages",
+    "title": "强类型 vs 弱类型",
+    "explanation": "Python 是强类型：不同类型不能随意混合运算。'1' + 1 会报错。弱类型语言（如 JS）会自动转换。",
+    "code": "# Python 强类型\nnum = 1\ntext = '2'\n# print(num + text)  # TypeError!\n\n# 正确做法：显式转换\nprint(num + int(text))   # 3\nprint(str(num) + text)   # '12'",
+    "game": {
+      "type": "find_bug",
+      "title": "找出Bug",
+      "instructions": "以下代码有错误，请找出出错的那一行",
+      "content": {
+        "code_lines": [
+          "age = 25",
+          "print('年龄: ' + age)"
+        ],
+        "bug_line": 2,
+        "explanation": "Python 是强类型，字符串和数字不能直接用 + 拼接。需要 str(age) 转换。"
+      }
+    },
+    "quiz": {
+      "question": "Python 的强类型意味着什么？",
+      "options": [
+        "所有类型都一样",
+        "不同类型不能随意混合运算",
+        "没有类型",
+        "自动转换类型"
+      ],
+      "correct": 1,
+      "explanation": "强类型意味着 Python 不会自动转换类型，不同类型混合操作会报错。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-languages",
+    "title": "Python的简洁语法",
+    "explanation": "Python 用缩进表示代码块，不用大括号。这让代码看起来更干净、更像自然语言。",
+    "code": "# Python 语法简洁\nif 5 > 3:\n    print('5 大于 3')\n    print('这是对的')\n\n# 对比其他语言：\n# if (5 > 3) {\n#     console.log('5 大于 3');\n# }",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "x = 10\nif x > 5:\n    print('大')\n    print('很大')",
+        "options": [
+          "大",
+          "很大",
+          "大 很大",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "x > 5 为 True，执行缩进的两行，输出'大'和'很大'（两行）。"
+      }
+    },
+    "quiz": {
+      "question": "Python 用什么表示代码块？",
+      "options": [
+        "大括号 {}",
+        "缩进（空格或Tab）",
+        "圆括号 ()",
+        "方括号 []"
+      ],
+      "correct": 1,
+      "explanation": "Python 用缩进来表示代码块，这是它语法简洁的原因之一。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-languages",
+    "title": "Python的交互模式",
+    "explanation": "Python 有交互模式（REPL），可以一行一行输入代码并立即看到结果。非常适合学习和测试。",
+    "code": "# 在终端中输入 python 就进入交互模式\n# >>> 是提示符\n# >>> 2 + 3\n# 5\n# >>> print('hello')\n# hello\n\n# 在代码中模拟：\nresult = 2 + 3\nprint(result)  # 5",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "# 交互模式\n>>> 10 * 2\n>>> 5 + 3",
+        "options": [
+          "20",
+          "8",
+          "20 和 8",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "在交互模式中，每行表达式都会输出结果。但这里模拟的是两行独立代码。"
+      }
+    },
+    "quiz": {
+      "question": "Python 交互模式适合做什么？",
+      "options": [
+        "写大型项目",
+        "快速测试和学习",
+        "部署上线",
+        "连接数据库"
+      ],
+      "correct": 1,
+      "explanation": "交互模式（REPL）可以快速测试代码片段，非常适合学习和调试。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-languages",
+    "title": "选择语言的依据",
+    "explanation": "选择语言看三点：1. 要解决什么问题？2. 生态系统（库和工具）？3. 团队和社区支持？",
+    "code": "# 选语言示例\n# 做网站前端 → TypeScript/JavaScript\n# 做数据分析 → Python\n# 做手机App → Swift(苹果) / Kotlin(安卓)\n# 做游戏 → C# (Unity) / C++ (Unreal)",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空补全",
+      "instructions": "请将代码中的空白处填写正确内容",
+      "content": {
+        "code": "# 做 AI 模型训练 → ____\n# 做网站前端 → TypeScript",
+        "blanks": [
+          {
+            "position": 1,
+            "answer": "Python",
+            "options": [
+              "Python",
+              "Java",
+              "C++",
+              "HTML"
+            ]
+          }
+        ],
+        "explanation": "Python 是 AI 和机器学习的首选语言。"
+      }
+    },
+    "quiz": {
+      "question": "选择编程语言时，最重要的是看什么？",
+      "options": [
+        "谁最新",
+        "要解决的问题和生态系统",
+        "语法是否好看",
+        "朋友推荐"
+      ],
+      "correct": 1,
+      "explanation": "选择语言要看要解决的问题类型、生态系统和社区支持。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-languages",
+    "title": "代码可读性",
+    "explanation": "代码是写给人看的，顺便让机器执行。好的代码应该像读文章一样清晰。",
+    "code": "# 不好的写法\ndef f(x,y):\n    return x+y if x>y else y-x\n\n# 好的写法\ndef calculate(a, b):\n    '''比较两个数并返回结果'''\n    if a > b:\n        return a + b\n    else:\n        return b - a",
+    "game": {
+      "type": "find_bug",
+      "title": "找出Bug",
+      "instructions": "以下代码有错误，请找出出错的那一行",
+      "content": {
+        "code_lines": [
+          "def f(x):",
+          "    return x*2+1",
+          "# 这个函数做什么？看不懂！"
+        ],
+        "bug_line": 2,
+        "explanation": "函数名 'f' 和代码没有注释，别人看不懂。应该用有意义的名字和添加说明。"
+      }
+    },
+    "quiz": {
+      "question": "为什么代码可读性很重要？",
+      "options": [
+        "让程序更快",
+        "方便自己和他人理解和维护",
+        "让代码更短",
+        "不重要"
+      ],
+      "correct": 1,
+      "explanation": "代码是写给人看的，可读性好才能方便维护和协作。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-languages",
+    "title": "Python的用途范围",
+    "explanation": "Python 的用途非常广泛：AI/机器学习、数据分析、Web后端、自动化脚本、科学计算等。但不适合做前端和手机App。",
+    "code": "# Python 的主要用途\n# 1. AI 和机器学习\n# import torch\n# 2. 数据分析\n# import pandas\n# 3. Web 后端\n# from flask import Flask\n# 4. 自动化脚本\n# import os\nprint('Python 用途广泛！')",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "uses = ['AI', '数据分析', 'Web后端', '自动化', '科学计算']\nprint(len(uses))",
+        "options": [
+          "5",
+          "4",
+          "3",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "列表 uses 有 5 个元素。"
+      }
+    },
+    "quiz": {
+      "question": "Python 不擅长哪个领域？",
+      "options": [
+        "AI/机器学习",
+        "前端网页开发",
+        "数据分析",
+        "自动化脚本"
+      ],
+      "correct": 1,
+      "explanation": "Python 不擅长前端开发，前端主要用 TypeScript/JavaScript。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-languages",
+    "title": "TypeScript的类型注解",
+    "explanation": "TypeScript 用冒号 : 来声明类型。这让代码更安全，IDE 也能提供更好的自动补全。",
+    "code": "// TypeScript 类型注解\nlet age: number = 25;\nlet name: string = 'Alice';\nlet isStudent: boolean = true;\n\nfunction add(a: number, b: number): number {\n    return a + b;\n}",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空补全",
+      "instructions": "请将代码中的空白处填写正确内容",
+      "content": {
+        "code": "let score: ____ = 95;",
+        "blanks": [
+          {
+            "position": 1,
+            "answer": "number",
+            "options": [
+              "number",
+              "string",
+              "boolean",
+              "any"
+            ]
+          }
+        ],
+        "explanation": "95 是数字，所以类型应该是 number。"
+      }
+    },
+    "quiz": {
+      "question": "TypeScript 中 let age: number = 25 的 : number 是什么？",
+      "options": [
+        "注释",
+        "类型注解，声明 age 是数字类型",
+        "赋值运算",
+        "函数调用"
+      ],
+      "correct": 1,
+      "explanation": ": number 是类型注解，告诉 TypeScript 这个变量是数字类型。"
+    }
+  },
+  {
+    "week": 1,
+    "module": "cognitive-languages",
+    "title": "编译型 vs 解释型语言",
+    "explanation": "Python 是解释型：代码逐行运行。TypeScript 需要编译：先转成 JS，再运行。各有优缺点。",
+    "code": "# Python: 解释型，直接运行\nprint('hello')  # 直接执行\n\n# TypeScript: 先编译成 JavaScript\n# let x: number = 5;  → 编译 → let x = 5;\n# 然后运行编译后的 JavaScript",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "language = 'Python'\ntype_ = '解释型'\nprint(f'{language}是{type_}语言')",
+        "options": [
+          "Python是解释型语言",
+          "Python是编译型语言",
+          "language是type_语言",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "f-string 中变量被替换为各自的值。"
+      }
+    },
+    "quiz": {
+      "question": "Python 是什么类型的语言？",
+      "options": [
+        "编译型",
+        "解释型（逐行运行）",
+        "机器语言",
+        "汇编语言"
+      ],
+      "correct": 1,
+      "explanation": "Python 是解释型语言，代码逐行解释执行，不需要预先编译。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "变量的创建",
+    "explanation": "在 Python 中，用等号 = 创建变量并赋值。等号左边是变量名，右边是要存的值。",
+    "code": "# 创建变量\nname = '小明'      # 创建一个字符串变量\nage = 18           # 创建一个数字变量\nis_student = True  # 创建一个布尔变量\n\nprint(name)  # 输出: 小明",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "city = '北京'\nprint(city)",
+        "options": [
+          "北京",
+          "city",
+          "'北京'",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "print(city) 输出变量 city 的值，即'北京'。"
+      }
+    },
+    "quiz": {
+      "question": "如何在 Python 中创建变量？",
+      "options": [
+        "用 var 关键字",
+        "直接用 = 赋值",
+        "用 let 关键字",
+        "用 define"
+      ],
+      "correct": 1,
+      "explanation": "Python 中直接用 = 就能创建变量并赋值，不需要特殊关键字。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "变量赋值的原理",
+    "explanation": "赋值不是把值放进盒子，而是让变量名指向一个值。就像给一个东西贴标签。",
+    "code": "# 变量是标签，不是盒子\na = [1, 2, 3]  # a 指向这个列表\nb = a          # b 也指向同一个列表\nb.append(4)    # 通过 b 修改列表\nprint(a)       # [1, 2, 3, 4]  a 也变了！",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "a = [1, 2, 3]\nb = a\nb.append(4)\nprint(a)",
+        "options": [
+          "[1, 2, 3]",
+          "[1, 2, 3, 4]",
+          "[4, 2, 3]",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "a 和 b 指向同一个列表，通过 b 修改后，a 看到的也变了。"
+      }
+    },
+    "quiz": {
+      "question": "Python 变量赋值的实质是什么？",
+      "options": [
+        "复制值到新盒子",
+        "让变量名指向一个值",
+        "删除旧值",
+        "创建新类型"
+      ],
+      "correct": 1,
+      "explanation": "赋值是让变量名指向一个对象，不是把值复制到盒子里。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "变量命名规则",
+    "explanation": "变量名只能包含字母、数字和下划线，不能以数字开头，不能使用 Python 关键字。",
+    "code": "# 合法的变量名\nuser_name = '小明'   # 好：下划线分隔\nage2 = 20           # 可以有数字（不在开头）\n_private = True     # 下划线开头\n\n# 不合法的变量名（会报错）\n# 2name = '错'       # 不能以数字开头\n# my-name = '错'     # 不能有横杠\n# class = '错'       # 不能用关键字",
+    "game": {
+      "type": "find_bug",
+      "title": "找出Bug",
+      "instructions": "以下代码有错误，请找出出错的那一行",
+      "content": {
+        "code_lines": [
+          "my-name = '小明'",
+          "print(my-name)"
+        ],
+        "bug_line": 1,
+        "explanation": "变量名不能包含横杠 -，Python 会认为是减法运算。应该用下划线：my_name。"
+      }
+    },
+    "quiz": {
+      "question": "以下哪个变量名是合法的？",
+      "options": [
+        "2name",
+        "my-name",
+        "my_name",
+        "class"
+      ],
+      "correct": 2,
+      "explanation": "my_name 是合法的。2name 以数字开头，my-name 有横杠，class 是关键字。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "变量重新赋值",
+    "explanation": "变量可以随时重新赋新值。新值会替换旧值。变量的类型也可以改变（因为 Python 是动态类型）。",
+    "code": "# 重新赋值\nx = 10\nprint(x)  # 10\n\nx = 'hello'  # 从数字变成字符串\nprint(x)  # hello\n\nx = [1, 2, 3]  # 变成列表\nprint(x)  # [1, 2, 3]",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "x = 5\nx = 10\nx = 15\nprint(x)",
+        "options": [
+          "5",
+          "10",
+          "15",
+          "30"
+        ],
+        "correct": 2,
+        "explanation": "变量最终保存的是最后一次赋值的值，即 15。"
+      }
+    },
+    "quiz": {
+      "question": "变量重新赋值后，旧值会怎样？",
+      "options": [
+        "还在",
+        "被新值替换",
+        "报错",
+        "保存在别处"
+      ],
+      "correct": 1,
+      "explanation": "重新赋值后，变量指向新值，旧值如果没有其他引用会被回收。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "多重赋值",
+    "explanation": "可以在一行给多个变量同时赋值。可以是相同值，也可以是不同值。",
+    "code": "# 同时给多个变量赋不同值\na, b, c = 1, 2, 3\nprint(a, b, c)  # 1 2 3\n\n# 同时给多个变量赋相同值\nx = y = z = 0\nprint(x, y, z)  # 0 0 0",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "a, b, c = 10, 20, 30\nprint(b)",
+        "options": [
+          "10",
+          "20",
+          "30",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "a=10, b=20, c=30，print(b) 输出 20。"
+      }
+    },
+    "quiz": {
+      "question": "a, b = 1, 2 之后，b 的值是多少？",
+      "options": [
+        "1",
+        "2",
+        "报错",
+        "None"
+      ],
+      "correct": 1,
+      "explanation": "多重赋值按位置对应：a=1, b=2。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "交换变量值",
+    "explanation": "Python 可以优雅地交换两个变量的值，不需要临时变量。这是 Python 的特殊语法。",
+    "code": "# 交换变量\na = 10\nb = 20\nprint(f'交换前: a={a}, b={b}')\n\na, b = b, a  # 优雅地交换！\nprint(f'交换后: a={a}, b={b}')\n# 交换后: a=20, b=10",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "x = 1\ny = 2\nx, y = y, x\nprint(x, y)",
+        "options": [
+          "1 2",
+          "2 1",
+          "报错",
+          "1 1"
+        ],
+        "correct": 1,
+        "explanation": "x, y = y, x 交换了两个变量的值，x 变成 2，y 变成 1。"
+      }
+    },
+    "quiz": {
+      "question": "Python 中交换变量 a, b 的值，最简洁的方式是？",
+      "options": [
+        "用临时变量",
+        "a, b = b, a",
+        "a = b; b = a",
+        "不能交换"
+      ],
+      "correct": 1,
+      "explanation": "Python 可以直接用 a, b = b, a 来交换，不需要临时变量。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "变量作用域初步",
+    "explanation": "变量有自己的“活动范围”。函数里定义的变量是局部变量，外面不能用。",
+    "code": "# 局部变量\n\ndef my_func():\n    x = 10  # 局部变量，只在函数内有效\n    print(f'函数内: {x}')\n\nmy_func()\n# print(x)  # 报错！x 在外面不存在",
+    "game": {
+      "type": "find_bug",
+      "title": "找出Bug",
+      "instructions": "以下代码有错误，请找出出错的那一行",
+      "content": {
+        "code_lines": [
+          "def my_func():",
+          "    secret = 42",
+          "",
+          "my_func()",
+          "print(secret)"
+        ],
+        "bug_line": 5,
+        "explanation": "secret 是函数内的局部变量，函数外不能访问。会报 NameError。"
+      }
+    },
+    "quiz": {
+      "question": "函数内定义的变量，函数外能用吗？",
+      "options": [
+        "能",
+        "不能（局部变量）",
+        "看情况",
+        "不确定"
+      ],
+      "correct": 1,
+      "explanation": "函数内定义的变量是局部变量，只在函数内有效，外面访问会报错。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "全局变量",
+    "explanation": "在函数外定义的变量是全局变量，函数内可以读取。但要在函数内修改全局变量，需要用 global 关键字。",
+    "code": "# 全局变量\ncount = 0  # 全局变量\n\ndef increment():\n    global count  # 声明使用全局变量\n    count += 1\n\nincrement()\nincrement()\nprint(count)  # 2",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "x = 5\n\ndef change():\n    global x\n    x = 10\n\nchange()\nprint(x)",
+        "options": [
+          "5",
+          "10",
+          "报错",
+          "None"
+        ],
+        "correct": 1,
+        "explanation": "global 声明后，函数内修改的是全局变量 x，所以输出 10。"
+      }
+    },
+    "quiz": {
+      "question": "在函数内修改全局变量需要什么关键字？",
+      "options": [
+        "local",
+        "global",
+        "public",
+        "var"
+      ],
+      "correct": 1,
+      "explanation": "需要用 global 关键字声明，才能在函数内修改全局变量。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "常量的约定",
+    "explanation": "Python 没有真正的常量。约定用全大写字母命名的变量为常量，表示不应该被修改。",
+    "code": "# 常量（约定，不是强制）\nPI = 3.14159\nMAX_RETRIES = 3\nAPI_URL = 'https://api.example.com'\n\n# 这些值不应该被修改\nprint(PI)  # 3.14159\n# PI = 3  # 虽然不报错，但违反约定",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "MAX_SIZE = 100\nprint(MAX_SIZE)",
+        "options": [
+          "100",
+          "MAX_SIZE",
+          "报错",
+          "None"
+        ],
+        "correct": 0,
+        "explanation": "MAX_SIZE 是一个变量（虽然按约定是常量），值为 100。"
+      }
+    },
+    "quiz": {
+      "question": "Python 中常量用什么命名风格？",
+      "options": [
+        "camelCase",
+        "snake_case",
+        "全大写（UPPER_CASE）",
+        "PascalCase"
+      ],
+      "correct": 2,
+      "explanation": "Python 约定常量用全大写字母和下划线命名，如 MAX_SIZE。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "删除变量",
+    "explanation": "用 del 关键字可以删除变量。删除后就不能再使用了。",
+    "code": "# 删除变量\nx = 10\nprint(x)  # 10\n\ndel x  # 删除变量 x\n# print(x)  # NameError: x 未定义",
+    "game": {
+      "type": "find_bug",
+      "title": "找出Bug",
+      "instructions": "以下代码有错误，请找出出错的那一行",
+      "content": {
+        "code_lines": [
+          "name = '小明'",
+          "del name",
+          "print(name)"
+        ],
+        "bug_line": 3,
+        "explanation": "del name 删除了变量 name，之后再 print(name) 会报 NameError。"
+      }
+    },
+    "quiz": {
+      "question": "del x 之后再 print(x) 会怎样？",
+      "options": [
+        "输出 None",
+        "输出 0",
+        "报 NameError",
+        "输出 x"
+      ],
+      "correct": 2,
+      "explanation": "del 删除了变量，再使用会报 NameError（变量未定义）。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "链式赋值",
+    "explanation": "可以让多个变量指向同一个值。对于不可变类型（如数字），修改一个不影响其他。",
+    "code": "# 链式赋值\na = b = c = 100\nprint(a, b, c)  # 100 100 100\n\na = 200  # 只改 a\nprint(a, b, c)  # 200 100 100（b, c 不变）",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "a = b = 5\na = 10\nprint(b)",
+        "options": [
+          "10",
+          "5",
+          "报错",
+          "None"
+        ],
+        "correct": 1,
+        "explanation": "a = b = 5 让 a 和 b 都指向 5。a = 10 只改变 a，b 不受影响。"
+      }
+    },
+    "quiz": {
+      "question": "a = b = 5 后，把 a 改为 10，b 的值是多少？",
+      "options": [
+        "10",
+        "5",
+        "报错",
+        "None"
+      ],
+      "correct": 1,
+      "explanation": "对于数字这种不可变类型，a = 10 只是让 a 指向新值，b 仍然指向 5。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "变量的 id 和 is",
+    "explanation": "每个对象都有一个唯一的 id（内存地址）。is 比较的是 id（是否同一个对象），== 比较的是值。",
+    "code": "# id 和 is\na = [1, 2, 3]\nb = [1, 2, 3]\nc = a\n\nprint(a == b)   # True（值相同）\nprint(a is b)   # False（不同对象）\nprint(a is c)   # True（同一对象）\nprint(id(a) == id(c))  # True",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "a = [1, 2]\nb = [1, 2]\nprint(a == b)\nprint(a is b)",
+        "options": [
+          "True True",
+          "True False",
+          "False True",
+          "False False"
+        ],
+        "correct": 1,
+        "explanation": "== 比较值（True），is 比较是否同一对象（False）。"
+      }
+    },
+    "quiz": {
+      "question": "a is b 和 a == b 的区别是什么？",
+      "options": [
+        "完全一样",
+        "is 比较对象身份，== 比较值",
+        "is 比较值，== 比较类型",
+        "都不对"
+      ],
+      "correct": 1,
+      "explanation": "is 比较两个变量是否指向同一个对象，== 比较值是否相等。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "可变与不可变变量",
+    "explanation": "数字、字符串、元组是不可变的：创建后不能修改。列表、字典是可变的：可以修改内容。",
+    "code": "# 不可变：字符串\ns = 'hello'\ns[0] = 'H'  # 报错！字符串不能修改\n# 要改只能创建新的：\ns = 'Hello'  # 新对象\n\n# 可变：列表\nlst = [1, 2, 3]\nlst[0] = 10  # 可以修改\nprint(lst)   # [10, 2, 3]",
+    "game": {
+      "type": "find_bug",
+      "title": "找出Bug",
+      "instructions": "以下代码有错误，请找出出错的那一行",
+      "content": {
+        "code_lines": [
+          "text = 'hello'",
+          "text[0] = 'H'",
+          "print(text)"
+        ],
+        "bug_line": 2,
+        "explanation": "字符串是不可变的，不能用索引修改单个字符。需要创建新字符串：text = 'Hello'。"
+      }
+    },
+    "quiz": {
+      "question": "以下哪种类型是不可变的？",
+      "options": [
+        "列表 list",
+        "字典 dict",
+        "字符串 str",
+        "集合 set"
+      ],
+      "correct": 2,
+      "explanation": "字符串是不可变的，创建后不能修改内容。列表、字典、集合都是可变的。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "变量命名最佳实践",
+    "explanation": "好名字要：有意义、简洁、用 snake_case。避免单个字母（循环变量除外）和缩写。",
+    "code": "# 好的命名\nuser_name = '小明'      # 清晰\nmax_retry_count = 3     # 有意义\nis_valid = True         # 布尔用 is_/has_\n\n# 不好的命名\nx = '小明'              # 太短\nmrc = 3                 # 意义不明\nflag = True             # 不具体",
+    "game": {
+      "type": "fill_blank",
+      "title": "填空补全",
+      "instructions": "请将代码中的空白处填写正确内容",
+      "content": {
+        "code": "# 判断用户是否成年\nis_adult = age >= ____",
+        "blanks": [
+          {
+            "position": 1,
+            "answer": "18",
+            "options": [
+              "18",
+              "20",
+              "16",
+              "21"
+            ]
+          }
+        ],
+        "explanation": "成年人的标准年龄一般是 18 岁。"
+      }
+    },
+    "quiz": {
+      "question": "布尔类型的变量推荐用什么前缀？",
+      "options": [
+        "get_",
+        "set_",
+        "is_ 或 has_",
+        "do_"
+      ],
+      "correct": 2,
+      "explanation": "布尔变量推荐用 is_ 或 has_ 前缀，如 is_valid、has_permission。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "type() 查看变量类型",
+    "explanation": "用 type() 函数可以查看变量的类型。这是调试时非常有用的工具。",
+    "code": "# 查看变量类型\nx = 42\nprint(type(x))         # <class 'int'>\nprint(type(3.14))      # <class 'float'>\nprint(type('hello'))   # <class 'str'>\nprint(type(True))      # <class 'bool'>\nprint(type(None))      # <class 'NoneType'>",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "x = 'hello'\nprint(type(x))",
+        "options": [
+          "<class 'str'>",
+          "<class 'int'>",
+          "str",
+          "hello"
+        ],
+        "correct": 0,
+        "explanation": "type('hello') 返回 <class 'str'>，表示这是字符串类型。"
+      }
+    },
+    "quiz": {
+      "question": "type('hello') 返回什么？",
+      "options": [
+        "hello",
+        "<class 'str'>",
+        "string",
+        "str"
+      ],
+      "correct": 1,
+      "explanation": "type() 返回类型的完整表示：<class 'str'>。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "变量的内存管理",
+    "explanation": "Python 自动管理内存。当一个对象没有变量引用它时，会被自动回收（垃圾回收）。",
+    "code": "# 内存管理\na = [1, 2, 3]  # 创建列表，a 引用它\nb = a          # b 也引用它\na = None       # a 不再引用列表\nprint(b)       # [1, 2, 3] 列表还在（b 还引用着）\nb = None       # b 也不引用了，列表会被回收",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "a = [1, 2, 3]\nb = a\na = None\nprint(b)",
+        "options": [
+          "None",
+          "[1, 2, 3]",
+          "报错",
+          "[None, 2, 3]"
+        ],
+        "correct": 1,
+        "explanation": "a = None 只是让 a 不再引用列表，b 还引用着，所以 b 还能看到列表。"
+      }
+    },
+    "quiz": {
+      "question": "Python 什么时候回收内存中的对象？",
+      "options": [
+        "立刻回收",
+        "当没有变量引用该对象时自动回收",
+        "从不回收",
+        "手动回收"
+      ],
+      "correct": 1,
+      "explanation": "Python 使用垃圾回收机制，当对象没有被任何变量引用时，自动回收内存。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "变量命名：避免关键字",
+    "explanation": "Python 有一些保留关键字（如 if、for、while、class 等），不能用作变量名。",
+    "code": "# Python 关键字（不能用作变量名）\n# if, else, elif, for, while, return,\n# class, def, import, from, True, False,\n# None, and, or, not, in, is, try, except...\n\n# 错误示例：\n# class = '数学'  # 报错！\n\n# 正确：\nclass_name = '数学'\nprint(class_name)",
+    "game": {
+      "type": "find_bug",
+      "title": "找出Bug",
+      "instructions": "以下代码有错误，请找出出错的那一行",
+      "content": {
+        "code_lines": [
+          "for = 10",
+          "print(for)"
+        ],
+        "bug_line": 1,
+        "explanation": "'for' 是 Python 关键字，不能用作变量名。应该用其他名字如 count。"
+      }
+    },
+    "quiz": {
+      "question": "以下哪个不能用作变量名？",
+      "options": [
+        "my_var",
+        "count",
+        "for",
+        "data"
+      ],
+      "correct": 2,
+      "explanation": "'for' 是 Python 的关键字，不能用作变量名。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "f-string 格式化输出",
+    "explanation": "f-string 是 Python 3.6+ 的字符串格式化方式。在字符串前加 f，用 {} 嵌入变量。",
+    "code": "# f-string 格式化\nname = '小明'\nage = 20\nscore = 95.5\n\n# 基本用法\nprint(f'{name} 今年 {age} 岁')\n# 表达式\nprint(f'明年 {age + 1} 岁')\n# 格式化小数\nprint(f'分数: {score:.1f}')",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "name = 'Python'\nversion = 3\nprint(f'{name} {version}')",
+        "options": [
+          "Python 3",
+          "name version",
+          "{Python} {3}",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "f-string 中 {name} 和 {version} 被替换为变量的值。"
+      }
+    },
+    "quiz": {
+      "question": "f-string 中怎么嵌入变量？",
+      "options": [
+        "用 $",
+        "用 {}（字符串前加 f）",
+        "用 %",
+        "用 @"
+      ],
+      "correct": 1,
+      "explanation": "f-string 在字符串前加 f，用花括号 {} 嵌入变量或表达式。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "输入与类型转换",
+    "explanation": "input() 总是返回字符串。如果需要数字，必须用 int() 或 float() 转换。",
+    "code": "# 输入并转换类型\n# age_str = input('请输入年龄：')  # 返回字符串\nage_str = '20'  # 模拟输入\nage = int(age_str)  # 转为整数\n\nprint(f'年龄: {age}')\nprint(f'十年后: {age + 10}')",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "x = input('输入: ')  # 假设输入 5\ny = int(x)\nprint(y + 10)",
+        "options": [
+          "15",
+          "510",
+          "报错",
+          "5 10"
+        ],
+        "correct": 0,
+        "explanation": "input 返回字符串 '5'，int('5') = 5，5 + 10 = 15。"
+      }
+    },
+    "quiz": {
+      "question": "input('年龄: ') 返回的类型是什么？",
+      "options": [
+        "int",
+        "str",
+        "float",
+        "bool"
+      ],
+      "correct": 1,
+      "explanation": "input() 总是返回字符串类型，即使输入的是数字。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-variables",
+    "title": "连续赋值和覆盖",
+    "explanation": "变量被覆盖后，旧值就丢失了。要小心不要意外覆盖重要数据。",
+    "code": "# 覆盖变量\nname = '小明'\nold_name = name  # 先备份\nname = '小红'    # 覆盖\nprint(f'新名字: {name}')      # 小红\nprint(f'旧名字: {old_name}')  # 小明",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "x = 1\nx = 2\nx = 3\nprint(x)",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "6"
+        ],
+        "correct": 2,
+        "explanation": "变量被覆盖，最终值是最后一次赋的值 3。"
+      }
+    },
+    "quiz": {
+      "question": "变量被覆盖后，旧值会怎样？",
+      "options": [
+        "还在内存中",
+        "丢失（除非有备份）",
+        "自动保存",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "变量覆盖后旧值丢失。如果还需要旧值，应该先备份到另一个变量。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "整数类型 int",
+    "explanation": "整数（int）是没有小数点的数字。Python 的整数没有大小限制，可以存任意大的数。",
+    "code": "# 整数\na = 42\nb = -10\nc = 0\nbig = 99999999999999999999999999\n\nprint(type(a))  # <class 'int'>\nprint(big)      # 没有溢出！",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "x = 1000000000 * 1000000000\nprint(type(x))",
+        "options": [
+          "<class 'int'>",
+          "<class 'float'>",
+          "报错",
+          "溢出"
+        ],
+        "correct": 0,
+        "explanation": "Python 的整数没有大小限制，大数乘法仍然是 int。"
+      }
+    },
+    "quiz": {
+      "question": "Python 中整数有大小限制吗？",
+      "options": [
+        "有，最大 2^31",
+        "没有，可以任意大",
+        "有，最大 1000000",
+        "有，最大 2^64"
+      ],
+      "correct": 1,
+      "explanation": "Python 的整数没有大小限制，可以存储任意大的整数。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "浮点数类型 float",
+    "explanation": "浮点数（float）是带小数点的数字。注意浮点数可能有精度问题。",
+    "code": "# 浮点数\npi = 3.14159\nprice = 9.99\n\n# 精度问题\nresult = 0.1 + 0.2\nprint(result)           # 0.30000000000000004\nprint(round(result, 1)) # 0.3（四舍五入）",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "print(0.1 + 0.2)",
+        "options": [
+          "0.3",
+          "0.30000000000000004",
+          "报错",
+          "0"
+        ],
+        "correct": 1,
+        "explanation": "浮点数精度问题：0.1 + 0.2 实际结果是 0.30000000000000004。"
+      }
+    },
+    "quiz": {
+      "question": "为什么 0.1 + 0.2 不等于 0.3？",
+      "options": [
+        "Python 有 bug",
+        "浮点数精度问题（计算机用二进制存储小数）",
+        "语法错误",
+        "类型错误"
+      ],
+      "correct": 1,
+      "explanation": "计算机用二进制存储小数，有些十进制小数无法精确表示，导致精度误差。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "字符串类型 str",
+    "explanation": "字符串（str）是文本数据，用引号括起来。单引号、双引号都可以，三引号可以写多行。",
+    "code": "# 字符串的不同写法\ns1 = 'hello'\ns2 = \"hello\"\ns3 = '''多行\n字符串'''\n\nprint(s1)  # hello\nprint(s3)  # 多行\n          # 字符串",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "s = \"It's a test\"\nprint(s)",
+        "options": [
+          "It's a test",
+          "Its a test",
+          "报错",
+          "It\\'s a test"
+        ],
+        "correct": 0,
+        "explanation": "双引号可以包含单引号，直接输出。"
+      }
+    },
+    "quiz": {
+      "question": "以下哪种不是合法的字符串写法？",
+      "options": [
+        "'hello'",
+        "\"hello\"",
+        "hello",
+        "'''hello'''"
+      ],
+      "correct": 2,
+      "explanation": "没有引号的 hello 不是字符串，会被当成变量名。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "布尔类型 bool",
+    "explanation": "布尔类型（bool）只有两个值：True 和 False。用于条件判断和逻辑运算。",
+    "code": "# 布尔值\nis_sunny = True\nis_raining = False\n\n# 比较运算产生布尔值\nprint(5 > 3)    # True\nprint(5 == 3)   # False\nprint(5 != 3)   # True",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "x = 10\nresult = x > 5\nprint(result)",
+        "options": [
+          "True",
+          "False",
+          "10",
+          "5"
+        ],
+        "correct": 0,
+        "explanation": "10 > 5 为 True，所以 result 是 True。"
+      }
+    },
+    "quiz": {
+      "question": "bool 类型有几个值？",
+      "options": [
+        "无数个",
+        "2 个（True 和 False）",
+        "3 个",
+        "0 个"
+      ],
+      "correct": 1,
+      "explanation": "布尔类型只有 True 和 False 两个值。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "None 类型",
+    "explanation": "None 表示“没有值”。函数没有 return 语句时，默认返回 None。",
+    "code": "# None 的含义\nresult = None\nprint(result)        # None\nprint(type(result))  # <class 'NoneType'>\n\ndef say_hi():\n    print('hi')\n    # 没有 return\n\nx = say_hi()  # 返回 None\nprint(x)      # None",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "def func():\n    pass\n\nresult = func()\nprint(result)",
+        "options": [
+          "None",
+          "pass",
+          "报错",
+          "func"
+        ],
+        "correct": 0,
+        "explanation": "函数没有 return 语句，默认返回 None。"
+      }
+    },
+    "quiz": {
+      "question": "函数没有 return 语句时，返回什么？",
+      "options": [
+        "0",
+        "空字符串",
+        "None",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "没有 return 的函数默认返回 None。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "type() 函数详解",
+    "explanation": "type() 返回对象的类型。可以用 == 比较类型，也可以用 isinstance()。",
+    "code": "# type() 用法\nprint(type(42))          # <class 'int'>\nprint(type('hello'))     # <class 'str'>\nprint(type([1, 2]))      # <class 'list'>\n\n# 比较类型\nprint(type(42) == int)   # True\nprint(isinstance(42, int))  # True（推荐）",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "print(type(3.14) == float)",
+        "options": [
+          "True",
+          "False",
+          "float",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "type(3.14) 返回 <class 'float'>，与 float 相等，所以是 True。"
+      }
+    },
+    "quiz": {
+      "question": "推荐用什么方式检查类型？",
+      "options": [
+        "type() == 类型",
+        "isinstance(变量, 类型)",
+        "直接猜测",
+        "看变量名"
+      ],
+      "correct": 1,
+      "explanation": "推荐使用 isinstance()，它支持继承关系检查，更灵活。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "int() 类型转换",
+    "explanation": "int() 可以把字符串和浮点数转为整数。浮数会截断小数部分（不是四舍五入）。",
+    "code": "# int() 转换\nprint(int('42'))      # 42（字符串转整数）\nprint(int(3.99))      # 3（截断，不是四舍五入！）\nprint(int(3.14))      # 3\nprint(int('100'))     # 100\n# int('hello')       # 报错！",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "print(int(3.9))",
+        "options": [
+          "4",
+          "3",
+          "3.9",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "int() 截断小数部分，int(3.9) = 3，不是四舍五入。"
+      }
+    },
+    "quiz": {
+      "question": "int(3.9) 的结果是什么？",
+      "options": [
+        "4",
+        "3",
+        "3.9",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "int() 截断小数部分（不是四舍五入），所以 int(3.9) = 3。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "float() 类型转换",
+    "explanation": "float() 可以把字符串和整数转为浮点数。整数会加上 .0。",
+    "code": "# float() 转换\nprint(float(42))       # 42.0\nprint(float('3.14'))   # 3.14\nprint(float('7'))      # 7.0\n# float('hello')      # 报错！",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "print(float(42))",
+        "options": [
+          "42",
+          "42.0",
+          "42.00",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "float(42) 将整数 42 转为浮点数 42.0。"
+      }
+    },
+    "quiz": {
+      "question": "float(42) 的结果是什么？",
+      "options": [
+        "42",
+        "42.0",
+        "42.00",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "float(42) 将整数转为浮点数，加上小数点：42.0。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "str() 类型转换",
+    "explanation": "str() 可以把任何类型转为字符串。这在拼接字符串时很有用。",
+    "code": "# str() 转换\nprint(str(42))         # '42'\nprint(str(3.14))       # '3.14'\nprint(str(True))       # 'True'\nprint(str(None))       # 'None'\n\n# 实际应用：数字和字符串拼接\nage = 25\nprint('年龄: ' + str(age))  # 年龄: 25",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "x = 100\nprint('分数: ' + str(x))",
+        "options": [
+          "分数: 100",
+          "分数: x",
+          "报错",
+          "分数:100"
+        ],
+        "correct": 0,
+        "explanation": "str(100) = '100'，然后和 '分数: ' 拼接。"
+      }
+    },
+    "quiz": {
+      "question": "为什么需要 str() 转换？",
+      "options": [
+        "为了计算",
+        "为了把数字等类型变成字符串来拼接",
+        "为了排序",
+        "不需要"
+      ],
+      "correct": 1,
+      "explanation": "str() 把其他类型转为字符串，方便和别的字符串拼接。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "bool() 类型转换",
+    "explanation": "bool() 转换规则：0、0.0、''、None、空容器 转为 False，其他都是 True。",
+    "code": "# bool() 转换\nprint(bool(0))        # False\nprint(bool(1))        # True\nprint(bool(''))       # False（空字符串）\nprint(bool('hello'))  # True\nprint(bool(None))     # False\nprint(bool([]))       # False（空列表）\nprint(bool([1, 2]))   # True",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "print(bool(0))\nprint(bool(1))\nprint(bool(''))",
+        "options": [
+          "True True True",
+          "False True False",
+          "True False True",
+          "False False False"
+        ],
+        "correct": 1,
+        "explanation": "bool(0)=False, bool(1)=True, bool('')=False。"
+      }
+    },
+    "quiz": {
+      "question": "以下哪个 bool() 转换结果是 False？",
+      "options": [
+        "bool(1)",
+        "bool('hello')",
+        "bool(0)",
+        "bool([1])"
+      ],
+      "correct": 2,
+      "explanation": "bool(0) 是 False。0、空字符串、None、空容器都是 False。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "数值运算符",
+    "explanation": "Python 支持 +（加）、-（减）、*（乘）、/（除）、//（整除）、%（取余）、**（幂）。",
+    "code": "# 数值运算\nprint(10 + 3)   # 13\nprint(10 - 3)   # 7\nprint(10 * 3)   # 30\nprint(10 / 3)   # 3.3333...\nprint(10 // 3)  # 3（整除）\nprint(10 % 3)   # 1（取余）\nprint(2 ** 3)   # 8（2的3次方）",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "print(17 % 5)",
+        "options": [
+          "2",
+          "3",
+          "3.4",
+          "17"
+        ],
+        "correct": 0,
+        "explanation": "17 % 5 = 2（17除以5余2）。"
+      }
+    },
+    "quiz": {
+      "question": "10 // 3 的结果是什么？",
+      "options": [
+        "3.33",
+        "3",
+        "4",
+        "1"
+      ],
+      "correct": 1,
+      "explanation": "// 是整除运算符，10 // 3 = 3（丢弃小数部分）。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "运算符优先级",
+    "explanation": "运算符优先级：** > * / // % > + -。不确定时用括号明确优先级。",
+    "code": "# 优先级示例\nprint(2 + 3 * 4)    # 14（先乘后加）\nprint((2 + 3) * 4)  # 20（括号优先）\nprint(2 ** 3 ** 2)  # 512（**从右往左）\nprint((2 ** 3) ** 2)  # 64",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "print(2 + 3 * 4)",
+        "options": [
+          "20",
+          "14",
+          "24",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "先算 3 * 4 = 12，再算 2 + 12 = 14。乘法优先级高于加法。"
+      }
+    },
+    "quiz": {
+      "question": "2 + 3 * 4 的结果是？",
+      "options": [
+        "20",
+        "14",
+        "24",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "乘法优先级高于加法：先算 3*4=12，再算 2+12=14。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "比较运算符",
+    "explanation": "比较运算符：==（等于）、!=（不等于）、>、<、>=、<=。结果都是布尔值。",
+    "code": "# 比较运算\nprint(5 == 5)    # True\nprint(5 != 3)    # True\nprint(10 > 7)    # True\nprint(3 >= 3)    # True\nprint(2 < 1)     # False\nprint(5 == 5.0)  # True（值相等）",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "print(3 == 3.0)",
+        "options": [
+          "True",
+          "False",
+          "报错",
+          "3"
+        ],
+        "correct": 0,
+        "explanation": "== 比较值，3 和 3.0 的值相等，所以是 True。"
+      }
+    },
+    "quiz": {
+      "question": "5 == 5.0 的结果是什么？",
+      "options": [
+        "True",
+        "False",
+        "报错",
+        "5.0"
+      ],
+      "correct": 0,
+      "explanation": "== 比较的是值是否相等，5 和 5.0 值相等，所以是 True。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "字符串拼接和重复",
+    "explanation": "字符串可以用 + 拼接，用 * 重复。但字符串不能和数字直接用 +。",
+    "code": "# 字符串操作\nprint('hello' + ' ' + 'world')  # hello world\nprint('ha' * 3)                  # hahaha\nprint('=' * 20)                  # ====================\n\n# 注意：字符串不能和数字直接 +\n# print('age: ' + 25)  # 报错！",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "print('ab' * 3)",
+        "options": [
+          "ababab",
+          "ab 3",
+          "报错",
+          "abab"
+        ],
+        "correct": 0,
+        "explanation": "'ab' * 3 重复字符串 3 次，结果是 'ababab'。"
+      }
+    },
+    "quiz": {
+      "question": "'hello' * 3 的结果是什么？",
+      "options": [
+        "hellohellohello",
+        "hello 3",
+        "报错",
+        "hello3"
+      ],
+      "correct": 0,
+      "explanation": "* 操作符重复字符串，'hello' * 3 = 'hellohellohello'。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "字符串索引",
+    "explanation": "字符串中的每个字符都有索引，从 0 开始。负索引从末尾开始，-1 是最后一个。",
+    "code": "# 字符串索引\ns = 'Python'\nprint(s[0])    # P（第一个）\nprint(s[1])    # y\nprint(s[-1])   # n（最后一个）\nprint(s[-2])   # o\nprint(len(s))  # 6（长度）",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "s = 'Hello'\nprint(s[-1])",
+        "options": [
+          "H",
+          "o",
+          "报错",
+          "Hello"
+        ],
+        "correct": 1,
+        "explanation": "负索引 -1 是最后一个字符，'Hello' 的最后一个是 'o'。"
+      }
+    },
+    "quiz": {
+      "question": "'Python'[-1] 的结果是什么？",
+      "options": [
+        "P",
+        "n",
+        "o",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "负索引 -1 表示最后一个字符，'Python' 的最后一个是 'n'。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "字符串切片",
+    "explanation": "切片 [start:end] 截取子字符串。start 是起始位置（包含），end 是结束位置（不包含）。",
+    "code": "# 字符串切片\ns = 'Hello World'\nprint(s[0:5])   # Hello\nprint(s[6:])    # World（从6到末尾）\nprint(s[:5])    # Hello（从开头到5）\nprint(s[::2])   # HloWrd（步长2）",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "s = 'Python'\nprint(s[1:4])",
+        "options": [
+          "Pyt",
+          "yth",
+          "Pyth",
+          "ytho"
+        ],
+        "correct": 1,
+        "explanation": "s[1:4] 取索引 1、2、3 的字符，即 'yth'。"
+      }
+    },
+    "quiz": {
+      "question": "'Python'[1:4] 的结果是什么？",
+      "options": [
+        "Pyt",
+        "yth",
+        "Pyth",
+        "ytho"
+      ],
+      "correct": 1,
+      "explanation": "切片 [1:4] 取索引 1、2、3（不含4），结果是 'yth'。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "常用字符串方法",
+    "explanation": "字符串有很多内置方法：upper()、lower()、strip()、replace()、split()、find()。",
+    "code": "# 常用字符串方法\ns = '  Hello World  '\nprint(s.strip())         # 'Hello World'（去空格）\nprint(s.strip().upper()) # 'HELLO WORLD'\nprint(s.strip().lower()) # 'hello world'\nprint(s.strip().replace('World', 'Python'))  # 'Hello Python'",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "s = '  hello  '\nprint(s.strip().upper())",
+        "options": [
+          "  HELLO  ",
+          "HELLO",
+          "hello",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "先 strip() 去空格，再 upper() 转大写，结果是 'HELLO'。"
+      }
+    },
+    "quiz": {
+      "question": ".strip() 方法的作用是什么？",
+      "options": [
+        "转大写",
+        "去除首尾空白字符",
+        "替换字符",
+        "分割字符串"
+      ],
+      "correct": 1,
+      "explanation": ".strip() 去除字符串首尾的空格、换行等空白字符。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "字符串查找和替换",
+    "explanation": "find() 查找子字符串的位置，replace() 替换子字符串。找不到返回 -1。",
+    "code": "# 查找和替换\ns = 'Hello World'\nprint(s.find('World'))     # 6（位置）\nprint(s.find('Python'))   # -1（找不到）\nprint(s.replace('World', 'Python'))  # 'Hello Python'\n\n# in 关键字\nprint('World' in s)  # True",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "s = 'Hello World'\nprint(s.find('World'))",
+        "options": [
+          "True",
+          "6",
+          "-1",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "find() 返回子字符串的起始索引，'World' 从位置 6 开始。"
+      }
+    },
+    "quiz": {
+      "question": "find() 找不到子字符串时返回什么？",
+      "options": [
+        "0",
+        "None",
+        "-1",
+        "报错"
+      ],
+      "correct": 2,
+      "explanation": "find() 找不到时返回 -1，不会报错。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "字符串分割和连接",
+    "explanation": "split() 把字符串按分隔符拆分成列表。join() 把列表中的字符串连接起来。",
+    "code": "# 分割和连接\ns = 'apple,banana,cherry'\nfruits = s.split(',')\nprint(fruits)  # ['apple', 'banana', 'cherry']\n\n# 连接\nresult = ' - '.join(fruits)\nprint(result)  # 'apple - banana - cherry'",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "s = 'a-b-c'\nparts = s.split('-')\nprint(len(parts))",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "报错"
+        ],
+        "correct": 2,
+        "explanation": "'a-b-c' 按 '-' 分割成 ['a', 'b', 'c']，共 3 个元素。"
+      }
+    },
+    "quiz": {
+      "question": "split(',') 的作用是什么？",
+      "options": [
+        "连接字符串",
+        "按逗号分割字符串为列表",
+        "删除逗号",
+        "计算逗号数量"
+      ],
+      "correct": 1,
+      "explanation": "split(',') 按逗号把字符串分割成一个列表。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "类型转换的安全性",
+    "explanation": "不是所有类型转换都能成功。int('hello') 会报错。要先检查或用 try/except 处理。",
+    "code": "# 安全的类型转换\ndef safe_int(value):\n    try:\n        return int(value)\n    except ValueError:\n        return None\n\nprint(safe_int('42'))     # 42\nprint(safe_int('hello'))  # None（不报错）",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "try:\n    x = int('abc')\nexcept ValueError:\n    x = 0\nprint(x)",
+        "options": [
+          "abc",
+          "0",
+          "报错",
+          "None"
+        ],
+        "correct": 1,
+        "explanation": "int('abc') 会报 ValueError，被 except 捕获，x = 0。"
+      }
+    },
+    "quiz": {
+      "question": "int('hello') 会怎样？",
+      "options": [
+        "返回 0",
+        "返回 None",
+        "报 ValueError",
+        "返回 'hello'"
+      ],
+      "correct": 2,
+      "explanation": "int('hello') 无法转换，会报 ValueError 错误。"
+    }
+  },
+  {
+    "week": 2,
+    "module": "py-types",
+    "title": "字符串格式化数字",
+    "explanation": "f-string 可以格式化数字：控制小数位数、千分位、百分比等。",
+    "code": "# 数字格式化\npi = 3.14159\nprint(f'{pi:.2f}')       # 3.14（2位小数）\nprint(f'{pi:.4f}')       # 3.1416（4位小数）\n\nmoney = 1234567\nprint(f'{money:,}')      # 1,234,567（千分位）\n\nrate = 0.856\nprint(f'{rate:.1%}')     # 85.6%（百分比）",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "pi = 3.14159\nprint(f'{pi:.2f}')",
+        "options": [
+          "3.14",
+          "3.14159",
+          "3.1416",
+          "3.1"
+        ],
+        "correct": 0,
+        "explanation": ":.2f 保留2位小数，四舍五入到 3.14。"
+      }
+    },
+    "quiz": {
+      "question": "f'{3.14159:.2f}' 的结果是什么？",
+      "options": [
+        "3.14159",
+        "3.14",
+        "3.1",
+        "3.1416"
+      ],
+      "correct": 1,
+      "explanation": ":.2f 保留2位小数，四舍五入得到 3.14。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "创建列表",
+    "explanation": "列表用方括号 [] 创建，元素用逗号分隔。列表可以包含任何类型的元素，也可以混合类型。",
+    "code": "# 创建列表\nfruits = ['苹果', '香蕉', '橙子']\nnumbers = [1, 2, 3, 4, 5]\nmixed = [1, 'hello', True, 3.14]\nempty = []\n\nprint(fruits)    # ['苹果', '香蕉', '橙子']\nprint(len(fruits))  # 3",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "lst = [1, 'two', 3.0]\nprint(len(lst))",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "报错"
+        ],
+        "correct": 2,
+        "explanation": "列表有3个元素，len() 返回 3。"
+      }
+    },
+    "quiz": {
+      "question": "如何创建一个空列表？",
+      "options": [
+        "{}",
+        "[]",
+        "()",
+        "''"
+      ],
+      "correct": 1,
+      "explanation": "[] 创建空列表。{} 是空字典，() 是空元组，'' 是空字符串。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "列表索引",
+    "explanation": "列表和字符串一样，用索引访问元素。索引从 0 开始，负索引从末尾开始。",
+    "code": "# 列表索引\nfruits = ['苹果', '香蕉', '橙子', '葡萄']\nprint(fruits[0])    # 苹果（第一个）\nprint(fruits[1])    # 香蕉\nprint(fruits[-1])   # 葡萄（最后一个）\nprint(fruits[-2])   # 橙子",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "lst = [10, 20, 30, 40]\nprint(lst[2])",
+        "options": [
+          "10",
+          "20",
+          "30",
+          "40"
+        ],
+        "correct": 2,
+        "explanation": "索引 2 是第三个元素，即 30。"
+      }
+    },
+    "quiz": {
+      "question": "[10, 20, 30][1] 的结果是什么？",
+      "options": [
+        "10",
+        "20",
+        "30",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "索引 1 是第二个元素，即 20。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "列表切片",
+    "explanation": "切片 [start:end] 获取子列表。start 包含，end 不包含。可以省略 start 或 end。",
+    "code": "# 列表切片\nnums = [0, 1, 2, 3, 4, 5]\nprint(nums[1:4])   # [1, 2, 3]\nprint(nums[:3])    # [0, 1, 2]\nprint(nums[3:])    # [3, 4, 5]\nprint(nums[::2])   # [0, 2, 4]（步长2）\nprint(nums[::-1])  # [5, 4, 3, 2, 1, 0]（反转）",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "lst = [1, 2, 3, 4, 5]\nprint(lst[1:3])",
+        "options": [
+          "[1, 2]",
+          "[2, 3]",
+          "[1, 2, 3]",
+          "[2, 3, 4]"
+        ],
+        "correct": 1,
+        "explanation": "lst[1:3] 取索引 1 和 2（不含3），结果是 [2, 3]。"
+      }
+    },
+    "quiz": {
+      "question": "[1, 2, 3, 4, 5][1:3] 的结果是什么？",
+      "options": [
+        "[1, 2]",
+        "[2, 3]",
+        "[1, 2, 3]",
+        "[2, 3, 4]"
+      ],
+      "correct": 1,
+      "explanation": "切片 [1:3] 取索引 1 和 2（不含 3），结果是 [2, 3]。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "修改列表元素",
+    "explanation": "列表是可变的，可以通过索引直接修改元素。字符串不能这样修改。",
+    "code": "# 修改列表元素\nfruits = ['苹果', '香蕉', '橙子']\nfruits[1] = '芒果'  # 把香蕉改成芒果\nprint(fruits)  # ['苹果', '芒果', '橙子']\n\n# 也可以修改切片\nfruits[0:2] = ['西瓜', '草莓']\nprint(fruits)  # ['西瓜', '草莓', '橙子']",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "lst = [1, 2, 3]\nlst[0] = 10\nprint(lst)",
+        "options": [
+          "[1, 2, 3]",
+          "[10, 2, 3]",
+          "[1, 10, 3]",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "lst[0] = 10 把第一个元素从 1 改为 10，结果是 [10, 2, 3]。"
+      }
+    },
+    "quiz": {
+      "question": "列表能通过索引修改元素吗？",
+      "options": [
+        "能",
+        "不能",
+        "只有第一个能",
+        "看情况"
+      ],
+      "correct": 0,
+      "explanation": "列表是可变类型，可以通过索引直接修改元素的值。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "append() 添加元素",
+    "explanation": "append() 在列表末尾添加一个元素。这是最常用的列表操作之一。",
+    "code": "# append 添加元素\nfruits = ['苹果', '香蕉']\nfruits.append('橙子')\nprint(fruits)  # ['苹果', '香蕉', '橙子']\n\nfruits.append('葡萄')\nprint(fruits)  # ['苹果', '香蕉', '橙子', '葡萄']",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "lst = [1, 2]\nlst.append(3)\nlst.append(4)\nprint(lst)",
+        "options": [
+          "[1, 2]",
+          "[1, 2, 3]",
+          "[1, 2, 3, 4]",
+          "[4, 3, 2, 1]"
+        ],
+        "correct": 2,
+        "explanation": "两次 append 分别添加 3 和 4，结果是 [1, 2, 3, 4]。"
+      }
+    },
+    "quiz": {
+      "question": "append() 的作用是什么？",
+      "options": [
+        "在开头添加元素",
+        "在末尾添加元素",
+        "删除元素",
+        "排序"
+      ],
+      "correct": 1,
+      "explanation": "append() 在列表末尾添加一个新元素。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "insert() 插入元素",
+    "explanation": "insert(index, element) 在指定位置插入元素。原来位置及后面的元素往后移。",
+    "code": "# insert 插入元素\nfruits = ['苹果', '橙子']\nfruits.insert(1, '香蕉')  # 在索引1处插入\nprint(fruits)  # ['苹果', '香蕉', '橙子']\n\nfruits.insert(0, '西瓜')  # 在开头插入\nprint(fruits)  # ['西瓜', '苹果', '香蕉', '橙子']",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "lst = [1, 3, 4]\nlst.insert(1, 2)\nprint(lst)",
+        "options": [
+          "[2, 1, 3, 4]",
+          "[1, 2, 3, 4]",
+          "[1, 3, 2, 4]",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "insert(1, 2) 在索引1处插入2，原元素后移，结果是 [1, 2, 3, 4]。"
+      }
+    },
+    "quiz": {
+      "question": "insert(1, 'x') 在哪里插入？",
+      "options": [
+        "开头",
+        "索引1的位置",
+        "末尾",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "insert(index, element) 在指定索引位置插入元素。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "remove() 和 pop()",
+    "explanation": "remove(value) 按值删除第一个匹配项。pop(index) 按索引删除并返回该元素。",
+    "code": "# remove 和 pop\nfruits = ['苹果', '香蕉', '橙子', '香蕉']\nfruits.remove('香蕉')  # 删除第一个'香蕉'\nprint(fruits)  # ['苹果', '橙子', '香蕉']\n\nlast = fruits.pop()  # 删除并返回最后一个\nprint(last)    # 香蕉\nprint(fruits)  # ['苹果', '橙子']",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "lst = [1, 2, 3, 4]\nlst.pop()\nprint(lst)",
+        "options": [
+          "[1, 2, 3, 4]",
+          "[1, 2, 3]",
+          "[2, 3, 4]",
+          "[1, 2, 4]"
+        ],
+        "correct": 1,
+        "explanation": "pop() 不带参数时删除并返回最后一个元素，结果是 [1, 2, 3]。"
+      }
+    },
+    "quiz": {
+      "question": "pop() 不指定索引时删除哪个元素？",
+      "options": [
+        "第一个",
+        "最后一个",
+        "随机",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "pop() 不指定索引时删除并返回最后一个元素。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "列表排序",
+    "explanation": "sort() 原地排序（修改原列表）。sorted() 返回新列表，不修改原列表。reverse=True 降序。",
+    "code": "# 列表排序\nnums = [3, 1, 4, 1, 5, 9]\nnums.sort()\nprint(nums)  # [1, 1, 3, 4, 5, 9]\n\n# 降序\nnums.sort(reverse=True)\nprint(nums)  # [9, 5, 4, 3, 1, 1]\n\n# sorted() 不修改原列表\noriginal = [3, 1, 2]\nnew_list = sorted(original)\nprint(original)  # [3, 1, 2]\nprint(new_list)  # [1, 2, 3]",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "lst = [3, 1, 2]\nlst.sort()\nprint(lst)",
+        "options": [
+          "[3, 1, 2]",
+          "[1, 2, 3]",
+          "[3, 2, 1]",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "sort() 原地排序，从小到大：[1, 2, 3]。"
+      }
+    },
+    "quiz": {
+      "question": "sort() 和 sorted() 的区别是什么？",
+      "options": [
+        "完全一样",
+        "sort() 修改原列表，sorted() 返回新列表",
+        "sort() 返回新列表",
+        "sorted() 修改原列表"
+      ],
+      "correct": 1,
+      "explanation": "sort() 原地排序修改原列表，sorted() 返回新列表不修改原列表。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "列表反转",
+    "explanation": "reverse() 原地反转列表。也可以用切片 [::-1] 创建反转的新列表。",
+    "code": "# 列表反转\nnums = [1, 2, 3, 4, 5]\nnums.reverse()\nprint(nums)  # [5, 4, 3, 2, 1]\n\n# 用切片反转（不修改原列表）\noriginal = [1, 2, 3]\nreversed_list = original[::-1]\nprint(original)      # [1, 2, 3]\nprint(reversed_list)  # [3, 2, 1]",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "lst = [1, 2, 3]\nlst.reverse()\nprint(lst)",
+        "options": [
+          "[1, 2, 3]",
+          "[3, 2, 1]",
+          "[2, 1, 3]",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "reverse() 原地反转，[1, 2, 3] 变成 [3, 2, 1]。"
+      }
+    },
+    "quiz": {
+      "question": "reverse() 的作用是什么？",
+      "options": [
+        "排序",
+        "原地反转列表",
+        "删除元素",
+        "复制列表"
+      ],
+      "correct": 1,
+      "explanation": "reverse() 原地反转列表中元素的顺序。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "列表长度和统计",
+    "explanation": "len() 获取长度，count() 统计某个元素出现的次数，index() 查找元素的位置。",
+    "code": "# 长度和统计\nnums = [1, 2, 3, 2, 4, 2]\nprint(len(nums))       # 6\nprint(nums.count(2))   # 3（2出现了3次）\nprint(nums.index(3))   # 2（3在索引2）",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "lst = [1, 2, 2, 3, 2]\nprint(lst.count(2))",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "报错"
+        ],
+        "correct": 2,
+        "explanation": "count(2) 统计 2 出现的次数，共 3 次。"
+      }
+    },
+    "quiz": {
+      "question": "[1, 2, 2, 3].count(2) 的结果是什么？",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "count(2) 统计 2 出现的次数，[1, 2, 2, 3] 中 2 出现了 2 次。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "列表遍历",
+    "explanation": "用 for 循环遍历列表中的每个元素。这是处理列表最常用的方式。",
+    "code": "# 遍历列表\nfruits = ['苹果', '香蕉', '橙子']\nfor fruit in fruits:\n    print(f'我喜欢{fruit}')\n\n# 带索引遍历\nfor i, fruit in enumerate(fruits):\n    print(f'{i}: {fruit}')",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "lst = [10, 20, 30]\nfor x in lst:\n    print(x * 2)",
+        "options": [
+          "20 40 60",
+          "10 20 30",
+          "报错",
+          "20 40 60（一行）"
+        ],
+        "correct": 0,
+        "explanation": "遍历列表，每个元素乘以2：20、40、60（每行一个）。"
+      }
+    },
+    "quiz": {
+      "question": "遍历列表用什么语句？",
+      "options": [
+        "while",
+        "for...in",
+        "if",
+        "def"
+      ],
+      "correct": 1,
+      "explanation": "for...in 是遍历列表的标准方式，依次取出每个元素。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "列表推导式基础",
+    "explanation": "列表推导式是创建列表的简洁方式。格式：[表达式 for 变量 in 可迭代对象]。",
+    "code": "# 列表推导式\n# 传统方式\nsquares = []\nfor i in range(5):\n    squares.append(i ** 2)\nprint(squares)  # [0, 1, 4, 9, 16]\n\n# 推导式（更简洁）\nsquares2 = [i ** 2 for i in range(5)]\nprint(squares2)  # [0, 1, 4, 9, 16]",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "result = [x * 2 for x in [1, 2, 3]]\nprint(result)",
+        "options": [
+          "[1, 2, 3]",
+          "[2, 4, 6]",
+          "[2, 3, 4]",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "列表推导式对每个元素乘以2：[2, 4, 6]。"
+      }
+    },
+    "quiz": {
+      "question": "[x + 1 for x in [1, 2, 3]] 的结果是什么？",
+      "options": [
+        "[1, 2, 3]",
+        "[2, 3, 4]",
+        "[1, 1, 1]",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "每个元素加1：1+1=2, 2+1=3, 3+1=4，结果是 [2, 3, 4]。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "带条件的列表推导式",
+    "explanation": "推导式可以加 if 条件过滤元素。格式：[表达式 for 变量 in 可迭代对象 if 条件]。",
+    "code": "# 带条件的推导式\n# 筛选偶数\nevens = [x for x in range(10) if x % 2 == 0]\nprint(evens)  # [0, 2, 4, 6, 8]\n\n# 筛选长度大于3的名字\nnames = ['Bob', 'Alice', 'Tom', 'David']\nlong_names = [n for n in names if len(n) > 3]\nprint(long_names)  # ['Alice', 'David']",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "result = [x for x in [1, 2, 3, 4, 5] if x > 3]\nprint(result)",
+        "options": [
+          "[4, 5]",
+          "[1, 2, 3]",
+          "[3, 4, 5]",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "过滤出大于3的元素：4 和 5。"
+      }
+    },
+    "quiz": {
+      "question": "[x for x in [1,2,3,4] if x % 2 == 0] 的结果是什么？",
+      "options": [
+        "[1, 3]",
+        "[2, 4]",
+        "[1, 2, 3, 4]",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "筛选偶数：2 和 4，结果是 [2, 4]。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "嵌套列表",
+    "explanation": "列表可以包含其他列表，形成嵌套结构。常用于表示矩阵（二维数据）。",
+    "code": "# 嵌套列表（矩阵）\nmatrix = [\n    [1, 2, 3],\n    [4, 5, 6],\n    [7, 8, 9]\n]\nprint(matrix[0])      # [1, 2, 3]（第一行）\nprint(matrix[0][1])   # 2（第一行第二列）\nprint(matrix[1][2])   # 6（第二行第三列）",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "m = [[1, 2], [3, 4]]\nprint(m[1][0])",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "correct": 2,
+        "explanation": "m[1] 是 [3, 4]，m[1][0] 是 3。"
+      }
+    },
+    "quiz": {
+      "question": "[[1,2],[3,4]][1][1] 的结果是什么？",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "correct": 3,
+      "explanation": "[1] 是 [3,4]，[1][1] 是 4。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "列表合并",
+    "explanation": "用 + 合并两个列表，用 extend() 把一个列表的元素添加到另一个列表。",
+    "code": "# 合并列表\nlist1 = [1, 2, 3]\nlist2 = [4, 5, 6]\n\n# 用 +\ncombined = list1 + list2\nprint(combined)  # [1, 2, 3, 4, 5, 6]\n\n# 用 extend()\nlist1.extend(list2)\nprint(list1)  # [1, 2, 3, 4, 5, 6]",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "a = [1, 2]\nb = [3, 4]\nprint(a + b)",
+        "options": [
+          "[1, 2]",
+          "[3, 4]",
+          "[1, 2, 3, 4]",
+          "报错"
+        ],
+        "correct": 2,
+        "explanation": "+ 合并两个列表，结果是 [1, 2, 3, 4]。"
+      }
+    },
+    "quiz": {
+      "question": "[1,2] + [3,4] 的结果是什么？",
+      "options": [
+        "[1, 2, 3, 4]",
+        "[4, 6]",
+        "[[1,2], [3,4]]",
+        "报错"
+      ],
+      "correct": 0,
+      "explanation": "+ 合并列表，结果是 [1, 2, 3, 4]。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "列表成员检测",
+    "explanation": "用 in 关键字检查元素是否在列表中。返回 True 或 False。",
+    "code": "# 成员检测\nfruits = ['苹果', '香蕉', '橙子']\nprint('苹果' in fruits)    # True\nprint('葡萄' in fruits)    # False\nprint('葡萄' not in fruits)  # True\n\n# 在 if 中使用\nif '苹果' in fruits:\n    print('有苹果！')",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "lst = [1, 2, 3]\nprint(2 in lst)\nprint(5 in lst)",
+        "options": [
+          "True True",
+          "False False",
+          "True False",
+          "False True"
+        ],
+        "correct": 2,
+        "explanation": "2 在列表中 → True，5 不在 → False。"
+      }
+    },
+    "quiz": {
+      "question": "2 in [1, 2, 3] 的结果是什么？",
+      "options": [
+        "True",
+        "False",
+        "2",
+        "报错"
+      ],
+      "correct": 0,
+      "explanation": "in 检查元素是否在列表中，2 在 [1, 2, 3] 中，所以是 True。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "列表复制",
+    "explanation": "直接赋值不会复制列表（只是引用）。要用 copy() 或切片 [:] 来真正复制。",
+    "code": "# 列表复制\noriginal = [1, 2, 3]\n\n# 错误方式（引用）\nref = original\nref.append(4)\nprint(original)  # [1, 2, 3, 4]  原列表也变了！\n\n# 正确方式（复制）\noriginal = [1, 2, 3]\ncopy = original.copy()  # 或 original[:]\ncopy.append(4)\nprint(original)  # [1, 2, 3]  原列表不变",
+    "game": {
+      "type": "find_bug",
+      "title": "找出Bug",
+      "instructions": "以下代码有错误，请找出出错的那一行",
+      "content": {
+        "code_lines": [
+          "original = [1, 2, 3]",
+          "copy = original",
+          "copy.append(4)",
+          "print(original)"
+        ],
+        "bug_line": 2,
+        "explanation": "copy = original 只是引用，不是复制。应该用 copy = original.copy()。"
+      }
+    },
+    "quiz": {
+      "question": "如何真正复制一个列表？",
+      "options": [
+        "new = old",
+        "new = old.copy()",
+        "new = old[0]",
+        "new = list(old[0])"
+      ],
+      "correct": 1,
+      "explanation": "用 .copy() 或 [:] 切片来创建列表的真正副本。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "列表解包",
+    "explanation": "列表解包可以把列表中的元素赋给多个变量。变量数量要匹配。",
+    "code": "# 列表解包\npoint = [3, 5]\nx, y = point\nprint(f'x={x}, y={y}')  # x=3, y=5\n\n# 用 * 收集剩余元素\nfirst, *rest = [1, 2, 3, 4, 5]\nprint(first)  # 1\nprint(rest)   # [2, 3, 4, 5]",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "a, b, c = [10, 20, 30]\nprint(b)",
+        "options": [
+          "10",
+          "20",
+          "30",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "解包：a=10, b=20, c=30，print(b) 输出 20。"
+      }
+    },
+    "quiz": {
+      "question": "a, b = [1, 2, 3] 会怎样？",
+      "options": [
+        "a=1, b=2",
+        "a=1, b=[2,3]",
+        "报错",
+        "a=[1,2,3]"
+      ],
+      "correct": 2,
+      "explanation": "变量数量和元素数量不匹配会报 ValueError。需要 a, b, c = [1, 2, 3]。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-lists",
+    "title": "列表常用内置函数",
+    "explanation": "sum() 求和，max() 最大值，min() 最小值，len() 长度，sorted() 排序。",
+    "code": "# 列表常用函数\nnums = [3, 1, 4, 1, 5, 9]\nprint(sum(nums))      # 23\nprint(max(nums))      # 9\nprint(min(nums))      # 1\nprint(len(nums))      # 6\nprint(sorted(nums))   # [1, 1, 3, 4, 5, 9]",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "lst = [10, 20, 30]\nprint(sum(lst) / len(lst))",
+        "options": [
+          "20.0",
+          "60",
+          "30",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "sum = 60, len = 3, 60 / 3 = 20.0。"
+      }
+    },
+    "quiz": {
+      "question": "sum([1, 2, 3, 4]) 的结果是什么？",
+      "options": [
+        "10",
+        "4",
+        "24",
+        "报错"
+      ],
+      "correct": 0,
+      "explanation": "sum() 求所有元素的和：1+2+3+4 = 10。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-dicts",
+    "title": "创建字典",
+    "explanation": "字典用花括号 {} 创建，包含键值对。格式：{key: value, key: value}。键必须是不可变类型。",
+    "code": "# 创建字典\nstudent = {\n    'name': '小明',\n    'age': 20,\n    'score': 95\n}\nprint(student)  # {'name': '小明', 'age': 20, 'score': 95}\n\n# 空字典\nempty = {}",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "d = {'a': 1, 'b': 2}\nprint(len(d))",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "字典有2个键值对，len() 返回 2。"
+      }
+    },
+    "quiz": {
+      "question": "字典用什么符号创建？",
+      "options": [
+        "[]",
+        "{}",
+        "()",
+        "<>"
+      ],
+      "correct": 1,
+      "explanation": "字典用花括号 {} 创建，包含键值对。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-dicts",
+    "title": "字典访问值",
+    "explanation": "用键来访问字典的值。用 d[key] 或 d.get(key)。get() 在键不存在时返回 None 而不是报错。",
+    "code": "# 访问字典值\nperson = {'name': '小明', 'age': 20}\nprint(person['name'])     # 小明\nprint(person['age'])      # 20\n\n# get() 更安全\nprint(person.get('name'))  # 小明\nprint(person.get('phone'))  # None（不报错）\nprint(person.get('phone', '无'))  # 无（默认值）",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "d = {'x': 10, 'y': 20}\nprint(d['x'])",
+        "options": [
+          "10",
+          "20",
+          "x",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "用键 'x' 访问字典，得到对应的值 10。"
+      }
+    },
+    "quiz": {
+      "question": "字典中用什么来获取值？",
+      "options": [
+        "索引",
+        "键（key）",
+        "位置",
+        "类型"
+      ],
+      "correct": 1,
+      "explanation": "字典用键（key）来访问对应的值（value）。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-dicts",
+    "title": "添加和修改键值对",
+    "explanation": "用 d[key] = value 添加新键值对或修改已有键的值。",
+    "code": "# 添加和修改\nstudent = {'name': '小明'}\n\n# 添加\nstudent['age'] = 20\nprint(student)  # {'name': '小明', 'age': 20}\n\n# 修改\nstudent['age'] = 21\nprint(student)  # {'name': '小明', 'age': 21}",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "d = {'a': 1}\nd['b'] = 2\nd['a'] = 10\nprint(d)",
+        "options": [
+          "{'a': 1, 'b': 2}",
+          "{'a': 10, 'b': 2}",
+          "{'a': 10}",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "添加 b=2，修改 a=10，结果是 {'a': 10, 'b': 2}。"
+      }
+    },
+    "quiz": {
+      "question": "d['new_key'] = value 在键不存在时会怎样？",
+      "options": [
+        "报错",
+        "创建新的键值对",
+        "忽略",
+        "返回 None"
+      ],
+      "correct": 1,
+      "explanation": "键不存在时会创建新的键值对。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-dicts",
+    "title": "删除键值对",
+    "explanation": "用 del 删除指定键值对，用 pop() 删除并返回值，用 clear() 清空字典。",
+    "code": "# 删除键值对\nstudent = {'name': '小明', 'age': 20, 'score': 95}\n\n# del 删除\ndel student['score']\nprint(student)  # {'name': '小明', 'age': 20}\n\n# pop 删除并返回\nage = student.pop('age')\nprint(age)      # 20\nprint(student)  # {'name': '小明'}",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "d = {'a': 1, 'b': 2, 'c': 3}\ndel d['b']\nprint(d)",
+        "options": [
+          "{'a': 1, 'c': 3}",
+          "{'a': 1, 'b': 2}",
+          "{'a': 1, 'b': 2, 'c': 3}",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "del d['b'] 删除键 'b' 及其值，剩下 {'a': 1, 'c': 3}。"
+      }
+    },
+    "quiz": {
+      "question": "del d['key'] 的作用是什么？",
+      "options": [
+        "删除整个字典",
+        "删除指定键值对",
+        "清空字典",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "del d['key'] 删除字典中指定键及其对应的值。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-dicts",
+    "title": "字典遍历",
+    "explanation": "遍历字典可以用 keys()、values()、items()。items() 同时获取键和值。",
+    "code": "# 遍历字典\nstudent = {'name': '小明', 'age': 20, 'score': 95}\n\n# 遍历键\nfor key in student.keys():\n    print(key)\n\n# 遍历值\nfor value in student.values():\n    print(value)\n\n# 遍历键值对\nfor key, value in student.items():\n    print(f'{key}: {value}')",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "d = {'a': 1, 'b': 2}\nfor k, v in d.items():\n    print(v)",
+        "options": [
+          "1 2",
+          "a b",
+          "报错",
+          "1"
+        ],
+        "correct": 0,
+        "explanation": "items() 返回键值对，v 是值，输出 1 和 2（每行一个）。"
+      }
+    },
+    "quiz": {
+      "question": "items() 返回什么？",
+      "options": [
+        "只返回键",
+        "只返回值",
+        "返回键值对的元组",
+        "返回列表"
+      ],
+      "correct": 2,
+      "explanation": "items() 返回字典的键值对，每个元素是一个 (key, value) 元组。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-dicts",
+    "title": "字典推导式",
+    "explanation": "字典推导式类似列表推导式，用 {key: value for ...} 创建字典。",
+    "code": "# 字典推导式\n# 数字和它的平方\nsquares = {x: x**2 for x in range(5)}\nprint(squares)  # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}\n\n# 带条件\neven_squares = {x: x**2 for x in range(10) if x % 2 == 0}\nprint(even_squares)  # {0: 0, 2: 4, 4: 16, 6: 36, 8: 64}",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "d = {k: k*2 for k in [1, 2, 3]}\nprint(d)",
+        "options": [
+          "{1: 2, 2: 4, 3: 6}",
+          "{1: 1, 2: 2, 3: 3}",
+          "[2, 4, 6]",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "字典推导式：1→2, 2→4, 3→6。"
+      }
+    },
+    "quiz": {
+      "question": "{x: x+1 for x in [1, 2]} 的结果是什么？",
+      "options": [
+        "{1: 2, 2: 3}",
+        "{2: 3}",
+        "[2, 3]",
+        "报错"
+      ],
+      "correct": 0,
+      "explanation": "1→1+1=2, 2→2+1=3，结果是 {1: 2, 2: 3}。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-dicts",
+    "title": "字典的 in 操作",
+    "explanation": "in 检查的是键（不是值）。如果要检查值，用 value in d.values()。",
+    "code": "# 检查键是否存在\nstudent = {'name': '小明', 'age': 20}\nprint('name' in student)     # True\nprint('小明' in student)     # False（检查的是键）\nprint('小明' in student.values())  # True（检查值）",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "d = {'a': 1, 'b': 2}\nprint('a' in d)\nprint(1 in d)",
+        "options": [
+          "True True",
+          "True False",
+          "False True",
+          "False False"
+        ],
+        "correct": 1,
+        "explanation": "'a' 是键 → True。1 是值不是键 → False。"
+      }
+    },
+    "quiz": {
+      "question": "1 in {'a': 1, 'b': 2} 的结果是什么？",
+      "options": [
+        "True",
+        "False",
+        "报错",
+        "1"
+      ],
+      "correct": 1,
+      "explanation": "in 检查的是键。1 不是键（'a' 和 'b' 才是），所以是 False。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-dicts",
+    "title": "字典合并",
+    "explanation": "用 update() 合并两个字典。如果有相同的键，后面的值会覆盖前面的。",
+    "code": "# 合并字典\nd1 = {'a': 1, 'b': 2}\nd2 = {'b': 3, 'c': 4}\nd1.update(d2)\nprint(d1)  # {'a': 1, 'b': 3, 'c': 4}\n# 'b' 的值被 d2 覆盖了",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "d1 = {'x': 1}\nd2 = {'y': 2}\nd1.update(d2)\nprint(d1)",
+        "options": [
+          "{'x': 1}",
+          "{'y': 2}",
+          "{'x': 1, 'y': 2}",
+          "报错"
+        ],
+        "correct": 2,
+        "explanation": "update() 把 d2 的键值对添加到 d1 中，结果是 {'x': 1, 'y': 2}。"
+      }
+    },
+    "quiz": {
+      "question": "两个字典有相同键时，update() 会怎样？",
+      "options": [
+        "报错",
+        "后面的值覆盖前面的",
+        "保留前面的",
+        "创建两个键"
+      ],
+      "correct": 1,
+      "explanation": "有相同键时，update() 用后面的值覆盖前面的值。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-dicts",
+    "title": "嵌套字典",
+    "explanation": "字典的值可以是任何类型，包括另一个字典。这叫嵌套字典。",
+    "code": "# 嵌套字典\nstudents = {\n    '小明': {'age': 20, 'score': 95},\n    '小红': {'age': 19, 'score': 88}\n}\n\n# 访问嵌套值\nprint(students['小明']['age'])    # 20\nprint(students['小红']['score'])  # 88",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "d = {'a': {'x': 1}, 'b': {'x': 2}}\nprint(d['b']['x'])",
+        "options": [
+          "1",
+          "2",
+          "报错",
+          "{'x': 2}"
+        ],
+        "correct": 1,
+        "explanation": "d['b'] 是 {'x': 2}，d['b']['x'] 是 2。"
+      }
+    },
+    "quiz": {
+      "question": "访问嵌套字典 students['小明']['age'] 的顺序是？",
+      "options": [
+        "先值后键",
+        "先外层键，再内层键",
+        "同时访问",
+        "随机"
+      ],
+      "correct": 1,
+      "explanation": "先用外层键 ['小明'] 获取内层字典，再用内层键 ['age'] 获取值。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-dicts",
+    "title": "字典的 setdefault",
+    "explanation": "setdefault(key, default)：如果键存在，返回对应的值；如果不存在，设置默认值并返回。",
+    "code": "# setdefault\nconfig = {'theme': 'dark'}\n\n# 键存在，返回已有值\ntheme = config.setdefault('theme', 'light')\nprint(theme)   # dark（不改变）\n\n# 键不存在，设置默认值\nlang = config.setdefault('language', 'zh')\nprint(lang)    # zh（新增）\nprint(config)  # {'theme': 'dark', 'language': 'zh'}",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "d = {'a': 1}\nd.setdefault('a', 10)\nd.setdefault('b', 20)\nprint(d)",
+        "options": [
+          "{'a': 1}",
+          "{'a': 10, 'b': 20}",
+          "{'a': 1, 'b': 20}",
+          "报错"
+        ],
+        "correct": 2,
+        "explanation": "'a' 已存在不改变，'b' 不存在则设置为 20。"
+      }
+    },
+    "quiz": {
+      "question": "setdefault 和直接赋值的区别是什么？",
+      "options": [
+        "完全一样",
+        "setdefault 不覆盖已有值",
+        "setdefault 更快",
+        "没有区别"
+      ],
+      "correct": 1,
+      "explanation": "setdefault 只在键不存在时才设置默认值，不会覆盖已有的值。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-dicts",
+    "title": "字典的 get 方法",
+    "explanation": "get(key, default) 安全地获取值。键存在返回值，不存在返回 default（默认 None）。",
+    "code": "# get 方法\nstudent = {'name': '小明', 'age': 20}\n\nprint(student.get('name'))          # 小明\nprint(student.get('phone'))         # None\nprint(student.get('phone', '未知'))  # 未知\n\n# 对比直接访问\n# print(student['phone'])  # KeyError!",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "d = {'x': 10}\nprint(d.get('x'))\nprint(d.get('y', 0))",
+        "options": [
+          "10 和 0",
+          "10 和 None",
+          "None 和 None",
+          "报错"
+        ],
+        "correct": 0,
+        "explanation": "get('x') 返回 10，get('y', 0) 键不存在返回默认值 0。"
+      }
+    },
+    "quiz": {
+      "question": "get('key', 'default') 在键不存在时返回什么？",
+      "options": [
+        "None",
+        "'default'",
+        "报错",
+        "0"
+      ],
+      "correct": 1,
+      "explanation": "get 方法在键不存在时返回指定的默认值。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-dicts",
+    "title": "字典的键的限制",
+    "explanation": "字典的键必须是不可变类型：数字、字符串、元组。列表和字典不能作为键。",
+    "code": "# 键的限制\n# 合法的键\nd = {\n    1: '数字键',\n    'name': '字符串键',\n    (1, 2): '元组键'\n}\nprint(d['name'])     # 字符串键\nprint(d[(1, 2)])     # 元组键\n\n# 不合法的键\n# {[1,2]: 'test'}  # TypeError: 列表不能做键",
+    "game": {
+      "type": "find_bug",
+      "title": "找出Bug",
+      "instructions": "以下代码有错误，请找出出错的那一行",
+      "content": {
+        "code_lines": [
+          "key = [1, 2]",
+          "d = {key: 'value'}",
+          "print(d)"
+        ],
+        "bug_line": 2,
+        "explanation": "列表是可变类型，不能作为字典的键。应该用元组：key = (1, 2)。"
+      }
+    },
+    "quiz": {
+      "question": "以下哪个不能作为字典的键？",
+      "options": [
+        "数字",
+        "字符串",
+        "列表",
+        "元组"
+      ],
+      "correct": 2,
+      "explanation": "列表是可变类型，不能作为字典的键。数字、字符串、元组都可以。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-dicts",
+    "title": "字典的 copy",
+    "explanation": "和列表一样，字典也需要用 copy() 来真正复制。直接赋值只是引用。",
+    "code": "# 字典复制\nd1 = {'a': 1, 'b': 2}\nd2 = d1           # 引用（不是复制）\nd2['c'] = 3\nprint(d1)          # {'a': 1, 'b': 2, 'c': 3} d1 也变了！\n\n# 正确复制\nd1 = {'a': 1, 'b': 2}\nd3 = d1.copy()\nd3['c'] = 3\nprint(d1)          # {'a': 1, 'b': 2}  d1 不变",
+    "game": {
+      "type": "find_bug",
+      "title": "找出Bug",
+      "instructions": "以下代码有错误，请找出出错的那一行",
+      "content": {
+        "code_lines": [
+          "original = {'a': 1}",
+          "copy = original",
+          "copy['b'] = 2",
+          "print(original)"
+        ],
+        "bug_line": 2,
+        "explanation": "copy = original 只是引用。应该用 copy = original.copy() 来真正复制。"
+      }
+    },
+    "quiz": {
+      "question": "d2 = d1 之后修改 d2，d1 会怎样？",
+      "options": [
+        "不变",
+        "也会变（是同一个对象）",
+        "报错",
+        "变成 None"
+      ],
+      "correct": 1,
+      "explanation": "d2 = d1 只是引用同一个字典对象，修改 d2 也会影响 d1。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-dicts",
+    "title": "字典的 popitem",
+    "explanation": "popitem() 删除并返回字典中最后一个键值对。字典为空时会报错。",
+    "code": "# popitem\nconfig = {'host': 'localhost', 'port': 8080, 'debug': True}\n\nlast = config.popitem()\nprint(last)     # ('debug', True)\nprint(config)   # {'host': 'localhost', 'port': 8080}",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "d = {'a': 1, 'b': 2}\nitem = d.popitem()\nprint(item)",
+        "options": [
+          "('a', 1)",
+          "('b', 2)",
+          "b",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "popitem() 返回最后插入的键值对 ('b', 2)。"
+      }
+    },
+    "quiz": {
+      "question": "popitem() 返回什么？",
+      "options": [
+        "只返回键",
+        "只返回值",
+        "返回键值对元组",
+        "返回 None"
+      ],
+      "correct": 2,
+      "explanation": "popitem() 返回一个 (key, value) 元组。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-dicts",
+    "title": "用字典计数",
+    "explanation": "字典非常适合用来计数。遍历数据，用字典记录每个元素出现的次数。",
+    "code": "# 用字典统计字符频率\ntext = 'hello'\nfreq = {}\nfor char in text:\n    freq[char] = freq.get(char, 0) + 1\nprint(freq)  # {'h': 1, 'e': 1, 'l': 2, 'o': 1}",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "text = 'abc'\nresult = {}\nfor c in text:\n    result[c] = result.get(c, 0) + 1\nprint(result)",
+        "options": [
+          "{'a': 1, 'b': 1, 'c': 1}",
+          "{'a': 3}",
+          "报错",
+          "3"
+        ],
+        "correct": 0,
+        "explanation": "每个字符各出现1次，结果是 {'a': 1, 'b': 1, 'c': 1}。"
+      }
+    },
+    "quiz": {
+      "question": "用字典计数时，get(c, 0) + 1 的作用是什么？",
+      "options": [
+        "删除元素",
+        "如果键不存在返回0，存在则加1",
+        "总是返回1",
+        "报错"
+      ],
+      "correct": 1,
+      "explanation": "get(c, 0) 在键不存在时返回 0，存在时返回当前值，然后 +1 更新计数。"
+    }
+  },
+  {
+    "week": 3,
+    "module": "py-dicts",
+    "title": "字典 vs 列表的选择",
+    "explanation": "列表适合有序数据、需要索引。字典适合键值映射、需要快速查找。根据需求选择。",
+    "code": "# 列表 vs 字典\n# 列表：有序，用索引访问\nscores_list = [85, 90, 78, 92]\nprint(scores_list[0])  # 85\n\n# 字典：键值映射，用键访问\nscores_dict = {'小明': 85, '小红': 90, '小华': 78}\nprint(scores_dict['小明'])  # 85",
+    "game": {
+      "type": "predict_output",
+      "title": "预测输出",
+      "instructions": "阅读代码，预测输出结果",
+      "content": {
+        "code": "students = {'小明': 90, '小红': 85}\nprint(students['小红'])",
+        "options": [
+          "90",
+          "85",
+          "小红",
+          "报错"
+        ],
+        "correct": 1,
+        "explanation": "用键 '小红' 访问字典，得到值 85。"
+      }
+    },
+    "quiz": {
+      "question": "什么时候用字典比列表更好？",
+      "options": [
+        "数据有序时",
+        "需要按名字/键快速查找时",
+        "数据量小时",
+        "都不好"
+      ],
+      "correct": 1,
+      "explanation": "需要按键（如名字）快速查找值时，字典比列表更合适。"
+    }
+  }
+]
