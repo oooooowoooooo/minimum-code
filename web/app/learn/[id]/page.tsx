@@ -4,8 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useLang } from '@/lib/i18n';
-
-const API = 'http://localhost:8000';
+import { API_BASE } from '@/lib/api';
 
 interface Section {
   title: string;
@@ -45,9 +44,9 @@ export default function LearnPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch(`${API}/api/modules/${moduleId}`).then((r) => r.json()),
-      fetch(`${API}/api/modules/${moduleId}/quiz`).then((r) => r.json()),
-      fetch(`${API}/api/progress`).then((r) => r.json()),
+      fetch(`${API_BASE}/api/modules/${moduleId}`).then((r) => r.json()),
+      fetch(`${API_BASE}/api/modules/${moduleId}/quiz`).then((r) => r.json()),
+      fetch(`${API_BASE}/api/progress`).then((r) => r.json()),
     ])
       .then(([mod, q, prog]) => {
         setContent(mod);
@@ -81,7 +80,7 @@ export default function LearnPage() {
   };
 
   const toggleComplete = async () => {
-    await fetch(`${API}/api/progress`, {
+    await fetch(`${API_BASE}/api/progress`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ module_id: moduleId, completed: !isComplete }),

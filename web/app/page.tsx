@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useLang } from '@/lib/i18n';
-
-const API = 'http://localhost:8000';
+import { API_BASE } from '@/lib/api';
 
 interface KnowledgeStats {
   total_points: number;
@@ -26,7 +25,7 @@ export default function HomePage() {
       }
     } catch {}
 
-    fetch(`${API}/api/knowledge-points/stats`)
+    fetch(`${API_BASE}/api/knowledge-points/stats`)
       .then((r) => r.json())
       .then((stats) => {
         setKpStats(stats);

@@ -7,8 +7,7 @@ import FindBug from '@/components/games/FindBug';
 import FillBlank from '@/components/games/FillBlank';
 import CodeOrder from '@/components/games/CodeOrder';
 import { useLang } from '@/lib/i18n';
-
-const API = 'http://localhost:8000';
+import { API_BASE } from '@/lib/api';
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -137,8 +136,8 @@ export default function KnowledgePage() {
     setCompleted(loadCompleted());
 
     Promise.all([
-      fetch(`${API}/api/weeks`).then((r) => r.json()),
-      fetch(`${API}/api/knowledge-points/stats`).then((r) => r.json()).catch(() => null),
+      fetch(`${API_BASE}/api/weeks`).then((r) => r.json()),
+      fetch(`${API_BASE}/api/knowledge-points/stats`).then((r) => r.json()).catch(() => null),
     ])
       .then(([w, s]) => {
         setWeeks(w);
@@ -155,7 +154,7 @@ export default function KnowledgePage() {
     const params = new URLSearchParams({ week: String(activeWeek) });
     if (activeModule) params.set('module', activeModule);
 
-    fetch(`${API}/api/knowledge-points?${params}`)
+    fetch(`${API_BASE}/api/knowledge-points?${params}`)
       .then((r) => r.json())
       .then((data) => {
         const raw = data.points || data;
@@ -182,7 +181,7 @@ export default function KnowledgePage() {
         setSearchResults(null);
         return;
       }
-      const res = await fetch(`${API}/api/knowledge-points?per_page=1000`);
+      const res = await fetch(`${API_BASE}/api/knowledge-points?per_page=1000`);
       const data = await res.json();
       const raw = data.points || data || [];
       const all: KnowledgePoint[] = Array.isArray(raw)
