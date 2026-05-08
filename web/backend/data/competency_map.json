@@ -1,0 +1,349 @@
+{
+  "tracks": [
+    {
+      "id": "python-engineering",
+      "title": "Python Engineering",
+      "title_zh": "Python 工程化",
+      "goal": "Write maintainable backend engineering code",
+      "goal_zh": "写出可维护的后端工程代码",
+      "level": "job-ready",
+      "icon": "🐍",
+      "skills": [
+        {
+          "id": "py-config",
+          "title": "Config & Environment",
+          "title_zh": "配置与环境管理",
+          "why": "Production apps need env-based config, not hardcoded values",
+          "why_zh": "生产应用需要基于环境的配置，不能硬编码",
+          "minimum_code": "from pydantic_settings import BaseSettings\nclass Settings(BaseSettings):\n    api_key: str\n    debug: bool = False\n    class Config:\n        env_file = '.env'",
+          "lab_id": "config-loader"
+        },
+        {
+          "id": "py-types",
+          "title": "Type Annotations",
+          "title_zh": "类型注解",
+          "why": "Type hints catch bugs early and improve IDE support",
+          "why_zh": "类型注解能提前发现 bug 并改善 IDE 支持",
+          "minimum_code": "from typing import Optional\n\ndef greet(name: str, times: int = 1) -> list[str]:\n    return [f'Hello, {name}!' for _ in range(times)]",
+          "lab_id": null
+        },
+        {
+          "id": "py-async",
+          "title": "Async Programming",
+          "title_zh": "异步编程",
+          "why": "Async enables handling concurrent I/O without threads",
+          "why_zh": "异步编程能并发处理 I/O 而无需多线程",
+          "minimum_code": "import asyncio\nimport httpx\n\nasync def fetch(url: str) -> str:\n    async with httpx.AsyncClient() as client:\n        resp = await client.get(url)\n        return resp.text",
+          "lab_id": null
+        },
+        {
+          "id": "py-error-handling",
+          "title": "Error Handling",
+          "title_zh": "错误处理",
+          "why": "Proper error handling prevents crashes and provides clear diagnostics",
+          "why_zh": "正确的错误处理能防止崩溃并提供清晰的诊断信息",
+          "minimum_code": "class AppError(Exception):\n    def __init__(self, message: str, code: int):\n        self.message = message\n        self.code = code\n\ntry:\n    risky_operation()\nexcept AppError as e:\n    logger.error(f'[{e.code}] {e.message}')",
+          "lab_id": null
+        },
+        {
+          "id": "py-testing",
+          "title": "Unit Testing",
+          "title_zh": "单元测试",
+          "why": "Tests catch regressions and document expected behavior",
+          "why_zh": "测试能捕获回归问题并记录预期行为",
+          "minimum_code": "import pytest\n\ndef add(a: int, b: int) -> int:\n    return a + b\n\ndef test_add():\n    assert add(1, 2) == 3\n    assert add(-1, 1) == 0",
+          "lab_id": null
+        }
+      ]
+    },
+    {
+      "id": "fastapi-services",
+      "title": "FastAPI Services",
+      "title_zh": "FastAPI 服务开发",
+      "goal": "Build production-ready REST APIs with FastAPI",
+      "goal_zh": "用 FastAPI 构建生产级 REST API",
+      "level": "job-ready",
+      "icon": "⚡",
+      "skills": [
+        {
+          "id": "fastapi-routing",
+          "title": "Routing",
+          "title_zh": "路由设计",
+          "why": "RESTful routing is the foundation of any API service",
+          "why_zh": "RESTful 路由是任何 API 服务的基础",
+          "minimum_code": "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get('/items/{item_id}')\nasync def get_item(item_id: int):\n    return {'item_id': item_id}",
+          "lab_id": "fastapi-service"
+        },
+        {
+          "id": "fastapi-schema",
+          "title": "Schema Validation",
+          "title_zh": "Schema 验证",
+          "why": "Request/response validation prevents bad data from entering the system",
+          "why_zh": "请求/响应验证能防止错误数据进入系统",
+          "minimum_code": "from pydantic import BaseModel, Field\n\nclass Item(BaseModel):\n    name: str = Field(..., min_length=1)\n    price: float = Field(..., gt=0)\n    tags: list[str] = []",
+          "lab_id": null
+        },
+        {
+          "id": "fastapi-di",
+          "title": "Dependency Injection",
+          "title_zh": "依赖注入",
+          "why": "DI makes services testable and decouples components",
+          "why_zh": "依赖注入使服务可测试并解耦组件",
+          "minimum_code": "from fastapi import Depends\n\ndef get_db():\n    db = Database()\n    try:\n        yield db\n    finally:\n        db.close()\n\n@app.get('/items')\nasync def list_items(db = Depends(get_db)):\n    return db.query(Item)",
+          "lab_id": null
+        },
+        {
+          "id": "fastapi-middleware",
+          "title": "Middleware",
+          "title_zh": "中间件",
+          "why": "Middleware handles cross-cutting concerns like auth, logging, CORS",
+          "why_zh": "中间件处理认证、日志、CORS 等横切关注点",
+          "minimum_code": "from fastapi import Request\nfrom starlette.middleware.base import BaseHTTPMiddleware\n\nclass TimingMiddleware(BaseHTTPMiddleware):\n    async def dispatch(self, request: Request, call_next):\n        response = await call_next(request)\n        response.headers['X-Process-Time'] = '0.1'\n        return response",
+          "lab_id": null
+        },
+        {
+          "id": "fastapi-sse",
+          "title": "Server-Sent Events",
+          "title_zh": "服务端推送事件",
+          "why": "SSE enables real-time streaming of LLM responses to clients",
+          "why_zh": "SSE 能将 LLM 响应实时推送给客户端",
+          "minimum_code": "from fastapi.responses import StreamingResponse\nimport asyncio\n\nasync def event_generator():\n    for word in ['Hello', 'World']:\n        yield f'data: {word}\\n\\n'\n        await asyncio.sleep(0.1)\n\n@app.get('/stream')\nasync def stream():\n    return StreamingResponse(event_generator(), media_type='text/event-stream')",
+          "lab_id": null
+        }
+      ]
+    },
+    {
+      "id": "llm-api-client",
+      "title": "LLM API Client",
+      "title_zh": "LLM API 客户端",
+      "goal": "Build reliable clients for LLM APIs with proper error handling",
+      "goal_zh": "构建可靠的 LLM API 客户端，具备完善的错误处理",
+      "level": "job-ready",
+      "icon": "🤖",
+      "skills": [
+        {
+          "id": "llm-api-call",
+          "title": "API Call",
+          "title_zh": "API 调用",
+          "why": "Every LLM app starts with making a correct API call",
+          "why_zh": "每个 LLM 应用都从正确的 API 调用开始",
+          "minimum_code": "import requests\n\ndef call_llm(prompt: str, api_key: str) -> str:\n    resp = requests.post(\n        'https://api.openai.com/v1/chat/completions',\n        headers={'Authorization': f'Bearer {api_key}'},\n        json={'model': 'gpt-4', 'messages': [{'role': 'user', 'content': prompt}]}\n    )\n    return resp.json()['choices'][0]['message']['content']",
+          "lab_id": "llm-client"
+        },
+        {
+          "id": "llm-timeout-retry",
+          "title": "Timeout & Retry",
+          "title_zh": "超时与重试",
+          "why": "LLM APIs are slow and unreliable; timeout and retry prevent hangs and transient failures",
+          "why_zh": "LLM API 速度慢且不稳定；超时和重试能防止卡死和临时故障",
+          "minimum_code": "import time\n\ndef call_with_retry(func, max_retries=3, timeout=30):\n    for attempt in range(max_retries):\n        try:\n            return func()\n        except TimeoutError:\n            if attempt == max_retries - 1:\n                raise\n            time.sleep(2 ** attempt)",
+          "lab_id": null
+        },
+        {
+          "id": "llm-error-boundary",
+          "title": "Error Boundary",
+          "title_zh": "错误边界",
+          "why": "Separating network, HTTP, parse, and business errors enables precise handling",
+          "why_zh": "区分网络、HTTP、解析和业务错误能实现精确处理",
+          "minimum_code": "class NetworkError(Exception): pass\nclass HTTPError(Exception):\n    def __init__(self, status: int):\n        self.status = status\nclass ParseError(Exception): pass\nclass BusinessError(Exception):\n    def __init__(self, code: int, msg: str):\n        self.code = code\n        self.msg = msg",
+          "lab_id": null
+        },
+        {
+          "id": "llm-streaming",
+          "title": "Streaming",
+          "title_zh": "流式响应",
+          "why": "Streaming shows tokens as they arrive, improving perceived latency",
+          "why_zh": "流式响应在 token 到达时立即显示，降低感知延迟",
+          "minimum_code": "import requests\n\ndef stream_llm(prompt: str, api_key: str):\n    resp = requests.post(\n        'https://api.openai.com/v1/chat/completions',\n        headers={'Authorization': f'Bearer {api_key}'},\n        json={'model': 'gpt-4', 'messages': [{'role': 'user', 'content': prompt}], 'stream': True},\n        stream=True\n    )\n    for line in resp.iter_lines():\n        if line:\n            yield line.decode()",
+          "lab_id": null
+        },
+        {
+          "id": "llm-cost-tracking",
+          "title": "Cost Tracking",
+          "title_zh": "成本追踪",
+          "why": "LLM API costs add up fast; tracking usage prevents budget surprises",
+          "why_zh": "LLM API 成本增长很快；追踪用量能避免预算超支",
+          "minimum_code": "from dataclasses import dataclass\n\n@dataclass\nclass Usage:\n    prompt_tokens: int\n    completion_tokens: int\n    total_cost: float\n\nPRICING = {'gpt-4': {'input': 0.03, 'output': 0.06}}\n\ndef calc_cost(model: str, usage: dict) -> float:\n    p = PRICING[model]\n    return usage['prompt_tokens'] * p['input'] / 1000 + usage['completion_tokens'] * p['output'] / 1000",
+          "lab_id": null
+        }
+      ]
+    },
+    {
+      "id": "rag-system",
+      "title": "RAG System",
+      "title_zh": "RAG 系统",
+      "goal": "Build retrieval-augmented generation pipelines",
+      "goal_zh": "构建检索增强生成流水线",
+      "level": "job-ready",
+      "icon": "📚",
+      "skills": [
+        {
+          "id": "rag-parsing",
+          "title": "Document Parsing",
+          "title_zh": "文档解析",
+          "why": "RAG starts with extracting clean text from various document formats",
+          "why_zh": "RAG 的第一步是从各种文档格式中提取干净的文本",
+          "minimum_code": "import fitz  # PyMuPDF\n\ndef parse_pdf(path: str) -> str:\n    doc = fitz.open(path)\n    text = ''\n    for page in doc:\n        text += page.get_text()\n    return text",
+          "lab_id": null
+        },
+        {
+          "id": "rag-chunking",
+          "title": "Chunking",
+          "title_zh": "文档分块",
+          "why": "Proper chunking balances context richness with retrieval precision",
+          "why_zh": "合理的分块在上下文丰富度和检索精度之间取得平衡",
+          "minimum_code": "def chunk_text(text: str, size: int = 200, overlap: int = 50) -> list[str]:\n    chunks = []\n    start = 0\n    while start < len(text):\n        end = start + size\n        chunks.append(text[start:end])\n        start = end - overlap\n    return chunks",
+          "lab_id": "rag-mini-pipeline"
+        },
+        {
+          "id": "rag-embedding",
+          "title": "Embedding",
+          "title_zh": "向量嵌入",
+          "why": "Embeddings convert text to vectors for semantic similarity search",
+          "why_zh": "嵌入将文本转换为向量，用于语义相似度搜索",
+          "minimum_code": "from openai import OpenAI\n\ndef get_embedding(text: str, client: OpenAI) -> list[float]:\n    resp = client.embeddings.create(\n        input=text,\n        model='text-embedding-3-small'\n    )\n    return resp.data[0].embedding",
+          "lab_id": null
+        },
+        {
+          "id": "rag-retrieval",
+          "title": "Retrieval",
+          "title_zh": "检索",
+          "why": "Efficient vector retrieval finds the most relevant chunks for a query",
+          "why_zh": "高效的向量检索能为查询找到最相关的文本块",
+          "minimum_code": "import numpy as np\n\ndef cosine_similarity(a: list[float], b: list[float]) -> float:\n    a, b = np.array(a), np.array(b)\n    return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))\n\ndef top_k(query_emb: list[float], chunks: list, k: int = 3):\n    scores = [(c, cosine_similarity(query_emb, c.embedding)) for c in chunks]\n    return sorted(scores, key=lambda x: x[1], reverse=True)[:k]",
+          "lab_id": null
+        },
+        {
+          "id": "rag-rerank",
+          "title": "Reranking",
+          "title_zh": "重排序",
+          "why": "Reranking improves retrieval quality by re-ordering initial results with a cross-encoder",
+          "why_zh": "重排序通过交叉编码器重新排列初始结果，提升检索质量",
+          "minimum_code": "from sentence_transformers import CrossEncoder\n\nreranker = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')\n\ndef rerank(query: str, passages: list[str], top_k: int = 3) -> list[str]:\n    pairs = [(query, p) for p in passages]\n    scores = reranker.predict(pairs)\n    ranked = sorted(zip(passages, scores), key=lambda x: x[1], reverse=True)\n    return [p for p, _ in ranked[:top_k]]",
+          "lab_id": null
+        },
+        {
+          "id": "rag-evaluation",
+          "title": "Evaluation",
+          "title_zh": "评估",
+          "why": "Measuring retrieval quality (precision, recall) is essential for RAG improvement",
+          "why_zh": "衡量检索质量（精确率、召回率）对 RAG 优化至关重要",
+          "minimum_code": "def retrieval_precision(retrieved: list[str], relevant: set[str]) -> float:\n    if not retrieved:\n        return 0.0\n    hits = sum(1 for r in retrieved if r in relevant)\n    return hits / len(retrieved)\n\ndef retrieval_recall(retrieved: list[str], relevant: set[str]) -> float:\n    if not relevant:\n        return 0.0\n    hits = sum(1 for r in retrieved if r in relevant)\n    return hits / len(relevant)",
+          "lab_id": null
+        }
+      ]
+    },
+    {
+      "id": "agent-engineering",
+      "title": "Agent Engineering",
+      "title_zh": "Agent 工程",
+      "goal": "Build autonomous agents with tool use, planning, and memory",
+      "goal_zh": "构建具备工具调用、规划和记忆能力的自主 Agent",
+      "level": "job-ready",
+      "icon": "🛠️",
+      "skills": [
+        {
+          "id": "agent-tool-calling",
+          "title": "Tool Calling",
+          "title_zh": "工具调用",
+          "why": "Tool calling lets agents interact with external systems and APIs",
+          "why_zh": "工具调用让 Agent 能与外部系统和 API 交互",
+          "minimum_code": "tools = {\n    'search': lambda q: f'Search results for: {q}',\n    'calculate': lambda expr: str(eval(expr)),\n}\n\ndef call_tool(name: str, *args):\n    if name not in tools:\n        raise ValueError(f'Unknown tool: {name}')\n    return tools[name](*args)",
+          "lab_id": "agent-tool-calling"
+        },
+        {
+          "id": "agent-planner",
+          "title": "Planner",
+          "title_zh": "规划器",
+          "why": "Planners decompose user intent into actionable tool calls",
+          "why_zh": "规划器将用户意图分解为可执行的工具调用",
+          "minimum_code": "def plan(user_input: str, tools: list[str]) -> list[str]:\n    steps = []\n    if 'search' in user_input.lower():\n        steps.append('search')\n    if any(c.isdigit() for c in user_input):\n        steps.append('calculate')\n    return steps or ['search']",
+          "lab_id": null
+        },
+        {
+          "id": "agent-executor",
+          "title": "Executor",
+          "title_zh": "执行器",
+          "why": "Executors run planned steps, handle errors, and chain results",
+          "why_zh": "执行器运行规划步骤、处理错误并链接结果",
+          "minimum_code": "def execute_plan(steps: list[str], tools: dict, query: str) -> str:\n    result = query\n    for step in steps:\n        try:\n            result = tools[step](result)\n        except Exception as e:\n            return f'Error in {step}: {e}'\n    return result",
+          "lab_id": null
+        },
+        {
+          "id": "agent-guardrails",
+          "title": "Guardrails",
+          "title_zh": "安全护栏",
+          "why": "Guardrails prevent agents from taking dangerous or unauthorized actions",
+          "why_zh": "安全护栏防止 Agent 执行危险或未授权的操作",
+          "minimum_code": "BLOCKED_PATTERNS = ['rm -rf', 'DROP TABLE', 'DELETE FROM']\n\ndef check_safety(action: str) -> bool:\n    for pattern in BLOCKED_PATTERNS:\n        if pattern in action:\n            raise PermissionError(f'Blocked dangerous action: {pattern}')\n    return True",
+          "lab_id": null
+        },
+        {
+          "id": "agent-memory",
+          "title": "Memory",
+          "title_zh": "记忆管理",
+          "why": "Memory lets agents maintain context across interactions",
+          "why_zh": "记忆让 Agent 能在多次交互中维持上下文",
+          "minimum_code": "from collections import deque\n\nclass ConversationMemory:\n    def __init__(self, max_turns: int = 10):\n        self.history: deque = deque(maxlen=max_turns)\n\n    def add(self, role: str, content: str):\n        self.history.append({'role': role, 'content': content})\n\n    def get_context(self) -> list[dict]:\n        return list(self.history)",
+          "lab_id": null
+        }
+      ]
+    },
+    {
+      "id": "deploy-quality",
+      "title": "Deployment & Quality",
+      "title_zh": "部署与质量保障",
+      "goal": "Ship reliable software with CI/CD, monitoring, and testing",
+      "goal_zh": "通过 CI/CD、监控和测试交付可靠的软件",
+      "level": "job-ready",
+      "icon": "🚀",
+      "skills": [
+        {
+          "id": "deploy-docker",
+          "title": "Docker",
+          "title_zh": "Docker 容器化",
+          "why": "Docker ensures consistent environments from dev to production",
+          "why_zh": "Docker 确保从开发到生产环境的一致性",
+          "minimum_code": "FROM python:3.11-slim\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install --no-cache-dir -r requirements.txt\nCOPY . .\nEXPOSE 8000\nCMD ['uvicorn', 'main:app', '--host', '0.0.0.0']",
+          "lab_id": "docker-ci"
+        },
+        {
+          "id": "deploy-ci-cd",
+          "title": "CI/CD",
+          "title_zh": "持续集成/持续部署",
+          "why": "CI/CD automates testing and deployment, catching issues before production",
+          "why_zh": "CI/CD 自动化测试和部署，在进入生产前发现问题",
+          "minimum_code": "# .github/workflows/ci.yml\n# name: CI\n# on: [push]\n# jobs:\n#   test:\n#     runs-on: ubuntu-latest\n#     steps:\n#       - uses: actions/checkout@v4\n#       - run: pip install -r requirements.txt\n#       - run: pytest",
+          "lab_id": null
+        },
+        {
+          "id": "deploy-logging",
+          "title": "Structured Logging",
+          "title_zh": "结构化日志",
+          "why": "Structured logs enable efficient debugging and monitoring in production",
+          "why_zh": "结构化日志能在生产环境中高效调试和监控",
+          "minimum_code": "import logging\nimport json\nfrom datetime import datetime\n\nlogger = logging.getLogger(__name__)\n\ndef log_event(event: str, **kwargs):\n    entry = {'timestamp': datetime.utcnow().isoformat(), 'event': event, **kwargs}\n    logger.info(json.dumps(entry))",
+          "lab_id": null
+        },
+        {
+          "id": "deploy-monitoring",
+          "title": "Monitoring",
+          "title_zh": "监控",
+          "why": "Monitoring detects issues before users notice them",
+          "why_zh": "监控能在用户发现之前检测到问题",
+          "minimum_code": "from prometheus_client import Counter, Histogram\n\nREQUEST_COUNT = Counter('http_requests_total', 'Total requests', ['method', 'status'])\nREQUEST_LATENCY = Histogram('http_request_duration_seconds', 'Request latency')\n\ndef track_request(method: str, status: int, duration: float):\n    REQUEST_COUNT.labels(method=method, status=status).inc()\n    REQUEST_LATENCY.observe(duration)",
+          "lab_id": null
+        },
+        {
+          "id": "deploy-testing-pyramid",
+          "title": "Testing Pyramid",
+          "title_zh": "测试金字塔",
+          "why": "The testing pyramid (unit > integration > e2e) balances coverage and speed",
+          "why_zh": "测试金字塔（单元 > 集成 > 端到端）平衡覆盖率和速度",
+          "minimum_code": "import pytest\n\n# Unit: fast, isolated\ndef test_parse_config():\n    assert parse_config({'key': 'val'})['key'] == 'val'\n\n# Integration: test components together\ndef test_api_endpoint(client):\n    resp = client.get('/health')\n    assert resp.status_code == 200\n\n# E2E: test full flow\ndef test_full_workflow():\n    result = run_pipeline('test input')\n    assert result.status == 'success'",
+          "lab_id": null
+        }
+      ]
+    }
+  ]
+}

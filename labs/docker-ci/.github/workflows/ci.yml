@@ -1,0 +1,8 @@
+# TODO: Implement GitHub Actions CI workflow
+# Steps:
+# 1. Trigger on push to main and PRs
+# 2. Set up Python 3.11
+# 3. Install dependencies
+# 4. Run pytest
+# 5. Build Docker image
+# 6. Verify Docker image starts

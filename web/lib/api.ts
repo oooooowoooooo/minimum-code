@@ -1,5 +1,5 @@
 // ──────────────────────────────────────────────
-//  API Client for AI Era Learning Platform
+//  API Client for minimum-code Training System
 // ──────────────────────────────────────────────
 
 export const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000';

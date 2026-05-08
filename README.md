@@ -2,21 +2,18 @@
 
 # minimum-code
 
-### AI Era: Write Less Code. Learn Stronger Architecture.
+**AI App Engineer Minimum Engineering Capability Training System.**
+
+Not syntax tutorials — an engineering training ground for AI app development jobs.
+From LLM API calls, FastAPI services, RAG retrieval, Agent tool calling, to Docker deployment, CI testing, and interview expression.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11+-3776AB.svg?logo=python&logoColor=white)](https://python.org)
 [![TypeScript 5+](https://img.shields.io/badge/TypeScript-5+-3178C6.svg?logo=typescript&logoColor=white)](https://typescriptlang.org)
 [![Next.js 14](https://img.shields.io/badge/Next.js-14-000000.svg?logo=next.js&logoColor=white)](https://nextjs.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![Tests Passing](https://img.shields.io/badge/Tests-160%20passed-brightgreen.svg)](#testing)
-[![Knowledge Points](https://img.shields.io/badge/Points-892-orange.svg)](#features)
 
-**An open-source programming education platform for the AI era.**
-
-*892 interactive knowledge points. 4 game types. 10 industrial project dissections. 30 days.*
-
-[Quick Start](#quick-start) · [Why This Matters](#why-this-matters) · [Features](#features) · [Architecture](#architecture) · [Roadmap](#roadmap) · [Contributing](CONTRIBUTING.md)
+[Quick Start](#quick-start) · [Why This Matters](#why-this-matters) · [Six Modules](#six-capability-modules) · [Architecture](#architecture) · [Contributing](CONTRIBUTING.md)
 
 </div>
 
@@ -24,63 +21,69 @@
 
 ## Why This Matters
 
-The AI revolution has changed *what* programmers do. Writing boilerplate code is now automated. But the skills that **cannot** be automated — system design, architectural thinking, code quality judgment — are more valuable than ever.
+Most AI tutorials teach you to write `openai.ChatCompletion.create(...)`.
+None teach you what happens when the API times out, returns a 500, or gives a malformed response.
 
-**This project exists to fill that gap.**
+This project fills that gap: **the minimum engineering code you need to actually ship AI applications.**
 
-Most programming courses teach you syntax. This project teaches you **thinking**. By dissecting 10 of the most popular open-source projects on GitHub (FastAPI, LangChain, Next.js, tRPC, Tauri, and more), you absorb the architectural patterns and design decisions that make these projects successful.
+The industry does not need more people who can copy-paste an LLM API call from a blog post. It needs engineers who understand retry logic, schema validation, dependency injection, containerization, and how to verify that their code actually works — not just that it runs once on their laptop.
 
-> You don't need to write 10,000 lines of code to become a great engineer.
-> You need to **read** 10,000 lines of *great* code.
+> You don't get hired for knowing the syntax.
+> You get hired for knowing what to do when things go wrong.
 
-### Who Is This For?
+---
 
-- **Beginners** who want to fast-track from zero to AI-proficient developer
-- **Experienced developers** who want to quickly learn the latest frameworks at source-code level
-- **AI practitioners** who want to understand the tools they use daily
-- **Career switchers** who need a structured, project-based learning path
-- **Anyone** who believes that code quality matters in the age of AI
+## Who This Is For
 
-### What You'll Learn
+| Who | Why This Helps |
+|-----|----------------|
+| **Aspiring AI Application Developers** with incomplete engineering skills | Fill the gap between "I can call an API" and "I can ship a service" |
+| **Backend engineers** transitioning to AI application development | Map your existing skills to LLM-specific patterns (streaming, retries, token limits) |
+| **CS students** preparing for AI application developer interviews | Build a portfolio of verified, runnable engineering labs — not toy scripts |
+| **Self-taught programmers** who can write code but can't ship production systems | Learn the engineering layer that tutorials skip: testing, deployment, observability |
 
-After completing this 30-day program, you will be able to:
+---
 
-| Skill | Description |
-|-------|-------------|
-| **Python Mastery** | Variables, types, data structures, OOP, async, modules — the full language |
-| **TypeScript Mastery** | Types, interfaces, generics, decorators, async patterns — production-grade TS |
-| **Design Patterns** | 8 universal patterns (Builder, Factory, Observer, Strategy, etc.) in both languages |
-| **Architecture Thinking** | How to design systems, not just write functions |
-| **Project Dissection** | How to read and understand any open-source codebase |
-| **AI Tool Proficiency** | Prompt engineering, AI-assisted development, RAG architecture |
-| **Code Quality Judgment** | The ability to spot good and bad design decisions in code reviews |
-| **Full-Stack Capability** | Build complete applications with FastAPI (Python) + Next.js (TypeScript) |
+## Core Training Loop
 
-### What Makes This Different?
+Every module follows the same five-step loop. This is not a passive course. You write code, it gets verified, and you learn to explain it.
 
-| Traditional Courses | minimum-code |
-|-------------------|--------------|
-| Teach syntax in isolation | Teach through real project dissection |
-| "How to use X" | "Why X is designed this way" |
-| Passive video watching | Interactive games and quizzes |
-| One language at a time | Python + TypeScript side by side |
-| No architecture focus | Architecture-first, language-second |
-| Outdated examples | Projects active in last 2 years, 25k+ stars |
+```
+ 1. Capability Assessment  -->  identify your engineering skill gaps
+ 2. Minimum Code Patterns  -->  understand mechanisms through shortest possible code
+ 3. Engineering Labs       -->  complete runnable tasks with real acceptance criteria
+ 4. Auto-Verification      -->  pytest / vitest / schema validation proves your code works
+ 5. Interview Expression   -->  convert code capability into project narrative
+```
 
-## Features
+**Step 1** tells you what you don't know.
+**Step 2** shows you the minimum viable implementation.
+**Step 3** makes you build it yourself.
+**Step 4** removes all ambiguity — your code either passes or it doesn't.
+**Step 5** teaches you to articulate your decisions under pressure.
 
-| Feature | Description |
-|---------|-------------|
-| **892 Knowledge Points** | Bite-sized concepts with clear explanations and code examples |
-| **4 Interactive Games** | Predict Output · Find Bug · Fill Blank · Code Order |
-| **892 Quizzes** | One per knowledge point, instant feedback |
-| **12-Week Roadmap** | Structured path from beginner to architect-level thinking |
-| **Bilingual** | 中文 / English — switch with one click |
-| **10 Project Dissections** | FastAPI, LangChain, CrewAI, Dify, RAGFlow, Next.js, tRPC, Tauri, shadcn/ui, Bun |
-| **8 Design Patterns** | Builder, Factory, Observer, Strategy, Middleware, DI, Pipeline, Repository |
-| **Zero Database** | JSON files only — clone and run, no setup needed |
-| **Keyboard-First** | `j`/`k` navigate, `Enter` toggles, `/` searches |
-| **Progress Tracking** | LocalStorage-based, no account required |
+---
+
+## Six Capability Modules
+
+Each module targets a specific engineering capability required for AI application development roles. Labs are not exercises — they are production-like tasks with real acceptance criteria.
+
+| Module | Training Goal | Lab Count |
+|--------|--------------|-----------|
+| **Python Engineering** | Packages, modules, types, async, config, exceptions | 1 |
+| **FastAPI Services** | API design, Pydantic validation, dependency injection, middleware, SSE | 1 |
+| **LLM API Client** | OpenAI-compatible API, timeout handling, retry logic, error classification | 1 |
+| **RAG System** | Document parsing, chunking, embedding, retrieval, rerank, evaluation | 1 |
+| **Agent Engineering** | Tool calling, skill registration, planner, executor, guardrails | 1 |
+| **Deployment & Quality** | Docker, CI pipelines, structured logging, config management, testing, observability | 1 |
+
+### What makes these labs different?
+
+- **No hand-holding.** You get a spec and acceptance criteria, not a step-by-step tutorial.
+- **Auto-verified.** Every lab has a test suite. Your code passes the tests or it doesn't ship.
+- **Interview-ready.** Every lab includes interview prompts — explain your design decisions as you would in a technical screen.
+
+---
 
 ## Quick Start
 
@@ -92,7 +95,7 @@ After completing this 30-day program, you will be able to:
 ### 1. Clone
 
 ```bash
-git clone https://github.com/oooooowoooooo/minimum-code.git
+git clone https://github.com/your-username/minimum-code.git
 cd minimum-code
 ```
 
@@ -100,8 +103,8 @@ cd minimum-code
 
 ```bash
 cd web/backend
-pip install fastapi uvicorn
-python -m uvicorn main:app --reload --port 8000
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
 ```
 
 Backend runs at **http://localhost:8000**
@@ -120,103 +123,115 @@ Open **http://localhost:3000** — you're in.
 ### 4. Run Tests
 
 ```bash
-# Frontend tests (75 tests)
+# Backend
+cd web/backend && pytest tests/ -v
+
+# Frontend
 cd web && npm test
 
-# Backend tests (85 tests)
-cd web/backend && python -m pytest test_knowledge_api.py -v
-
-# Verify all 892 knowledge points
-cd web/backend && python verify_all.py
+# Full verification
+python verify_all.py
 ```
+
+---
+
+## Project Structure
+
+```
+minimum-code/
+├── web/                                  # Web application
+│   ├── app/                              # Next.js 14 App Router
+│   │   ├── page.tsx                      # Home — dashboard + module entry
+│   │   ├── assessment/                   # Capability assessment flow
+│   │   ├── knowledge/                    # Knowledge browser — search, filter, games
+│   │   ├── learn/[id]/                   # Module learning — sections + quiz
+│   │   ├── module/[id]/                  # Module detail page
+│   │   ├── fundamentals/                 # Python & TypeScript fundamentals
+│   │   ├── patterns/                     # Design pattern modules
+│   │   ├── dissect/                      # Project dissection (FastAPI, LangChain, etc.)
+│   │   ├── practice/                     # Engineering lab workspace
+│   │   └── ai-mastery/                   # AI-specific capability training
+│   ├── components/
+│   │   └── games/                        # 4 interactive game components
+│   │       ├── PredictOutput.tsx         # "What will this code output?"
+│   │       ├── FindBug.tsx               # "Click the buggy line"
+│   │       ├── FillBlank.tsx             # "Complete the missing code"
+│   │       └── CodeOrder.tsx             # "Put lines in correct order"
+│   ├── lib/
+│   │   ├── i18n.ts                       # Bilingual system (zh/en)
+│   │   ├── api.ts                        # API client
+│   │   └── progress.ts                   # LocalStorage progress tracking
+│   └── backend/                          # FastAPI server
+│       ├── main.py                       # API server
+│       ├── data/                         # Knowledge points (JSON)
+│       └── verify_all.py                 # Data integrity verification
+├── src/                                  # Course source files
+│   ├── python/                           # Python fundamentals + project dissections
+│   ├── typescript/                       # TypeScript fundamentals + project dissections
+│   └── patterns/                         # 8 universal design patterns
+├── tests/                                # Unit tests (Python + TypeScript)
+├── docs/                                 # Guides: cognitive, AI mastery, practice
+├── labs/                                 # Engineering lab definitions + acceptance tests
+└── tracks/                               # Capability module tracks
+```
+
+---
 
 ## Architecture
 
 ```
-minimum-code/
-├── web/                              # Web application
-│   ├── app/                          # Next.js 14 App Router
-│   │   ├── page.tsx                  # Home — stats + knowledge entry
-│   │   ├── knowledge/page.tsx        # Knowledge browser — search, filter, games
-│   │   ├── learn/[id]/page.tsx       # Module learning — sections + quiz
-│   │   └── module/[id]/page.tsx      # Module detail page
-│   ├── components/games/             # 4 interactive game components
-│   │   ├── PredictOutput.tsx         # "What will this code output?"
-│   │   ├── FindBug.tsx               # "Click the buggy line"
-│   │   ├── FillBlank.tsx             # "Complete the missing code"
-│   │   └── CodeOrder.tsx             # "Put lines in correct order"
-│   ├── lib/
-│   │   ├── i18n.ts                   # Bilingual system (zh/en)
-│   │   ├── api.ts                    # API client
-│   │   └── progress.ts               # LocalStorage progress tracking
-│   └── backend/                      # FastAPI server
-│       ├── main.py                   # API server
-│       ├── data/knowledge_points.json  # 892 knowledge points
-│       └── test_knowledge_api.py     # 85 API tests
-├── src/                              # Course source files
-│   ├── python/                       # Python fundamentals + 5 project dissections
-│   ├── typescript/                   # TypeScript fundamentals + 5 project dissections
-│   └── patterns/                     # 8 universal design patterns
-├── tests/                            # 212 Python/TS unit tests
-└── docs/                             # Guides: cognitive, AI mastery, practice
+┌─────────────┐     HTTP/JSON      ┌─────────────┐     Service Layer    ┌──────────────┐
+│   Frontend   │ ─────────────────▶ │   FastAPI    │ ──────────────────▶ │  Repository   │
+│  (Next.js)   │ ◀───────────────── │   Backend    │ ◀────────────────── │   (JSON)      │
+└─────────────┘     SSE / REST     └─────────────┘                     └──────────────┘
+       │                                   │
+       │                                   │
+       ▼                                   ▼
+  ┌──────────┐                      ┌──────────────┐
+  │ Vitest   │                      │   pytest     │
+  │ (75 tests)│                     │  (85 tests)  │
+  └──────────┘                      └──────────────┘
 ```
 
-## Roadmap
+**Data flow:** Frontend sends requests via REST/SSE to the FastAPI backend. The backend processes requests through a service layer and reads/writes JSON data files. No database required — clone and run.
 
-| Week | Focus | What You'll Learn |
-|------|-------|-------------------|
-| 1–2 | Python Fundamentals | Variables, types, data structures, control flow, functions, classes, async |
-| 3–4 | TypeScript Fundamentals | Types, interfaces, functions, async, decorators, modules |
-| 5–6 | Design Patterns | Builder, Factory, Observer, Strategy, Middleware, DI, Pipeline, Repository |
-| 7–8 | Python Project Dissection | FastAPI, LangChain, CrewAI, Dify, RAGFlow |
-| 9–10 | TypeScript Project Dissection | Next.js, tRPC, Tauri, shadcn/ui, Bun |
-| 11–12 | AI Mastery + Capstone | Prompt engineering, AI-assisted architecture, build your own project |
+---
 
-## Testing
+## What You'll Be Able To Do After Completing All Labs
 
-```bash
-# All tests
-cd web && npm test                    # 75 frontend tests
-cd web/backend && python -m pytest   # 85 backend tests
-cd web/backend && python verify_all.py  # Data integrity check
-```
+- **Confidently call any LLM API** with proper error handling, timeout configuration, and retry logic — not just the happy path
+- **Build a FastAPI service** with Pydantic schema validation, dependency injection, and middleware — production-grade, not tutorial-grade
+- **Implement a RAG pipeline** with document parsing, chunking strategies, embedding generation, retrieval, and reranking
+- **Create an Agent** with tool calling, skill registration, a planner-executor loop, and safety guardrails
+- **Deploy with Docker** and verify with CI — your code works in a container, not just on your machine
+- **Articulate your engineering decisions** in technical interviews — explain the why, not just the what
 
-| Suite | Count | Status |
-|-------|-------|--------|
-| Frontend (Vitest) | 75 | Passing |
-| Backend (pytest) | 85 | Passing |
-| Python course | 212 | Passing |
-| Data verification | 892 points | Passing |
+---
 
 ## Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
-| Frontend | Next.js 14, React 18, Tailwind CSS |
-| Backend | FastAPI, uvicorn |
-| Data | JSON files (no database required) |
-| Testing | Vitest (frontend), pytest (backend) |
-| Package | npm (frontend), pip (backend) |
+| Frontend | Next.js 14, React 18, Tailwind CSS, Vitest |
+| Backend | FastAPI, uvicorn, pytest |
+| Data | JSON files (zero database — clone and run) |
+| Testing | Vitest (frontend), pytest (backend), schema validation |
+| Deployment | Docker, CI pipelines |
 
-## Project Selection Criteria
-
-Every project we dissect meets these standards:
-
-1. **25k+ GitHub Stars** — proven community value
-2. **Active in last 2 years** — represents current industry practices
-3. **Architecturally rich** — contains design patterns worth studying
-4. **High code quality** — written by top-tier engineers
+---
 
 ## Contributing
 
 We welcome contributions of all kinds:
 
-- Add new knowledge points
+- Add new knowledge points or engineering labs
 - Fix bugs or improve existing content
 - Improve documentation
-- Add new game types or project dissections
+- Add new capability modules or game types
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+
+---
 
 ## License
 
@@ -226,11 +241,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 <div align="center">
 
-**If this project helped you learn something new, give it a star.**
+**Star this repo if it helps you ship your first production AI application.**
 
-It helps others find it, and it keeps us motivated to add more content.
-
-*"Programs must be written for people to read, and only incidentally for machines to execute."*
-— Harold Abelson, *Structure and Interpretation of Computer Programs*
+*"The minimum code is not the least code. It is the code that teaches you the most."*
 
 </div>

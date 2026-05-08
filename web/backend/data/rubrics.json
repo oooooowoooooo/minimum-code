@@ -1,0 +1,244 @@
+{
+  "assessment": {
+    "title": "AI App Engineer Capability Assessment",
+    "title_zh": "AI 应用开发工程师能力测评",
+    "description": "Evaluate your engineering capabilities across 6 key areas",
+    "description_zh": "评估你在 6 个关键领域的工程能力",
+    "questions": [
+      {
+        "id": "q1",
+        "track_id": "python-engineering",
+        "skill_id": "py-config",
+        "question": "How do you manage configuration (API keys, database URLs) in a Python application?",
+        "question_zh": "你如何在 Python 应用中管理配置（API 密钥、数据库 URL）？",
+        "options": [
+          {"text": "Hardcode in source code", "text_zh": "硬编码在源码中", "score": 0},
+          {"text": "Use a config.py file with constants", "text_zh": "使用 config.py 文件存放常量", "score": 1},
+          {"text": "Read from .env file with os.getenv", "text_zh": "从 .env 文件读取，使用 os.getenv", "score": 2},
+          {"text": "Use pydantic-settings with .env and validation", "text_zh": "使用 pydantic-settings，配合 .env 和验证", "score": 3}
+        ]
+      },
+      {
+        "id": "q2",
+        "track_id": "python-engineering",
+        "skill_id": "py-types",
+        "question": "How do you ensure function parameters and return values are correctly typed?",
+        "question_zh": "你如何确保函数参数和返回值的类型正确？",
+        "options": [
+          {"text": "I don't check types, Python is dynamic", "text_zh": "不检查类型，Python 是动态语言", "score": 0},
+          {"text": "Add type hints for documentation purposes", "text_zh": "添加类型注解用于文档说明", "score": 1},
+          {"text": "Use type hints and run mypy for static checking", "text_zh": "使用类型注解并运行 mypy 进行静态检查", "score": 2},
+          {"text": "Use type hints, mypy, Pydantic models, and runtime validation where needed", "text_zh": "使用类型注解、mypy、Pydantic 模型，并在必要时进行运行时验证", "score": 3}
+        ]
+      },
+      {
+        "id": "q3",
+        "track_id": "python-engineering",
+        "skill_id": "py-error-handling",
+        "question": "How do you handle errors in a Python backend service?",
+        "question_zh": "你如何在 Python 后端服务中处理错误？",
+        "options": [
+          {"text": "Wrap everything in bare except: pass", "text_zh": "用 bare except: pass 包裹所有代码", "score": 0},
+          {"text": "Catch specific exceptions and log them", "text_zh": "捕获特定异常并记录日志", "score": 1},
+          {"text": "Define custom exception hierarchy, catch and log with context", "text_zh": "定义自定义异常层级，捕获并记录带上下文的日志", "score": 2},
+          {"text": "Custom exceptions with error codes, structured logging, and global exception handler", "text_zh": "自定义异常带错误码、结构化日志，以及全局异常处理器", "score": 3}
+        ]
+      },
+      {
+        "id": "q4",
+        "track_id": "fastapi-services",
+        "skill_id": "fastapi-routing",
+        "question": "How do you design API endpoints for a resource (e.g., users, tasks)?",
+        "question_zh": "你如何为资源（如用户、任务）设计 API 端点？",
+        "options": [
+          {"text": "Use GET for everything, pass action as query param", "text_zh": "所有操作都用 GET，用 query 参数区分动作", "score": 0},
+          {"text": "Use appropriate HTTP methods (GET, POST, PUT, DELETE)", "text_zh": "使用合适的 HTTP 方法（GET、POST、PUT、DELETE）", "score": 1},
+          {"text": "RESTful design with proper status codes and resource naming", "text_zh": "RESTful 设计，使用正确的状态码和资源命名", "score": 2},
+          {"text": "RESTful with versioning, pagination, filtering, and OpenAPI docs", "text_zh": "RESTful 设计，包含版本控制、分页、过滤和 OpenAPI 文档", "score": 3}
+        ]
+      },
+      {
+        "id": "q5",
+        "track_id": "fastapi-services",
+        "skill_id": "fastapi-schema",
+        "question": "How do you validate incoming request data in a FastAPI application?",
+        "question_zh": "你如何在 FastAPI 应用中验证传入的请求数据？",
+        "options": [
+          {"text": "Manually check each field in the endpoint function", "text_zh": "在端点函数中手动检查每个字段", "score": 0},
+          {"text": "Use request.json() and basic if/else validation", "text_zh": "使用 request.json() 和基本的 if/else 验证", "score": 1},
+          {"text": "Use Pydantic BaseModel for request body validation", "text_zh": "使用 Pydantic BaseModel 验证请求体", "score": 2},
+          {"text": "Pydantic models with Field validators, custom types, and response models", "text_zh": "Pydantic 模型配合 Field 验证器、自定义类型和响应模型", "score": 3}
+        ]
+      },
+      {
+        "id": "q6",
+        "track_id": "fastapi-services",
+        "skill_id": "fastapi-di",
+        "question": "How do you share database connections or services across endpoints?",
+        "question_zh": "你如何在多个端点之间共享数据库连接或服务？",
+        "options": [
+          {"text": "Create a global database connection at module level", "text_zh": "在模块级别创建全局数据库连接", "score": 0},
+          {"text": "Create a new connection in each endpoint function", "text_zh": "在每个端点函数中创建新连接", "score": 1},
+          {"text": "Use a factory function to create connections", "text_zh": "使用工厂函数创建连接", "score": 2},
+          {"text": "Use FastAPI Depends with yield for lifecycle-managed dependencies", "text_zh": "使用 FastAPI 的 Depends + yield 管理依赖生命周期", "score": 3}
+        ]
+      },
+      {
+        "id": "q7",
+        "track_id": "llm-api-client",
+        "skill_id": "llm-api-call",
+        "question": "How do you make an API call to an LLM service (e.g., OpenAI)?",
+        "question_zh": "你如何调用 LLM 服务（如 OpenAI）的 API？",
+        "options": [
+          {"text": "Use urllib with manual URL construction", "text_zh": "使用 urllib 手动构建 URL", "score": 0},
+          {"text": "Use requests.post with hardcoded headers", "text_zh": "使用 requests.post 和硬编码的 headers", "score": 1},
+          {"text": "Use requests with proper auth headers, JSON body, and response parsing", "text_zh": "使用 requests 配合正确的认证头、JSON 请求体和响应解析", "score": 2},
+          {"text": "Use official SDK (openai/anthropic) with environment-based config and error handling", "text_zh": "使用官方 SDK（openai/anthropic），基于环境变量配置并处理错误", "score": 3}
+        ]
+      },
+      {
+        "id": "q8",
+        "track_id": "llm-api-client",
+        "skill_id": "llm-timeout-retry",
+        "question": "An LLM API call fails intermittently due to network issues. How do you handle it?",
+        "question_zh": "LLM API 调用因网络问题间歇性失败，你如何处理？",
+        "options": [
+          {"text": "Let the application crash and restart manually", "text_zh": "让应用崩溃，手动重启", "score": 0},
+          {"text": "Wrap in try/except and show error to user", "text_zh": "用 try/except 包裹并向用户显示错误", "score": 1},
+          {"text": "Add basic retry with fixed delay (e.g., sleep 3 seconds)", "text_zh": "添加基本重试，使用固定延迟（如 sleep 3 秒）", "score": 2},
+          {"text": "Exponential backoff with jitter, timeout control, and max retry limit", "text_zh": "指数退避加抖动、超时控制和最大重试次数限制", "score": 3}
+        ]
+      },
+      {
+        "id": "q9",
+        "track_id": "llm-api-client",
+        "skill_id": "llm-streaming",
+        "question": "Users complain that LLM responses take too long to appear. What do you implement?",
+        "question_zh": "用户抱怨 LLM 响应出现得太慢，你会实现什么？",
+        "options": [
+          {"text": "Tell users to wait, the model is just slow", "text_zh": "告诉用户等待，模型就是慢", "score": 0},
+          {"text": "Show a loading spinner until the full response arrives", "text_zh": "在完整响应到达前显示加载动画", "score": 1},
+          {"text": "Implement streaming to show tokens as they arrive", "text_zh": "实现流式响应，在 token 到达时立即显示", "score": 2},
+          {"text": "Streaming with SSE, chunked transfer, and graceful fallback for non-streaming clients", "text_zh": "SSE 流式响应、分块传输，以及对非流式客户端的优雅降级", "score": 3}
+        ]
+      },
+      {
+        "id": "q10",
+        "track_id": "rag-system",
+        "skill_id": "rag-chunking",
+        "question": "How do you split a long document into chunks for a RAG system?",
+        "question_zh": "你如何为 RAG 系统将长文档分割成块？",
+        "options": [
+          {"text": "Split by fixed character count, no overlap", "text_zh": "按固定字符数分割，无重叠", "score": 0},
+          {"text": "Split by paragraphs or sentences", "text_zh": "按段落或句子分割", "score": 1},
+          {"text": "Split by size with overlap to preserve context", "text_zh": "按大小分割并设置重叠以保留上下文", "score": 2},
+          {"text": "Semantic chunking with overlap, metadata tracking, and recursive splitting for nested structures", "text_zh": "语义分块加重叠、元数据追踪，以及对嵌套结构的递归分割", "score": 3}
+        ]
+      },
+      {
+        "id": "q11",
+        "track_id": "rag-system",
+        "skill_id": "rag-embedding",
+        "question": "How do you convert text chunks into vectors for similarity search?",
+        "question_zh": "你如何将文本块转换为向量用于相似度搜索？",
+        "options": [
+          {"text": "I don't know what embeddings are", "text_zh": "不知道什么是嵌入向量", "score": 0},
+          {"text": "Use a pre-trained embedding model via API", "text_zh": "通过 API 使用预训练的嵌入模型", "score": 1},
+          {"text": "Use embedding API and store vectors in a list or numpy array", "text_zh": "使用嵌入 API 并将向量存储在列表或 numpy 数组中", "score": 2},
+          {"text": "Use embedding API with a vector database (FAISS/Pinecone), batch processing, and caching", "text_zh": "使用嵌入 API 配合向量数据库（FAISS/Pinecone）、批处理和缓存", "score": 3}
+        ]
+      },
+      {
+        "id": "q12",
+        "track_id": "rag-system",
+        "skill_id": "rag-retrieval",
+        "question": "After embedding your documents, how do you find the most relevant chunks for a query?",
+        "question_zh": "嵌入文档后，你如何为查询找到最相关的文本块？",
+        "options": [
+          {"text": "Return the first N chunks from the document", "text_zh": "返回文档的前 N 个块", "score": 0},
+          {"text": "Use keyword matching (e.g., TF-IDF)", "text_zh": "使用关键词匹配（如 TF-IDF）", "score": 1},
+          {"text": "Compute cosine similarity between query and chunk embeddings, return top-k", "text_zh": "计算查询和块嵌入之间的余弦相似度，返回 top-k", "score": 2},
+          {"text": "Cosine similarity top-k with metadata filtering, score threshold, and hybrid search (vector + keyword)", "text_zh": "余弦相似度 top-k 加元数据过滤、分数阈值和混合搜索（向量 + 关键词）", "score": 3}
+        ]
+      },
+      {
+        "id": "q13",
+        "track_id": "agent-engineering",
+        "skill_id": "agent-tool-calling",
+        "question": "How do you let an AI agent use external tools (e.g., search, calculator)?",
+        "question_zh": "你如何让 AI Agent 使用外部工具（如搜索、计算器）？",
+        "options": [
+          {"text": "Hardcode tool logic directly in the prompt", "text_zh": "将工具逻辑直接硬编码在 prompt 中", "score": 0},
+          {"text": "Use if/else to match user intent to function calls", "text_zh": "使用 if/else 匹配用户意图到函数调用", "score": 1},
+          {"text": "Define a tool registry with name, description, and callable", "text_zh": "定义工具注册表，包含名称、描述和可调用函数", "score": 2},
+          {"text": "Tool registry with JSON schema, LLM-based tool selection, and structured output parsing", "text_zh": "工具注册表配合 JSON Schema、基于 LLM 的工具选择和结构化输出解析", "score": 3}
+        ]
+      },
+      {
+        "id": "q14",
+        "track_id": "agent-engineering",
+        "skill_id": "agent-guardrails",
+        "question": "How do you prevent an AI agent from executing dangerous operations?",
+        "question_zh": "你如何防止 AI Agent 执行危险操作？",
+        "options": [
+          {"text": "Trust the LLM to not do anything harmful", "text_zh": "相信 LLM 不会做有害的事", "score": 0},
+          {"text": "Add basic string matching to block known bad commands", "text_zh": "添加基本的字符串匹配来阻止已知的危险命令", "score": 1},
+          {"text": "Implement allowlist of permitted tools and parameter validation", "text_zh": "实现允许的工具白名单和参数验证", "score": 2},
+          {"text": "Allowlist + rate limiting + confirmation for destructive actions + audit logging", "text_zh": "白名单 + 频率限制 + 破坏性操作确认 + 审计日志", "score": 3}
+        ]
+      },
+      {
+        "id": "q15",
+        "track_id": "agent-engineering",
+        "skill_id": "agent-memory",
+        "question": "How do you maintain conversation context across multiple agent interactions?",
+        "question_zh": "你如何在多次 Agent 交互中维持对话上下文？",
+        "options": [
+          {"text": "Send the entire conversation history every time", "text_zh": "每次都发送完整的对话历史", "score": 0},
+          {"text": "Keep a list of recent messages in memory", "text_zh": "在内存中保存最近的消息列表", "score": 1},
+          {"text": "Sliding window of recent turns with system prompt", "text_zh": "使用滑动窗口保存最近的对话轮次加上系统 prompt", "score": 2},
+          {"text": "Sliding window + summarization of old turns + persistent storage", "text_zh": "滑动窗口 + 旧对话摘要 + 持久化存储", "score": 3}
+        ]
+      },
+      {
+        "id": "q16",
+        "track_id": "deploy-quality",
+        "skill_id": "deploy-docker",
+        "question": "How do you deploy a Python web application?",
+        "question_zh": "你如何部署 Python Web 应用？",
+        "options": [
+          {"text": "Run python main.py directly on the server", "text_zh": "直接在服务器上运行 python main.py", "score": 0},
+          {"text": "Use a basic Dockerfile with pip install", "text_zh": "使用基本的 Dockerfile 加 pip install", "score": 1},
+          {"text": "Multi-stage Dockerfile with slim base and requirements.txt", "text_zh": "多阶段 Dockerfile，使用 slim 基础镜像和 requirements.txt", "score": 2},
+          {"text": "Multi-stage build + docker-compose + health checks + non-root user", "text_zh": "多阶段构建 + docker-compose + 健康检查 + 非 root 用户", "score": 3}
+        ]
+      },
+      {
+        "id": "q17",
+        "track_id": "deploy-quality",
+        "skill_id": "deploy-ci-cd",
+        "question": "How do you ensure code quality before deploying to production?",
+        "question_zh": "你如何确保部署到生产环境前代码质量？",
+        "options": [
+          {"text": "Test manually on my laptop before pushing", "text_zh": "在笔记本上手动测试后再推送", "score": 0},
+          {"text": "Run tests locally before pushing to main", "text_zh": "推送到 main 分支前在本地运行测试", "score": 1},
+          {"text": "Set up GitHub Actions to run tests on every push", "text_zh": "设置 GitHub Actions 在每次推送时运行测试", "score": 2},
+          {"text": "CI with lint + test + type check + security scan, and CD with staging environment", "text_zh": "CI 包含 lint + 测试 + 类型检查 + 安全扫描，CD 包含预发布环境", "score": 3}
+        ]
+      },
+      {
+        "id": "q18",
+        "track_id": "deploy-quality",
+        "skill_id": "deploy-logging",
+        "question": "How do you debug issues in a production Python application?",
+        "question_zh": "你如何调试生产环境中的 Python 应用问题？",
+        "options": [
+          {"text": "Add print() statements and redeploy", "text_zh": "添加 print() 语句并重新部署", "score": 0},
+          {"text": "Use Python's logging module with file output", "text_zh": "使用 Python 的 logging 模块输出到文件", "score": 1},
+          {"text": "Structured logging with levels and correlation IDs", "text_zh": "结构化日志，包含日志级别和关联 ID", "score": 2},
+          {"text": "Structured JSON logs + centralized log aggregation + alerting + distributed tracing", "text_zh": "结构化 JSON 日志 + 集中式日志聚合 + 告警 + 分布式追踪", "score": 3}
+        ]
+      }
+    ]
+  }
+}

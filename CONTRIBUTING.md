@@ -5,12 +5,12 @@ Thanks for your interest in contributing! Here's how to get started.
 ## Quick Setup
 
 ```bash
-git clone https://github.com/your-username/minimum-code.git
+git clone https://github.com/oooooowoooooo/minimum-code.git
 cd minimum-code
 
 # Backend
 cd web/backend
-pip install fastapi uvicorn pytest httpx
+pip install -r requirements.txt
 
 # Frontend
 cd ../../web
@@ -19,47 +19,41 @@ npm install
 
 ## How to Contribute
 
-### Adding a Knowledge Point
+### Adding an Engineering Lab
 
-1. Edit `web/backend/data/knowledge_points.json`
+1. Create a new directory under `labs/your-lab-name/`
+2. Include:
+   - `starter.py` — skeleton code with TODOs
+   - `solution.py` — reference implementation
+   - `test_solution.py` — pytest tests with acceptance criteria
+   - `README.md` — what the lab teaches and why it matters
+3. Add the lab definition to `web/backend/data/labs.json`
+4. Run tests: `cd labs/your-lab-name && pytest test_solution.py -v`
+5. Submit a PR
+
+### Adding a Competency Track Skill
+
+1. Edit `web/backend/data/competency_map.json`
 2. Follow the existing format:
 ```json
 {
-  "week": 1,
-  "module": "py-variables",
-  "title": "Your Point Title",
-  "explanation": "Clear explanation in plain language.",
-  "code": "# Example code",
-  "game": {
-    "type": "predict_output",
-    "title": "Game Title",
-    "instructions": "What to do",
-    "content": {
-      "code": "print('hello')",
-      "options": ["hello", "world", "error", "None"],
-      "correct": 0,
-      "explanation": "print outputs the string"
-    }
-  },
-  "quiz": {
-    "question": "What does this print?",
-    "options": ["A", "B", "C", "D"],
-    "correct": 0,
-    "explanation": "Because..."
-  }
+  "id": "your-skill-id",
+  "title": "Skill Title",
+  "title_zh": "技能标题",
+  "why": "Why this skill matters for AI app engineering",
+  "why_zh": "为什么这项技能对 AI 应用工程很重要",
+  "minimum_code": "Short code snippet showing the concept",
+  "lab_id": "linked-lab-id"
 }
 ```
-3. Run `python verify_all.py` to validate
+3. Submit a PR
+
+### Adding Assessment Questions
+
+1. Edit `web/backend/data/rubrics.json`
+2. Each question should have 4 options with scores 0-3
+3. Questions should test practical engineering knowledge, not syntax trivia
 4. Submit a PR
-
-### Game Types
-
-| Type | Content Fields |
-|------|---------------|
-| `predict_output` | `code`, `options`, `correct`, `explanation` |
-| `find_bug` | `code_lines`, `bug_line`, `explanation` |
-| `fill_blank` | `code` (with `___` markers), `blanks`, `explanation` |
-| `code_order` | `lines`, `correct_order`, `explanation` |
 
 ### Fixing a Bug
 
@@ -93,8 +87,11 @@ cd web && npm test
 # Backend
 cd web/backend && python -m pytest -v
 
-# Data integrity
-cd web/backend && python verify_all.py
+# Individual lab
+cd labs/config-loader && pytest test_solution.py -v
+
+# Full verification
+python verify_all.py
 ```
 
 All tests must pass before merging.

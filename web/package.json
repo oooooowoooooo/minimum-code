@@ -1,6 +1,7 @@
 {
-  "name": "ai-era-learning-platform",
-  "version": "1.0.0",
+  "name": "minimum-code",
+  "version": "0.1.0",
+  "description": "AI App Engineer Minimum Engineering Capability Training System — from LLM API calls to Docker deployment",
   "private": true,
   "scripts": {
     "dev": "next dev",

@@ -1,0 +1,134 @@
+{
+  "labs": [
+    {
+      "id": "config-loader",
+      "track_id": "python-engineering",
+      "title": "Config Loader",
+      "title_zh": "配置加载器",
+      "description": "Build a config loader that reads from .env, validates with Pydantic, and provides typed access",
+      "description_zh": "构建一个配置加载器，从 .env 读取配置，用 Pydantic 验证，提供类型安全的访问",
+      "difficulty": "beginner",
+      "estimated_minutes": 30,
+      "task": "Implement a Settings class using pydantic-settings that loads from .env, validates types, and raises clear errors for missing required fields",
+      "task_zh": "使用 pydantic-settings 实现一个 Settings 类，从 .env 加载配置，验证类型，对缺失的必填字段给出清晰的错误提示",
+      "acceptance": [
+        "Settings loads values from .env file",
+        "Missing required fields raise ValidationError with clear message",
+        "Type coercion works (string 'true' becomes bool True)",
+        "Default values are applied when env var is missing",
+        "Settings can be imported and used as a singleton"
+      ],
+      "starter_code": "from pydantic_settings import BaseSettings\n\nclass Settings(BaseSettings):\n    # TODO: add your config fields\n    pass\n",
+      "test_file": "test_config_loader.py"
+    },
+    {
+      "id": "llm-client",
+      "track_id": "llm-api-client",
+      "title": "LLM API Client",
+      "title_zh": "LLM API 客户端",
+      "description": "Build a robust LLM client with timeout, retry, and proper error handling",
+      "description_zh": "构建一个健壮的 LLM 客户端，支持超时、重试和完善的错误处理",
+      "difficulty": "intermediate",
+      "estimated_minutes": 45,
+      "task": "Implement an LLMClient class that wraps OpenAI-compatible API calls with timeout control, HTTP status checking, response parsing, business error detection, and configurable retry with exponential backoff",
+      "task_zh": "实现一个 LLMClient 类，封装 OpenAI 兼容 API 调用，支持超时控制、HTTP 状态码检查、响应解析、业务错误检测和可配置的指数退避重试",
+      "acceptance": [
+        "Network timeout raises NetworkError within configured seconds",
+        "HTTP 5xx raises HTTPError with status code",
+        "Invalid JSON response raises ParseError",
+        "Business error code != 0 raises BusinessError",
+        "Successful response returns parsed content string",
+        "Retry attempts respect max_retries with exponential backoff"
+      ],
+      "starter_code": "import requests\nfrom dataclasses import dataclass\n\nclass NetworkError(Exception): pass\nclass HTTPError(Exception): pass\nclass ParseError(Exception): pass\nclass BusinessError(Exception): pass\n\n@dataclass\nclass LLMResponse:\n    content: str\n    model: str\n    usage: dict\n\nclass LLMClient:\n    def __init__(self, base_url: str, api_key: str, timeout: int = 30, max_retries: int = 3):\n        # TODO: implement\n        pass\n\n    def chat(self, prompt: str, model: str = 'gpt-3.5-turbo') -> LLMResponse:\n        # TODO: implement with timeout, error handling, retry\n        pass\n",
+      "test_file": "test_llm_client.py"
+    },
+    {
+      "id": "fastapi-service",
+      "track_id": "fastapi-services",
+      "title": "FastAPI Service",
+      "title_zh": "FastAPI 服务",
+      "description": "Build a FastAPI service with proper routing, schema validation, and dependency injection",
+      "description_zh": "构建一个 FastAPI 服务，包含路由、Schema 验证和依赖注入",
+      "difficulty": "intermediate",
+      "estimated_minutes": 45,
+      "task": "Build a task management API with POST/GET/DELETE endpoints, Pydantic request/response models, and a dependency-injected service layer",
+      "task_zh": "构建一个任务管理 API，包含 POST/GET/DELETE 端点、Pydantic 请求/响应模型和依赖注入的服务层",
+      "acceptance": [
+        "POST /tasks creates a task and returns 201 with task data",
+        "GET /tasks returns list of all tasks",
+        "GET /tasks/{id} returns single task or 404",
+        "DELETE /tasks/{id} removes task and returns 204",
+        "Invalid request body returns 422 with validation error details",
+        "Service layer is injected via FastAPI Depends"
+      ],
+      "starter_code": "from fastapi import FastAPI, Depends, HTTPException\nfrom pydantic import BaseModel\nfrom typing import Optional\n\napp = FastAPI()\n\n# TODO: define models, service, and routes\n",
+      "test_file": "test_fastapi_service.py"
+    },
+    {
+      "id": "rag-mini-pipeline",
+      "track_id": "rag-system",
+      "title": "RAG Mini Pipeline",
+      "title_zh": "RAG 最小流水线",
+      "description": "Build a minimal RAG pipeline with document chunking, mock embedding, and top-k retrieval",
+      "description_zh": "构建一个最小 RAG 流水线，包含文档分块、模拟嵌入和 top-k 检索",
+      "difficulty": "advanced",
+      "estimated_minutes": 60,
+      "task": "Implement a RAG pipeline: split documents into chunks, generate mock embeddings (using hash-based vectors), and retrieve top-k relevant chunks for a query",
+      "task_zh": "实现一个 RAG 流水线：将文档分割成块，生成模拟嵌入（基于哈希的向量），并为查询检索 top-k 相关块",
+      "acceptance": [
+        "Documents are split into chunks of configurable size with overlap",
+        "Each chunk gets a mock embedding vector of consistent dimension",
+        "Query embedding is generated with same method as document embeddings",
+        "Top-k retrieval returns most similar chunks by cosine similarity",
+        "Pipeline handles empty documents gracefully"
+      ],
+      "starter_code": "from dataclasses import dataclass\nfrom typing import List\nimport hashlib\nimport math\n\n@dataclass\nclass Chunk:\n    text: str\n    index: int\n    embedding: List[float]\n\nclass RAGPipeline:\n    def __init__(self, chunk_size: int = 200, overlap: int = 50, embedding_dim: int = 384):\n        # TODO: implement\n        pass\n\n    def chunk_document(self, text: str) -> List[Chunk]:\n        # TODO: split text into overlapping chunks\n        pass\n\n    def embed(self, text: str) -> List[float]:\n        # TODO: generate deterministic mock embedding\n        pass\n\n    def retrieve(self, query: str, chunks: List[Chunk], top_k: int = 3) -> List[Chunk]:\n        # TODO: return top-k most similar chunks\n        pass\n",
+      "test_file": "test_rag_pipeline.py"
+    },
+    {
+      "id": "agent-tool-calling",
+      "track_id": "agent-engineering",
+      "title": "Agent Tool Calling",
+      "title_zh": "Agent 工具调用",
+      "description": "Build an agent that can plan, select tools, execute, and handle errors",
+      "description_zh": "构建一个能够规划、选择工具、执行和处理错误的 Agent",
+      "difficulty": "advanced",
+      "estimated_minutes": 60,
+      "task": "Implement an Agent with a tool registry, a planner that selects tools based on user intent, an executor that runs tools and handles errors, and a simple conversation loop",
+      "task_zh": "实现一个 Agent，包含工具注册表、根据用户意图选择工具的规划器、运行工具并处理错误的执行器，以及简单的对话循环",
+      "acceptance": [
+        "Agent registers tools with name, description, and callable",
+        "Planner selects appropriate tool based on user input",
+        "Executor runs tool and captures result or error",
+        "Unknown tool raises ToolNotFoundError",
+        "Tool execution error is caught and reported gracefully",
+        "Agent maintains conversation history"
+      ],
+      "starter_code": "from dataclasses import dataclass, field\nfrom typing import Callable, Any, Dict, List\n\nclass ToolNotFoundError(Exception): pass\nclass ToolExecutionError(Exception): pass\n\n@dataclass\nclass Tool:\n    name: str\n    description: str\n    func: Callable\n\n@dataclass\nclass Agent:\n    tools: Dict[str, Tool] = field(default_factory=dict)\n    history: List[dict] = field(default_factory=list)\n\n    def register_tool(self, tool: Tool):\n        # TODO: register tool\n        pass\n\n    def plan(self, user_input: str) -> str:\n        # TODO: select tool name based on input\n        pass\n\n    def execute(self, tool_name: str, **kwargs) -> Any:\n        # TODO: run tool with error handling\n        pass\n\n    def chat(self, user_input: str) -> str:\n        # TODO: plan -> execute -> return result\n        pass\n",
+      "test_file": "test_agent.py"
+    },
+    {
+      "id": "docker-ci",
+      "track_id": "deploy-quality",
+      "title": "Docker & CI",
+      "title_zh": "Docker 与 CI",
+      "description": "Create a Dockerfile and GitHub Actions CI for a Python web service",
+      "description_zh": "为 Python Web 服务创建 Dockerfile 和 GitHub Actions CI",
+      "difficulty": "intermediate",
+      "estimated_minutes": 40,
+      "task": "Write a multi-stage Dockerfile for a FastAPI app, and a GitHub Actions workflow that runs tests, builds the image, and verifies it starts correctly",
+      "task_zh": "为 FastAPI 应用编写多阶段 Dockerfile，以及一个 GitHub Actions 工作流，运行测试、构建镜像并验证启动正常",
+      "acceptance": [
+        "Dockerfile uses multi-stage build (builder + runtime)",
+        "Final image is based on python:3.11-slim",
+        "Dependencies are installed from requirements.txt",
+        "App runs on port 8000 with health check",
+        "GitHub Actions workflow runs pytest on push",
+        "GitHub Actions builds Docker image and verifies startup"
+      ],
+      "starter_code": "# Dockerfile\nFROM python:3.11-slim AS builder\n# TODO: multi-stage build\n\n# .github/workflows/ci.yml\n# TODO: CI workflow\n",
+      "test_file": null
+    }
+  ]
+}
