@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div align="center">
 
 # minimum-code
@@ -234,3 +235,7 @@ It helps others find it, and it keeps us motivated to add more content.
 — Harold Abelson, *Structure and Interpretation of Computer Programs*
 
 </div>
+=======
+# minimum-code
+The essential code &amp; architecture you need in the AI era, in the least time / AI 时代，用最少的时间，掌握最重要的代码与架构
+>>>>>>> 042c50efcfe5bfc0e2ed67b4ffaba6058908be2d
