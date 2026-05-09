@@ -205,10 +205,10 @@ export default function HomePage() {
             <span className="text-2xl">🧠</span>
             <div>
               <h1 className="text-lg font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                {lang === 'zh' ? 'AI App Engineer' : 'AI App Engineer'}
+                {lang === 'zh' ? 'minimum-code' : 'minimum-code'}
               </h1>
               <p className="text-xs text-gray-500">
-                {lang === 'zh' ? '能力训练系统' : 'Training System'}
+                {lang === 'zh' ? '源码阅读与架构训练' : 'Source Reading & Architecture'}
               </p>
             </div>
           </Link>
@@ -226,13 +226,13 @@ export default function HomePage() {
         <section className="mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
             {lang === 'zh'
-              ? 'AI 应用工程师能力训练系统'
-              : 'AI App Engineer Training System'}
+              ? 'AI 时代源码阅读与架构训练平台'
+              : 'Source Code Reading and Architecture Training for the AI Era'}
           </h2>
           <p className="text-gray-400 text-base sm:text-lg max-w-2xl">
             {lang === 'zh'
-              ? '以「评估 → 学习 → 实战 → 复盘」闭环驱动，系统掌握 AI 应用开发六大核心能力。'
-              : 'Driven by an Assess → Learn → Build → Review loop, systematically master the six core competencies of AI application development.'}
+              ? 'AI 会写代码，但你要会读代码、评审代码、设计架构。用最少时间读懂 Python + TypeScript 主流开源项目的核心边界。'
+              : 'AI can write code, but you still need to read code, review tradeoffs, and design architecture across mainstream Python and TypeScript projects.'}
           </p>
         </section>
 

@@ -4,7 +4,7 @@ from datetime import datetime
 from fastapi import APIRouter
 
 from app.schemas.progress import ProgressUpdate
-from app.services import data_service
+from app.services import data_service, module_service
 
 router = APIRouter(prefix="/api", tags=["progress"])
 
@@ -34,7 +34,7 @@ def update_progress(update: ProgressUpdate):
 def get_stats():
     """Get overall completion stats."""
     progress = data_service.load_progress()
-    total = len(data_service.MODULES)
+    total = module_service.module_count()
     done = len(progress["completed"])
     return {
         "total": total,

@@ -1,11 +1,7 @@
 """JSON file read/write repository."""
 import json
-from pathlib import Path
 
-# Project root (3 levels up from app/repositories/)
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent.parent
-DATA_DIR = PROJECT_ROOT / "web" / "backend" / "data"
-DATA_DIR.mkdir(exist_ok=True)
+from app.core.paths import DATA_DIR
 
 
 def read_json(filename: str, default=None):

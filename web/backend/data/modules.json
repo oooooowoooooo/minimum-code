@@ -1,0 +1,414 @@
+{
+  "modules": [
+    {
+      "id": "cognitive-why",
+      "title": "Why Learn Programming",
+      "category": "cognitive",
+      "icon": "🧠",
+      "description": "Understand why programming matters in the AI era",
+      "week": 1,
+      "order": 1,
+      "source_path": "docs/cognitive/why-learn-programming.md"
+    },
+    {
+      "id": "cognitive-thinking",
+      "title": "AI-Era Thinking",
+      "category": "cognitive",
+      "icon": "💡",
+      "description": "Mental models that make you irreplaceable",
+      "week": 1,
+      "order": 2,
+      "source_path": "docs/cognitive/ai-era-thinking.md"
+    },
+    {
+      "id": "cognitive-languages",
+      "title": "Why Python + TypeScript",
+      "category": "cognitive",
+      "icon": "🐍",
+      "description": "The two languages you actually need",
+      "week": 1,
+      "order": 3,
+      "source_path": "docs/cognitive/why-py-and-ts.md"
+    },
+    {
+      "id": "py-variables",
+      "title": "Variables & Types",
+      "category": "python",
+      "icon": "📦",
+      "description": "Name binding, mutability, references",
+      "week": 1,
+      "order": 4,
+      "source_path": "src/python/fundamentals/variables.py"
+    },
+    {
+      "id": "py-functions",
+      "title": "Functions & Decorators",
+      "category": "python",
+      "icon": "⚡",
+      "description": "First-class functions, closures, decorators",
+      "week": 1,
+      "order": 5,
+      "source_path": "src/python/fundamentals/functions.py"
+    },
+    {
+      "id": "py-classes",
+      "title": "Classes & Inheritance",
+      "category": "python",
+      "icon": "🏗️",
+      "description": "OOP, dataclasses, protocols",
+      "week": 1,
+      "order": 6,
+      "source_path": "src/python/fundamentals/classes.py"
+    },
+    {
+      "id": "py-async",
+      "title": "Async Programming",
+      "category": "python",
+      "icon": "🔄",
+      "description": "Coroutines, gather, TaskGroup",
+      "week": 1,
+      "order": 7,
+      "source_path": "src/python/fundamentals/async_io.py"
+    },
+    {
+      "id": "py-types",
+      "title": "Type Annotations",
+      "category": "python",
+      "icon": "🏷️",
+      "description": "Generics, TypeVar, Literal",
+      "week": 1,
+      "order": 8,
+      "source_path": "src/python/fundamentals/type_system.py"
+    },
+    {
+      "id": "py-modules",
+      "title": "Modules & Packages",
+      "category": "python",
+      "icon": "📚",
+      "description": "Import system, package structure",
+      "week": 1,
+      "order": 9,
+      "source_path": "src/python/fundamentals/modules.py"
+    },
+    {
+      "id": "ts-types",
+      "title": "Type System",
+      "category": "typescript",
+      "icon": "🔷",
+      "description": "Primitives, interfaces, narrowing",
+      "week": 1,
+      "order": 10,
+      "source_path": "src/typescript/fundamentals/types.ts"
+    },
+    {
+      "id": "ts-functions",
+      "title": "Functions & Generics",
+      "category": "typescript",
+      "icon": "⚙️",
+      "description": "Generics, overloads, currying",
+      "week": 1,
+      "order": 11,
+      "source_path": "src/typescript/fundamentals/functions.ts"
+    },
+    {
+      "id": "ts-interfaces",
+      "title": "Interfaces & Type Manipulation",
+      "category": "typescript",
+      "icon": "🔧",
+      "description": "Mapped types, conditional types, utility types",
+      "week": 1,
+      "order": 12,
+      "source_path": "src/typescript/fundamentals/interfaces.ts"
+    },
+    {
+      "id": "ts-async",
+      "title": "Async Programming",
+      "category": "typescript",
+      "icon": "⏳",
+      "description": "Promises, async/await, AbortController",
+      "week": 1,
+      "order": 13,
+      "source_path": "src/typescript/fundamentals/async.ts"
+    },
+    {
+      "id": "ts-modules",
+      "title": "Module System",
+      "category": "typescript",
+      "icon": "📁",
+      "description": "ES modules, dynamic import, barrel files",
+      "week": 1,
+      "order": 14,
+      "source_path": "src/typescript/fundamentals/modules.ts"
+    },
+    {
+      "id": "ts-decorators",
+      "title": "Decorators & Metaprogramming",
+      "category": "typescript",
+      "icon": "🎨",
+      "description": "Class/method/property decorators",
+      "week": 1,
+      "order": 15,
+      "source_path": "src/typescript/fundamentals/decorators.ts"
+    },
+    {
+      "id": "pat-di",
+      "title": "Dependency Injection",
+      "category": "patterns",
+      "icon": "💉",
+      "description": "Inversion of control",
+      "week": 1,
+      "order": 16,
+      "source_path": "src/patterns/dependency_injection.md"
+    },
+    {
+      "id": "pat-middleware",
+      "title": "Middleware",
+      "category": "patterns",
+      "icon": "🔗",
+      "description": "Request interception chain",
+      "week": 1,
+      "order": 17,
+      "source_path": "src/patterns/middleware.md"
+    },
+    {
+      "id": "pat-builder",
+      "title": "Builder",
+      "category": "patterns",
+      "icon": "🔨",
+      "description": "Step-by-step construction",
+      "week": 1,
+      "order": 18,
+      "source_path": "src/patterns/builder.md"
+    },
+    {
+      "id": "pat-strategy",
+      "title": "Strategy",
+      "category": "patterns",
+      "icon": "🎯",
+      "description": "Interchangeable algorithms",
+      "week": 1,
+      "order": 19,
+      "source_path": "src/patterns/strategy.md"
+    },
+    {
+      "id": "pat-observer",
+      "title": "Observer",
+      "category": "patterns",
+      "icon": "👁️",
+      "description": "Event notification",
+      "week": 1,
+      "order": 20,
+      "source_path": "src/patterns/observer.md"
+    },
+    {
+      "id": "pat-factory",
+      "title": "Factory",
+      "category": "patterns",
+      "icon": "🏭",
+      "description": "Object creation",
+      "week": 1,
+      "order": 21,
+      "source_path": "src/patterns/factory.md"
+    },
+    {
+      "id": "pat-repository",
+      "title": "Repository",
+      "category": "patterns",
+      "icon": "🗄️",
+      "description": "Data access abstraction",
+      "week": 1,
+      "order": 22,
+      "source_path": "src/patterns/repository.md"
+    },
+    {
+      "id": "pat-pipeline",
+      "title": "Pipeline",
+      "category": "patterns",
+      "icon": "🔧",
+      "description": "Sequential processing",
+      "week": 1,
+      "order": 23,
+      "source_path": "src/patterns/pipeline.md"
+    },
+    {
+      "id": "py-fastapi",
+      "title": "FastAPI",
+      "category": "python-dissect",
+      "icon": "🚀",
+      "description": "Dependency injection, middleware, lifecycle",
+      "week": 2,
+      "order": 24,
+      "source_path": "src/python/dissect/fastapi/dissect.py"
+    },
+    {
+      "id": "py-langchain",
+      "title": "LangChain",
+      "category": "python-dissect",
+      "icon": "🦜",
+      "description": "Chain pattern, Agent, RAG",
+      "week": 2,
+      "order": 25,
+      "source_path": "src/python/dissect/langchain/dissect.py"
+    },
+    {
+      "id": "py-crewai",
+      "title": "CrewAI",
+      "category": "python-dissect",
+      "icon": "👥",
+      "description": "Multi-agent collaboration",
+      "week": 2,
+      "order": 26,
+      "source_path": "src/python/dissect/crewai/dissect.py"
+    },
+    {
+      "id": "py-dify",
+      "title": "Dify",
+      "category": "python-dissect",
+      "icon": "🔄",
+      "description": "Workflow engine, plugin system",
+      "week": 2,
+      "order": 27,
+      "source_path": "src/python/dissect/dify/dissect.py"
+    },
+    {
+      "id": "py-ragflow",
+      "title": "RAGFlow",
+      "category": "python-dissect",
+      "icon": "📖",
+      "description": "Document parsing, vector retrieval",
+      "week": 2,
+      "order": 28,
+      "source_path": "src/python/dissect/ragflow/dissect.py"
+    },
+    {
+      "id": "ts-nextjs",
+      "title": "Next.js",
+      "category": "typescript-dissect",
+      "icon": "▲",
+      "description": "SSR/SSG, App Router, middleware",
+      "week": 3,
+      "order": 29,
+      "source_path": "src/typescript/dissect/nextjs/dissect.ts"
+    },
+    {
+      "id": "ts-trpc",
+      "title": "tRPC",
+      "category": "typescript-dissect",
+      "icon": "🔌",
+      "description": "End-to-end type safety",
+      "week": 3,
+      "order": 30,
+      "source_path": "src/typescript/dissect/trpc/dissect.ts"
+    },
+    {
+      "id": "ts-tauri",
+      "title": "Tauri",
+      "category": "typescript-dissect",
+      "icon": "🖥️",
+      "description": "Cross-platform desktop",
+      "week": 3,
+      "order": 31,
+      "source_path": "src/typescript/dissect/tauri/dissect.ts"
+    },
+    {
+      "id": "ts-shadcn",
+      "title": "shadcn/ui",
+      "category": "typescript-dissect",
+      "icon": "🎨",
+      "description": "Component design, theming",
+      "week": 3,
+      "order": 32,
+      "source_path": "src/typescript/dissect/shadcn-ui/dissect.tsx"
+    },
+    {
+      "id": "ts-bun",
+      "title": "Bun",
+      "category": "typescript-dissect",
+      "icon": "🍞",
+      "description": "Runtime, bundler, test runner",
+      "week": 3,
+      "order": 33,
+      "source_path": "src/typescript/dissect/bun/dissect.ts"
+    },
+    {
+      "id": "ai-prompt",
+      "title": "Prompt Engineering",
+      "category": "ai-mastery",
+      "icon": "✍️",
+      "description": "System prompts, few-shot, chain-of-thought",
+      "week": 4,
+      "order": 34,
+      "source_path": "docs/ai-mastery/prompt-engineering.md"
+    },
+    {
+      "id": "ai-architecture",
+      "title": "AI-Assisted Architecture",
+      "category": "ai-mastery",
+      "icon": "🏛️",
+      "description": "Design decisions with AI",
+      "week": 4,
+      "order": 35,
+      "source_path": "docs/ai-mastery/ai-assisted-architecture.md"
+    },
+    {
+      "id": "ai-review",
+      "title": "AI Code Review",
+      "category": "ai-mastery",
+      "icon": "🔍",
+      "description": "Find bugs, security, performance",
+      "week": 4,
+      "order": 36,
+      "source_path": "docs/ai-mastery/ai-code-review.md"
+    },
+    {
+      "id": "ai-development",
+      "title": "AI-Driven Development",
+      "category": "ai-mastery",
+      "icon": "🤖",
+      "description": "Complete workflow with AI",
+      "week": 4,
+      "order": 37,
+      "source_path": "docs/ai-mastery/ai-driven-development.md"
+    },
+    {
+      "id": "practice-planning",
+      "title": "Project Planning",
+      "category": "practice",
+      "icon": "📋",
+      "description": "Requirements, scope, timeline",
+      "week": 4,
+      "order": 38,
+      "source_path": "docs/practice/project-planning.md"
+    },
+    {
+      "id": "practice-architecture",
+      "title": "Architecture Design",
+      "category": "practice",
+      "icon": "🏗️",
+      "description": "Patterns, boundaries, data flow",
+      "week": 4,
+      "order": 39,
+      "source_path": "docs/practice/architecture-design.md"
+    },
+    {
+      "id": "practice-implementation",
+      "title": "Implementation",
+      "category": "practice",
+      "icon": "💻",
+      "description": "Build the complete project",
+      "week": 4,
+      "order": 40,
+      "source_path": "docs/practice/implementation.md"
+    },
+    {
+      "id": "practice-deployment",
+      "title": "Deployment",
+      "category": "practice",
+      "icon": "🚀",
+      "description": "Docker, CI/CD, monitoring",
+      "week": 4,
+      "order": 41,
+      "source_path": "docs/practice/deployment.md"
+    }
+  ]
+}

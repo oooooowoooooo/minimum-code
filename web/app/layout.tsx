@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'AI Era — Learn Programming',
-  description: 'Master Python + TypeScript through industrial-grade project dissection',
+  title: 'minimum-code — Source Code Reading Training',
+  description: 'Read mainstream Python and TypeScript source code to build architecture judgment in the AI era.',
 };
 
 export default function RootLayout({

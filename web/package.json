@@ -1,7 +1,7 @@
 {
   "name": "minimum-code",
   "version": "0.1.0",
-  "description": "AI App Engineer Minimum Engineering Capability Training System — from LLM API calls to Docker deployment",
+  "description": "Source code reading and architecture training for AI-era developers",
   "private": true,
   "scripts": {
     "dev": "next dev",

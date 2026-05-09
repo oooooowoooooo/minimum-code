@@ -1,11 +1,14 @@
-<div align="center">
-
 # minimum-code
 
-**AI App Engineer Minimum Engineering Capability Training System.**
+面向 AI 时代开发者的源码阅读与架构训练平台。
 
-Not syntax tutorials — an engineering training ground for AI app development jobs.
-From LLM API calls, FastAPI services, RAG retrieval, Agent tool calling, to Docker deployment, CI testing, and interview expression.
+AI can write code, but you still need to read code, review tradeoffs, and design architecture. `minimum-code` helps developers understand the core architecture, design patterns, and engineering boundaries of mainstream Python + TypeScript projects in less time.
+
+[Live Demo](#live-demo) | [Docs](docs) | [Roadmap](ROADMAP.md) | [Contributing](CONTRIBUTING.md)
+
+![minimum-code product preview](docs/assets/homepage.png)
+
+![minimum-code demo](docs/assets/demo.gif)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11+-3776AB.svg?logo=python&logoColor=white)](https://python.org)
@@ -13,93 +16,87 @@ From LLM API calls, FastAPI services, RAG retrieval, Agent tool calling, to Dock
 [![Next.js 14](https://img.shields.io/badge/Next.js-14-000000.svg?logo=next.js&logoColor=white)](https://nextjs.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 
-[Quick Start](#quick-start) · [Why This Matters](#why-this-matters) · [Six Modules](#six-capability-modules) · [Architecture](#architecture) · [Contributing](CONTRIBUTING.md)
+## Why This Exists
 
-</div>
+Most AI coding tutorials teach isolated API calls. Real engineering work asks different questions:
 
----
+- Can you read an unfamiliar codebase quickly?
+- Can you explain why a framework boundary exists?
+- Can you review AI-generated code for hidden bugs and architecture drift?
+- Can you build the smallest reliable implementation and prove it works?
 
-## Why This Matters
+`minimum-code` focuses on that layer: source-code reading, pattern recognition, practical system design, and test-backed engineering judgment.
 
-Most AI tutorials teach you to write `openai.ChatCompletion.create(...)`.
-None teach you what happens when the API times out, returns a 500, or gives a malformed response.
+> AI lowers the cost of writing code. It does not remove the need to understand code.
 
-This project fills that gap: **the minimum engineering code you need to actually ship AI applications.**
+## Product Positioning
 
-The industry does not need more people who can copy-paste an LLM API call from a blog post. It needs engineers who understand retry logic, schema validation, dependency injection, containerization, and how to verify that their code actually works — not just that it runs once on their laptop.
+`minimum-code` is not a "learn every syntax feature" course. It is a source-code reading and architecture training platform for developers who want to build better judgment in the AI era.
 
-> You don't get hired for knowing the syntax.
-> You get hired for knowing what to do when things go wrong.
+The current content is organized around:
 
----
+- 892 structured learning points
+- 4 interactive exercise types
+- 10 source-code reading modules
+- Frontend + backend tests included
+- JSON-backed content so the project can run without a database
+
+The main training hook is:
+
+**AI 会写代码，但你要会读代码、评审代码、设计架构。**
 
 ## Who This Is For
 
-| Who | Why This Helps |
-|-----|----------------|
-| **Aspiring AI Application Developers** with incomplete engineering skills | Fill the gap between "I can call an API" and "I can ship a service" |
-| **Backend engineers** transitioning to AI application development | Map your existing skills to LLM-specific patterns (streaming, retries, token limits) |
-| **CS students** preparing for AI application developer interviews | Build a portfolio of verified, runnable engineering labs — not toy scripts |
-| **Self-taught programmers** who can write code but can't ship production systems | Learn the engineering layer that tutorials skip: testing, deployment, observability |
+| Audience | What they get |
+| --- | --- |
+| AI application beginners | A bridge from API calls to maintainable services |
+| Career switchers | Practical architecture vocabulary and verified labs |
+| Developers who can call APIs but lack system design practice | Source-reading reps across FastAPI, LangChain, Next.js, tRPC, Tauri, and related projects |
+| Interview candidates | Concrete project narratives backed by tests and code |
 
----
+## Training Loop
 
-## Core Training Loop
+Every module follows a practical loop:
 
-Every module follows the same five-step loop. This is not a passive course. You write code, it gets verified, and you learn to explain it.
-
+```text
+1. Read a minimal source slice
+2. Identify the architecture boundary
+3. Extract the reusable pattern
+4. Complete an interactive exercise
+5. Verify with tests or data validation
+6. Explain the tradeoff in interview language
 ```
- 1. Capability Assessment  -->  identify your engineering skill gaps
- 2. Minimum Code Patterns  -->  understand mechanisms through shortest possible code
- 3. Engineering Labs       -->  complete runnable tasks with real acceptance criteria
- 4. Auto-Verification      -->  pytest / vitest / schema validation proves your code works
- 5. Interview Expression   -->  convert code capability into project narrative
+
+## Source-Reading Modules
+
+| Area | Modules |
+| --- | --- |
+| Python architecture | FastAPI, LangChain, CrewAI, Dify, RAGFlow |
+| TypeScript architecture | Next.js, tRPC, Tauri, shadcn/ui, Bun |
+| Shared design patterns | Dependency injection, middleware, builder, strategy, observer, factory, repository, pipeline |
+| AI engineering practice | Prompt engineering, AI-assisted architecture, AI code review, AI-driven development |
+
+## Killer Path
+
+The first path to polish is:
+
+```text
+7 days to understand Agent engineering source code:
+LangChain + FastAPI + multi-agent workflow patterns
 ```
 
-**Step 1** tells you what you don't know.
-**Step 2** shows you the minimum viable implementation.
-**Step 3** makes you build it yourself.
-**Step 4** removes all ambiguity — your code either passes or it doesn't.
-**Step 5** teaches you to articulate your decisions under pressure.
+This keeps the product focused on a memorable promise instead of expanding into a broad "learn all programming" course.
 
----
+## Live Demo
 
-## Six Capability Modules
-
-Each module targets a specific engineering capability required for AI application development roles. Labs are not exercises — they are production-like tasks with real acceptance criteria.
-
-| Module | Training Goal | Lab Count |
-|--------|--------------|-----------|
-| **Python Engineering** | Packages, modules, types, async, config, exceptions | 1 |
-| **FastAPI Services** | API design, Pydantic validation, dependency injection, middleware, SSE | 1 |
-| **LLM API Client** | OpenAI-compatible API, timeout handling, retry logic, error classification | 1 |
-| **RAG System** | Document parsing, chunking, embedding, retrieval, rerank, evaluation | 1 |
-| **Agent Engineering** | Tool calling, skill registration, planner, executor, guardrails | 1 |
-| **Deployment & Quality** | Docker, CI pipelines, structured logging, config management, testing, observability | 1 |
-
-### What makes these labs different?
-
-- **No hand-holding.** You get a spec and acceptance criteria, not a step-by-step tutorial.
-- **Auto-verified.** Every lab has a test suite. Your code passes the tests or it doesn't ship.
-- **Interview-ready.** Every lab includes interview prompts — explain your design decisions as you would in a technical screen.
-
----
-
-## Quick Start
-
-### Prerequisites
-
-- Python 3.11+
-- Node.js 18+
-
-### 1. Clone
+An online demo is planned in the roadmap. Until the hosted URL is available, run the local demo:
 
 ```bash
-git clone https://github.com/your-username/minimum-code.git
+git clone https://github.com/oooooowoooooo/minimum-code.git
 cd minimum-code
 ```
 
-### 2. Start Backend
+Start the backend:
 
 ```bash
 cd web/backend
@@ -107,142 +104,123 @@ pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
 
-Backend runs at **http://localhost:8000**
-
-### 3. Start Frontend
+Start the frontend in a second terminal:
 
 ```bash
-# New terminal
 cd web
 npm install
 npm run dev
 ```
 
-Open **http://localhost:3000** — you're in.
+Open `http://localhost:3000`.
 
-### 4. Run Tests
+## Run Verification
+
+Frontend:
 
 ```bash
-# Backend
-cd web/backend && pytest tests/ -v
+cd web
+npm test
+```
 
-# Frontend
-cd web && npm test
+Backend:
 
-# Full verification
+```bash
+cd web/backend
+pip install -r requirements.txt
+pytest -v
+```
+
+Data integrity:
+
+```bash
+cd web/backend
 python verify_all.py
 ```
 
----
+GitHub Actions runs these checks on pushes and pull requests to `main`.
 
 ## Project Structure
 
-```
+```text
 minimum-code/
-├── web/                                  # Web application
-│   ├── app/                              # Next.js 14 App Router
-│   │   ├── page.tsx                      # Home — dashboard + module entry
-│   │   ├── assessment/                   # Capability assessment flow
-│   │   ├── knowledge/                    # Knowledge browser — search, filter, games
-│   │   ├── learn/[id]/                   # Module learning — sections + quiz
-│   │   ├── module/[id]/                  # Module detail page
-│   │   ├── fundamentals/                 # Python & TypeScript fundamentals
-│   │   ├── patterns/                     # Design pattern modules
-│   │   ├── dissect/                      # Project dissection (FastAPI, LangChain, etc.)
-│   │   ├── practice/                     # Engineering lab workspace
-│   │   └── ai-mastery/                   # AI-specific capability training
-│   ├── components/
-│   │   └── games/                        # 4 interactive game components
-│   │       ├── PredictOutput.tsx         # "What will this code output?"
-│   │       ├── FindBug.tsx               # "Click the buggy line"
-│   │       ├── FillBlank.tsx             # "Complete the missing code"
-│   │       └── CodeOrder.tsx             # "Put lines in correct order"
-│   ├── lib/
-│   │   ├── i18n.ts                       # Bilingual system (zh/en)
-│   │   ├── api.ts                        # API client
-│   │   └── progress.ts                   # LocalStorage progress tracking
-│   └── backend/                          # FastAPI server
-│       ├── main.py                       # API server
-│       ├── data/                         # Knowledge points (JSON)
-│       └── verify_all.py                 # Data integrity verification
-├── src/                                  # Course source files
-│   ├── python/                           # Python fundamentals + project dissections
-│   ├── typescript/                       # TypeScript fundamentals + project dissections
-│   └── patterns/                         # 8 universal design patterns
-├── tests/                                # Unit tests (Python + TypeScript)
-├── docs/                                 # Guides: cognitive, AI mastery, practice
-├── labs/                                 # Engineering lab definitions + acceptance tests
-└── tracks/                               # Capability module tracks
+├── .github/
+│   ├── ISSUE_TEMPLATE/            # Contribution entry points
+│   └── workflows/ci.yml           # Frontend, backend, and data verification
+├── docs/                          # Guides, roadmap, and product assets
+├── labs/                          # Runnable engineering labs
+├── src/
+│   ├── patterns/                  # Shared architecture patterns
+│   ├── python/                    # Python fundamentals + project dissections
+│   └── typescript/                # TypeScript fundamentals + project dissections
+├── tests/                         # Root Python and TypeScript tests
+└── web/
+    ├── app/                       # Next.js app router frontend
+    ├── components/                # UI and interactive exercise components
+    ├── lib/                       # Frontend data and API helpers
+    └── backend/
+        ├── app/
+        │   ├── api/               # FastAPI routes
+        │   ├── core/              # Paths and config
+        │   ├── repositories/      # JSON persistence
+        │   ├── schemas/           # Pydantic models
+        │   └── services/          # Module, quiz, extraction, and data services
+        ├── data/                  # Knowledge points, modules, quizzes, tracks
+        └── verify_all.py          # Data verification
 ```
-
----
 
 ## Architecture
 
+```text
+Next.js frontend
+      |
+      | HTTP / JSON
+      v
+FastAPI route layer
+      |
+      v
+Service layer
+      |
+      v
+JSON repository
 ```
-┌─────────────┐     HTTP/JSON      ┌─────────────┐     Service Layer    ┌──────────────┐
-│   Frontend   │ ─────────────────▶ │   FastAPI    │ ──────────────────▶ │  Repository   │
-│  (Next.js)   │ ◀───────────────── │   Backend    │ ◀────────────────── │   (JSON)      │
-└─────────────┘     SSE / REST     └─────────────┘                     └──────────────┘
-       │                                   │
-       │                                   │
-       ▼                                   ▼
-  ┌──────────┐                      ┌──────────────┐
-  │ Vitest   │                      │   pytest     │
-  │ (75 tests)│                     │  (85 tests)  │
-  └──────────┘                      └──────────────┘
+
+The backend deliberately stays database-free for now. That keeps cloning, testing, and contribution lightweight while the product positioning and learning path mature.
+
+## Repository Topics
+
+Recommended GitHub topics:
+
+```text
+ai-education
+programming-education
+source-code-reading
+software-architecture
+python
+typescript
+nextjs
+fastapi
+interactive-learning
+ai-coding
+code-quality
+learning-platform
 ```
 
-**Data flow:** Frontend sends requests via REST/SSE to the FastAPI backend. The backend processes requests through a service layer and reads/writes JSON data files. No database required — clone and run.
-
----
-
-## What You'll Be Able To Do After Completing All Labs
-
-- **Confidently call any LLM API** with proper error handling, timeout configuration, and retry logic — not just the happy path
-- **Build a FastAPI service** with Pydantic schema validation, dependency injection, and middleware — production-grade, not tutorial-grade
-- **Implement a RAG pipeline** with document parsing, chunking strategies, embedding generation, retrieval, and reranking
-- **Create an Agent** with tool calling, skill registration, a planner-executor loop, and safety guardrails
-- **Deploy with Docker** and verify with CI — your code works in a container, not just on your machine
-- **Articulate your engineering decisions** in technical interviews — explain the why, not just the what
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Next.js 14, React 18, Tailwind CSS, Vitest |
-| Backend | FastAPI, uvicorn, pytest |
-| Data | JSON files (zero database — clone and run) |
-| Testing | Vitest (frontend), pytest (backend), schema validation |
-| Deployment | Docker, CI pipelines |
-
----
+GitHub topics are repository settings, not files in the codebase. Add them from the repository page or with `gh repo edit --add-topic ...`.
 
 ## Contributing
 
-We welcome contributions of all kinds:
+Good first contributions include:
 
-- Add new knowledge points or engineering labs
-- Fix bugs or improve existing content
-- Improve documentation
-- Add new capability modules or game types
+- Add a knowledge point
+- Fix or improve a quiz
+- Add a source-code dissection card
+- Add a focused module search test
+- Improve the demo screenshot or GIF
+- Polish the Agent engineering path
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
-
----
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [Good First Issues](docs/GOOD_FIRST_ISSUES.md).
 
 ## License
 
-[MIT](LICENSE) — free for personal and commercial use.
-
----
-
-<div align="center">
-
-**Star this repo if it helps you ship your first production AI application.**
-
-*"The minimum code is not the least code. It is the code that teaches you the most."*
-
-</div>
+[MIT](LICENSE)

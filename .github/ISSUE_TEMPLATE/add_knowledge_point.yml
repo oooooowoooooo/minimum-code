@@ -1,0 +1,34 @@
+name: Add knowledge point
+description: Contribute one structured learning point with quiz and exercise data.
+title: "[Knowledge]: "
+labels: ["content", "good first issue"]
+body:
+  - type: input
+    id: module
+    attributes:
+      label: Target module
+      placeholder: py-fastapi, py-langchain, ts-nextjs
+    validations:
+      required: true
+  - type: textarea
+    id: concept
+    attributes:
+      label: Concept
+      description: What should the learner understand after this point?
+    validations:
+      required: true
+  - type: textarea
+    id: source_context
+    attributes:
+      label: Source-code context
+      description: Link or describe the source slice this point teaches.
+  - type: textarea
+    id: exercise
+    attributes:
+      label: Exercise idea
+      description: Pick one of the existing interactive exercise types.
+  - type: input
+    id: verification
+    attributes:
+      label: Verification command
+      value: cd web/backend && python verify_all.py

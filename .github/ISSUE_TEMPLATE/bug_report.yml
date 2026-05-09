@@ -1,0 +1,38 @@
+name: Bug report
+description: Report a reproducible problem in the app, data, docs, or tests.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What broke?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Run ...
+        2. Open ...
+        3. See ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: OS, Python version, Node.js version, browser
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification output
+      description: Paste the relevant `npm test`, `pytest -v`, or `python verify_all.py` output.
